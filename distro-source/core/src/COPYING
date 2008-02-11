@@ -1,0 +1,36 @@
+           GWT-Ext User Extensions (UX) LICENSE INFORMATION
+
+
+The GWT-Ext software and sample code is licensed under the Apache License 2.0.
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+LICENSE INFORMATION REGARDING RELATED THIRD-PARTY SOFTWARE
+
+The GWT-Ext library relies on the following third party software. Below is the location and license information :
+
+* Google Web Toolkit (GWT)
+  License: Apache License v. 2.0 (above)
+  http://code.google.com/webtoolkit/
+
+* Ext
+  License: Ext has several licensing options available to fit a variety of needs. LGPL 3.0 is one of them.
+    See http://extjs.com/license for more information
+    http://extjs.com/download
+
+* GWT-Ext
+  License: LGPL 3.0
+    See http://gwt-ext.com/license for more information
+    http://gwt-ext.com/download
+
+* PagingMemoryProxy
+	License : LGPL
+	http://extjs.com/learn/Extention:PagingMemoryProxy
+
+* RowLayout
+	License : LGPL
+	Author : Kirill Hryapin
+
+* MultiSelect
+	License : LGPL / Ext License
+	http://extjs.com/learn/Extension:Multiselect2

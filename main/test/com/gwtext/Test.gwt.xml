@@ -1,0 +1,13 @@
+<module>
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.gwtext.GwtExt'/>
+    <inherits name='com.google.gwt.junit.JUnit'/>
+
+    <script src="js/ext/adapter/ext/ext-base.js"></script>
+    <script src="js/ext/ext-all-debug.js"></script>
+
+    <stylesheet src="js/ext/resources/css/ext-all.css"/>
+
+    <entry-point class='com.gwtext.client.Test'/>
+
+</module>

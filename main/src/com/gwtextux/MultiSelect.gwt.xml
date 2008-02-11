@@ -1,0 +1,18 @@
+<!--
+ * GWT-Ext Widget Library
+ * Copyright(c) 2007-2008, GWT-Ext.
+ * licensing@gwt-ext.com
+ *
+ * http://www.gwt-ext.com/license
+ *
+-->
+
+<module>
+    <inherits name="com.gwtextux.GwtExtUx"/>
+
+	<script src="js/msis/Multiselect.js"/>
+	<script src="js/msis/DDView.js"/>
+
+	<stylesheet src="js/msis/Multiselect.css"/>
+    
+</module>

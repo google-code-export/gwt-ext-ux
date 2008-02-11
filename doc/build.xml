@@ -1,0 +1,194 @@
+<project name="doc" default="all" basedir=".">
+	<property name="gwtextux.root" location=".." />
+	<property name="project.tail" value="doc" />
+	<import file="${gwtextux.root}/common.ant.xml" />
+
+	<property.ensure name="java.tools.path" location="${java.home}/../lib/tools.jar" unless="build.host.ismac" message="Cannot find ${java.home}/../lib/tools.jar; please use a JDK when building doc rather than a JRE." />
+
+	<property name="USER_PKGS" value="com.gwtextux.client.data;com.gwtextux.client.widgets;com.gwtextux.client.widgets.event;com.gwtextux.client.widgets.form;com.gwtextux.client.widgets.form.event;com.gwtextux.client.widgets.layout;" />
+	<property name="DOC_PKGS" value="com.google.gwt.doc" />
+
+	<!--
+		*** Note that if the USER_SOURCE_PATH paths are updated,
+		the fileset dependencies in the outofdate tags in the doc,
+		user, and javadoc targets must be updated as well.
+	-->
+	<path id="USER_SOURCE_PATH">
+		<pathelement location="${gwtextux.root}/main/src" />
+	</path>
+
+	<path id="USER_CLASS_PATH">
+		<pathelement location="${gwt.user.jar}" />
+		<pathelement location="${gwt.dev.jar}" />
+		<pathelement location="${gwtext.jar}" />
+		<pathelement location="${gwtextux.tools.lib}/junit/junit-3.8.1.jar" />
+	</path>
+
+	<!--
+		*** Note that if the DOC_SOURCE_PATH paths are updated,
+		the fileset dependencies in the outofdate tags in the
+		doc target must be updated as well.
+	-->
+	<path id="DOC_SOURCE_PATH">
+		<pathelement location="./src" />
+		<path refid="USER_SOURCE_PATH" />
+	</path>
+
+	<path id="DOC_PATH">
+		<pathelement location="./src" />
+        <pathelement location="${gwtextux.build.lib}/gwtext-doctool.jar" />
+        <pathelement location="${gwt.doctool.jar}" />
+		<path path="${java.tools.path}" />
+		<path refid="USER_SOURCE_PATH" />
+	</path>
+
+	<target name="gwt-ext-doc">
+		<outofdate>
+			<sourcefiles>
+				<fileset dir="./src">
+                    <include name="**/*.java" />
+				</fileset>
+				<fileset dir="${gwtextux.root}/main/src">
+					<include name="**/*.java" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<!--
+					only checks one output file, will not
+					rebuild other files if this one is up
+					to date
+				-->
+				<pathelement path="${project.build}/gwt-ext-doc.doc.xml" />
+			</targetfiles>
+			<sequential>
+				<java classpathref="DOC_PATH" classname="com.google.doctool.DocTool" fork="no" failonerror="true">
+					<arg value="doc" />
+					<arg value="gwt-ext-doc" />
+					<arg value="-out" />
+					<arg value="${project.build}" />
+					<arg value="-classpath" />
+					<arg pathref="USER_CLASS_PATH" />
+					<arg value="-sourcepath" />
+					<arg pathref="DOC_SOURCE_PATH" />
+					<arg value="-packages" />
+					<arg value="${DOC_PKGS}" />
+				</java>
+			</sequential>
+		</outofdate>
+	</target>
+
+	<target name="gwt-ext">
+		<outofdate>
+			<sourcefiles>
+				<fileset file="./src/gwt-ext.html" />
+				<fileset dir="${gwtextux.root}/main/src">
+					<include name="**/*.java" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<!--
+					only checks one output file, will not rebuild other files
+					if this one is up to date
+				-->
+				<pathelement path="${project.build}/gwt-ext.java.xml" />
+			</targetfiles>
+			<sequential>
+
+				<java classpathref="DOC_PATH" classname="com.google.doctool.DocTool" fork="yes" failonerror="true">
+					<arg value="java" />
+					<arg value="gwt-ext" />
+					<arg value="-out" />
+					<arg value="${project.build}" />
+					<arg value="-overview" />
+					<arg value="./src/gwt-ext.html" />
+					<arg value="-classpath" />
+					<arg pathref="USER_CLASS_PATH" />
+					<arg value="-sourcepath" />
+					<arg pathref="USER_SOURCE_PATH" />
+					<arg value="-packages" />
+					<arg value="${USER_PKGS}" />
+				</java>
+
+			</sequential>
+		</outofdate>
+	</target>
+
+
+	<target name="html" depends="gwt-ext,gwt-ext-doc">
+		<outofdate>
+			<sourcefiles>
+				<fileset dir="${project.build}">
+					<include name="gwt-*.xml" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<!--
+					only checks one output file, will not rebuild other
+				 	files if this one is up to date
+				-->
+				<pathelement path="${project.build}/topics.xml" />
+			</targetfiles>
+			<sequential>
+				<java classpathref="DOC_PATH" classname="com.google.doctool.DocTool" fork="yes" failonerror="true">
+					<arg value="-html" />
+					<arg value="Gwt Ext " />
+					<arg value="gwt-ext-doc" />
+					<arg value="gwt-ext" />
+					<!--<arg value="gwt-lang" />-->
+					<arg value="-out" />
+					<arg value="${project.build}" />
+					<arg value="-imagepath" />
+					<arg path="./src" />
+				</java>
+				<delete file="${project.build}/html/topics.htmls" />
+				<mkdir dir="${project.build}/css" />
+				<copy todir="${project.build}/css">
+					<fileset dir="src" includes="*.css" />
+				</copy>
+			</sequential>
+		</outofdate>
+	</target>
+
+	<target name="javadoc">
+		<outofdate>
+			<sourcefiles>
+				<fileset file="./src/gwt-ext.html" />
+				<fileset dir="${gwtextux.root}/main/src">
+					<include name="**/*.java" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<!--
+					only checks one output file, will not rebuild other
+					files if this one is up to date
+				-->
+				<pathelement path="${project.build}/javadoc/index.html" />
+			</targetfiles>
+			<sequential>
+				<echo>Building javadoc</echo>
+				<java classpathref="DOC_PATH" classname="com.google.doctool.custom.GWTJavaDoclet" fork="yes" failonerror="true">
+					<arg value="-quiet" />
+					<arg value="-source" />
+					<arg value="1.4" />
+					<arg value="-encoding"/>
+					<arg value="UTF-8"/>
+					<arg value="-d" />
+					<arg value="${project.build}/javadoc" />
+					<arg value="-classpath" />
+					<arg pathref="USER_CLASS_PATH" />
+					<arg value="-sourcepath" />
+					<arg pathref="USER_SOURCE_PATH" />
+<!--
+					<arg value="-examplepackages" />
+					<arg value="com.google.gwt.examples;com.google.gwt.examples.i18n;com.google.gwt.examples.http.client;com.google.gwt.examples.rpc.server;com.google.gwt.examples.benchmarks" />
+-->
+					<arg value="-packages" />
+					<arg value="${USER_PKGS}" />
+				</java>
+			</sequential>
+		</outofdate>
+	</target>
+
+	<target name="build" depends="javadoc" />
+</project>
+

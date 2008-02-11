@@ -1,0 +1,9 @@
+GWT-Ext UX @GWTEXTUX_VERSION@
+Visit Project Page (http://code.google.com/p/gwt-ext-ux/).
+
+This product includes software developed by:
+ - The Google Web Toolkit(GWT) project (http://code.google.com/webtoolkit/)
+ - The Ext project (http://www.extjs.com/)
+ - The GWT-Ext project (http://www.gwt-ext.com/)
+
+For source availability and license information see COPYING.
