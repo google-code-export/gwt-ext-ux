@@ -18,24 +18,24 @@ public class MultiSelect extends Field {
     }
 
     public native String getValue(String valueField) /*-{
-        var field = this.@com.gwtextux.client.widgets.Component::getOrCreateJsObj()();
+        var field = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         var val = field.getValue(valueField);
 		return val === undefined || val == null ? null : val.toString();
 	}-*/;
 
     public native String getValue() /*-{
-        var field = this.@com.gwtextux.client.widgets.Component::getOrCreateJsObj()();
+        var field = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         var val = field.getValue();
 		return val === undefined || val == null ? null : val.toString();
 	}-*/;
 
     public native void setValue(String values) /*-{
-        var field = this.@com.gwtextux.client.widgets.Component::getOrCreateJsObj()();
+        var field = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         field.setValue(values);
 	}-*/;
 
     public native void reset() /*-{
-        var field = this.@com.gwtextux.client.widgets.Component::getOrCreateJsObj()();
+        var field = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         field.reset();
 	}-*/;
 
