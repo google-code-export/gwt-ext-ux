@@ -197,7 +197,7 @@ public class PagingMemoryProxy extends MemoryProxy {
         super(data);
     }
 
-    native JavaScriptObject create(JavaScriptObject data) /*-{
+    protected native JavaScriptObject create(JavaScriptObject data) /*-{
         return new $wnd.Ext.ux.data.PagingMemoryProxy(data);
     }-*/;
 }
