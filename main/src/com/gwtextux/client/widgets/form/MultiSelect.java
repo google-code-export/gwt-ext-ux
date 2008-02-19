@@ -1,5 +1,9 @@
 package com.gwtextux.client.widgets.form;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.util.JavaScriptObjectHelper;
@@ -10,8 +14,75 @@ import com.gwtext.client.core.SortDir;
 
 public class MultiSelect extends Field {
 
+    public static final String DATA_FIELD_DISPLAY = "display";
+
+    public static final String DATA_FIELD_VALUE = "value";
+
     public MultiSelect() {
     }
+    
+    public MultiSelect(String fieldLabel) {
+        setFieldLabel(fieldLabel);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
+
+     public MultiSelect(String fieldLabel, String name) {
+        setFieldLabel(fieldLabel);
+        setName(name);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
+
+     public MultiSelect(String fieldLabel, String name, int width) {
+        setFieldLabel(fieldLabel);
+        setName(name);
+        setWidth(width);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
+
+     public MultiSelect(String fieldLabel, String name, int width,
+           Object[][] data) {
+        setFieldLabel(fieldLabel);
+        setName(name);
+        setWidth(width);
+        setData(data);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
+
+     public MultiSelect(String fieldLabel, String name, int width, int height) {
+        setFieldLabel(fieldLabel);
+        setName(name);
+        setWidth(width);
+        setHeight(height);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
+
+     public MultiSelect(String fieldLabel, String name, int width, int height,
+           Object[][] data) {
+        setFieldLabel(fieldLabel);
+        setName(name);
+        setWidth(width);
+        setHeight(height);
+        setData(data);
+
+        setDataFields(new String[] { DATA_FIELD_VALUE, DATA_FIELD_DISPLAY });
+        setValueField(DATA_FIELD_VALUE);
+        setDisplayField(DATA_FIELD_DISPLAY);
+     }
 
     public String getXType() {
         return "multiselect";
@@ -143,6 +214,20 @@ public class MultiSelect extends Field {
 
     public void setSortDir(SortDir sortDir) throws IllegalArgumentException {
         setAttribute("sortDir", sortDir.getDirection(), true);
+    }
+    
+    private String getDelimiter() throws IllegalArgumentException {
+    	return getAttribute("delimiter");
+    }
+    
+    public List getValueAsList() {
+       List ret = new ArrayList();
+       String value = getValue();
+       if (value != null && "".equals(value) == false) {
+          String[] arr = value.split(getDelimiter());
+          return Arrays.asList(arr);
+       }
+       return ret;
     }
 
 
