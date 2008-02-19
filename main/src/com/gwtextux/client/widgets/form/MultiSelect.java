@@ -216,7 +216,7 @@ public class MultiSelect extends Field {
         setAttribute("sortDir", sortDir.getDirection(), true);
     }
     
-    private String getDelimiter() throws IllegalArgumentException {
+    public String getDelimiter() throws IllegalArgumentException {
     	return getAttribute("delimiter");
     }
     
