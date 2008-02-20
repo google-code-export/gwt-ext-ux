@@ -17,6 +17,8 @@ public class MultiSelect extends Field {
     public static final String DATA_FIELD_DISPLAY = "display";
 
     public static final String DATA_FIELD_VALUE = "value";
+    
+    public static final String DEFAULT_DELIMITER = ",";
 
     public MultiSelect() {
     }
@@ -217,7 +219,8 @@ public class MultiSelect extends Field {
     }
     
     public String getDelimiter() throws IllegalArgumentException {
-    	return getAttribute("delimiter");
+    	String delimiter = getAttribute("delimiter");
+    	return delimiter == null ? DEFAULT_DELIMITER : delimiter;
     }
     
     public List getValueAsList() {
