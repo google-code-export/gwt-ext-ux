@@ -224,13 +224,12 @@ public class MultiSelect extends Field {
     }
     
     public List getValueAsList() {
-       List ret = new ArrayList();
        String value = getValue();
        if (value != null && "".equals(value) == false) {
           String[] arr = value.split(getDelimiter());
           return Arrays.asList(arr);
        }
-       return ret;
+       return new ArrayList();
     }
 
 
