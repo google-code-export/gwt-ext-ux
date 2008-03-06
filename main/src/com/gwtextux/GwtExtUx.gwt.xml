@@ -15,5 +15,6 @@
     <inherits name="com.gwtext.GwtExt"/>
      <inherits name="com.gwtextux.MultiSelect"/>
      <inherits name="com.gwtextux.ItemSelector"/>
+     <inherits name="com.gwtextux.MultiMonthCalendar"/>
 
 </module>

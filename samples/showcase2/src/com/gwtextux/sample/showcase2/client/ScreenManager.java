@@ -7,15 +7,32 @@
  */
 package com.gwtextux.sample.showcase2.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
-import com.gwtext.client.data.*;
+import com.gwtext.client.data.ArrayReader;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.MemoryProxy;
+import com.gwtext.client.data.Node;
+import com.gwtext.client.data.NodeTraversalCallback;
+import com.gwtext.client.data.ObjectFieldDef;
+import com.gwtext.client.data.Record;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.util.DelayedTask;
 import com.gwtext.client.util.Format;
-import com.gwtext.client.widgets.*;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.TabPanel;
+import com.gwtext.client.widgets.Toolbar;
+import com.gwtext.client.widgets.ToolbarButton;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
@@ -31,9 +48,7 @@ import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 
 public class ScreenManager {
 
@@ -362,7 +377,10 @@ public class ScreenManager {
 
 
                 new Object[]{"combination-category", null, "Combination Samples", "combination-category-icon", null, null, null},
-                new Object[]{"imageChooser", "combination-category", "Image Chooser", null, "images/thumbnails/combination/chooser.gif", null, new ImageChooserSample()}
+                new Object[]{"imageChooser", "combination-category", "Image Chooser", null, "images/thumbnails/combination/chooser.gif", null, new ImageChooserSample()},
+
+                new Object[]{"widgets-category", null, "Widgets", "combo-category-icon", null, null, null},
+                new Object[]{"multiMonthCalendar", "widgets-category", "Multi month calendar", null,"images/thumbnails/widgets/multimonthcalendar.gif", null, new MultiMonthCalendarSample()},
 
         };
     }
