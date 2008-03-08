@@ -63,7 +63,7 @@ public class LiveGridSample extends ShowcasePanel {
                      new ColumnConfig("Date", "date_field", 120, true)
                      });
 
-            final GridPanel grid = new GridPanel(store, colModel);
+            GridPanel grid = new GridPanel(store, colModel);
             grid.setEnableDragDrop(false);
             grid.setSelectionModel(brsm);
             grid.setView(view);

@@ -43,13 +43,13 @@ public class LiveGridDataProxy extends HttpServlet {
         }
     }
     
-    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
+    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
 
-    Object[][] data;
+    static Object[][] data;
     
-    Map sorted_data=new HashMap();
+    static Map sorted_data=new HashMap();
     
-    public LiveGridDataProxy() {
+    static{
         /**
          * let's generate data with structure similar to the sql table
          CREATE TABLE IF NOT EXISTS `livegrid` (
@@ -79,7 +79,7 @@ public class LiveGridDataProxy extends HttpServlet {
                 for (int l = 0; l < 26 && i < data.length; l++)
                     data[i++][2] = ("" + ((char) (j + 'A'))) + ((char) (k + 'A')) + ((char) (l + 'A'));
 
-        this.data=data.clone();
+        LiveGridDataProxy.data=data.clone();
         // presort the data by all fields
         Arrays.sort(data, new ObjArrayComparator(1,1));
         sorted_data.put("+number_field", data.clone());
@@ -93,7 +93,10 @@ public class LiveGridDataProxy extends HttpServlet {
         Arrays.sort(data, new ObjArrayComparator(2,-1));
         sorted_data.put("-string_field", data.clone());
         Arrays.sort(data, new ObjArrayComparator(3,-1));
-        sorted_data.put("-date_field", data.clone());
+        sorted_data.put("-date_field", data.clone());        
+    }
+    
+    public LiveGridDataProxy() {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -108,9 +111,9 @@ public class LiveGridDataProxy extends HttpServlet {
             int limit = Integer.parseInt(req.getParameter("limit"));
 
             int total_count = data.length;
-            limit = Math.min(limit, total_count - limit);
+            limit = Math.min(limit, total_count - start);
             
-            Object[][] data=this.data;
+            Object[][] data=LiveGridDataProxy.data;
             if (sorted_data.containsKey(dir+sort))
                 data = (Object[][]) sorted_data.get(dir+sort);
             

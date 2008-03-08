@@ -46,6 +46,7 @@ import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 import com.gwtextux.sample.showcase2.client.chooser.ImageChooserSample;
 import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
+import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
@@ -373,6 +374,7 @@ public class ScreenManager {
                 new Object[]{"grids-category", null, "Grids", "grids-category-icon", null, null, null},
                 new Object[]{"localPagingGrid", "grids-category", "Grid with Local Paging", null, "images/thumbnails/grid/grid-local-paging.gif", null, new LocalPagingSample()},
                 new Object[]{"liveGrid", "grids-category", "Live Grid", null, "images/thumbnails/grid/live-grid.gif", null, new LiveGridSample()},
+                new Object[]{"gwtProxySample", "grids-category", "Grid with GWT Proxy", null, "images/thumbnails/grid/grid-with-gwtproxy.gif", null, new GWTProxySample()},
 
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},

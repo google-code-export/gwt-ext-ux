@@ -12,5 +12,6 @@
     <entry-point class='com.gwtextux.sample.showcase2.client.Showcase2'/>
 
 	<servlet path="/LiveGridDataProxy" class="com.gwtextux.sample.showcase2.server.LiveGridDataProxy"/>
+	<servlet path="/GwtProxySvc" class="com.gwtextux.sample.showcase2.server.GwtProxySvcImpl"/>
 	
 </module>
