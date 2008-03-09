@@ -79,7 +79,7 @@ public class LiveGridDataProxy extends HttpServlet {
                 for (int l = 0; l < 26 && i < data.length; l++)
                     data[i++][2] = ("" + ((char) (j + 'A'))) + ((char) (k + 'A')) + ((char) (l + 'A'));
 
-        LiveGridDataProxy.data=data.clone();
+        LiveGridDataProxy.data=(Object[][])data.clone();
         // presort the data by all fields
         Arrays.sort(data, new ObjArrayComparator(1,1));
         sorted_data.put("+number_field", data.clone());
