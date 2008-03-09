@@ -50,6 +50,7 @@ import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
+import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 
 public class ScreenManager {
@@ -385,6 +386,7 @@ public class ScreenManager {
 
                 new Object[]{"widgets-category", null, "Widgets", "combo-category-icon", null, null, null},
                 new Object[]{"multiMonthCalendar", "widgets-category", "Multi month calendar", null,"images/thumbnails/widgets/multimonthcalendar.gif", null, new MultiMonthCalendarSample()},
+                new Object[]{"imageDDSample", "widgets-category", "Image Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new ImageDDSample()},
 
         };
     }
