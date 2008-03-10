@@ -47,7 +47,7 @@ public class GWTProxySample extends ShowcasePanel {
 
     public static class GWTProxyImpl extends GWTProxy {
         public void load(int start, int limit, String sort, String dir, final JavaScriptObject o) {
-            GwtProxySvc.Util.getInstance().gimmeData(start, limit, dir, sort, new AsyncCallback() {
+            GwtProxySvc.Util.getInstance().gimmeData(start, limit, sort, dir, new AsyncCallback() {
                 public void onFailure(Throwable caught) {
                     loadResponse(o, false, 0, (JavaScriptObject) null);
                 }
