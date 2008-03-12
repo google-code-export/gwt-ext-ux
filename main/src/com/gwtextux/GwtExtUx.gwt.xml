@@ -13,9 +13,11 @@
     <inherits name="com.google.gwt.http.HTTP"/>
 
     <inherits name="com.gwtext.GwtExt"/>
-     <inherits name="com.gwtextux.MultiSelect"/>
-     <inherits name="com.gwtextux.ItemSelector"/>
-     <inherits name="com.gwtextux.MultiMonthCalendar"/>
-     <inherits name="com.gwtextux.LiveGrid"/>
+    
+    <inherits name="com.gwtextux.MultiSelect"/>
+    <inherits name="com.gwtextux.ItemSelector"/>
+    <inherits name="com.gwtextux.MultiMonthCalendar"/>
+    <inherits name="com.gwtextux.LiveGrid"/>
+    <inherits name="com.gwtextux.ManagedIFrame"/>
 
 </module>

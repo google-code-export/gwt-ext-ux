@@ -50,6 +50,7 @@ import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
+import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 
@@ -388,6 +389,9 @@ public class ScreenManager {
                 new Object[]{"multiMonthCalendar", "widgets-category", "Multi month calendar", null,"images/thumbnails/widgets/multimonthcalendar.gif", null, new MultiMonthCalendarSample()},
                 new Object[]{"imageDDSample", "widgets-category", "Image Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new ImageDDSample()},
 
+                new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
+                new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()}
+                
         };
     }
 }
