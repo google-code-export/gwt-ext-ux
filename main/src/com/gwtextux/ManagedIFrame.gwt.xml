@@ -10,5 +10,5 @@
 <module>
     <inherits name="com.gwtextux.GwtExtUx" />
     
-	<script src="js/ext-ux-miframe.js" />
+	<script src="js/mif/ext-ux-miframe.js" />
 </module>

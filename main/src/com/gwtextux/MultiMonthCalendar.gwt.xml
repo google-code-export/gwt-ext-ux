@@ -9,6 +9,6 @@
 
 <module>
     <inherits name="com.gwtextux.GwtExtUx"/>
-	<script src="js/msis/MultiMonthCalendar.js"/>
-	<stylesheet src="js/msis/MultiMonthCalendar.css"/>
+	<script src="js/multicalendar/MultiMonthCalendar.js"/>
+	<stylesheet src="js/multicalendar/MultiMonthCalendar.css"/>
 </module>

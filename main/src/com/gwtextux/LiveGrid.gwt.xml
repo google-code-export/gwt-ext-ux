@@ -9,11 +9,11 @@
 
 <module>
     <inherits name="com.gwtextux.GwtExtUx"/>
-	<script src="js/msis/BufferedGridDragZone.js"/>
-	<script src="js/msis/BufferedGridToolbar.js"/>
-	<script src="js/msis/BufferedGridView.js"/>
-	<script src="js/msis/BufferedJsonReader.js"/>
-	<script src="js/msis/BufferedRowSelectionModel.js"/>
-	<script src="js/msis/BufferedStore.js"/>
-	<stylesheet src="js/msis/BufferedGrid.css"/>
+	<script src="js/livegrid/BufferedGridDragZone.js"/>
+	<script src="js/livegrid/BufferedGridToolbar.js"/>
+	<script src="js/livegrid/BufferedGridView.js"/>
+	<script src="js/livegrid/BufferedJsonReader.js"/>
+	<script src="js/livegrid/BufferedRowSelectionModel.js"/>
+	<script src="js/livegrid/BufferedStore.js"/>
+	<stylesheet src="js/livegrid/BufferedGrid.css"/>
 </module>
