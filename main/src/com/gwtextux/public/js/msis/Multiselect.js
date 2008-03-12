@@ -52,7 +52,7 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
 			style:"padding:1px;",
 			tbar:this.tbar
 		});
-		if(!this.legend)fs.el.down('.'+fs.headerCls).remove();
+		if(!this.legend) { var e = fs.el.down('.'+fs.headerCls); if(e) {e.remove();}}
 		fs.body.addClass(cls);
 
 		tpl = '<tpl for="."><div class="' + cls + '-item';
