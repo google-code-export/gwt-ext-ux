@@ -13,5 +13,6 @@
 
 	<servlet path="/LiveGridDataProxy" class="com.gwtextux.sample.showcase2.server.LiveGridDataProxy"/>
 	<servlet path="/GwtProxySvc" class="com.gwtextux.sample.showcase2.server.GwtProxySvcImpl"/>
-	
+  <servlet path="/UploadSvc" class="com.gwtextux.sample.showcase2.server.UploadSvcImpl"/>
+
 </module>
