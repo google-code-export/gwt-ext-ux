@@ -25,6 +25,10 @@ import com.gwtext.client.core.EventObject;
  */
 public class ImageDDSample extends ShowcasePanel {
 
+    public String getSourceUrl() {
+        return "source/widgets/ImageDDSample.java.html";
+    }
+    
     public Panel getViewPanel() {
         if (panel == null) {
             panel = new Panel();
