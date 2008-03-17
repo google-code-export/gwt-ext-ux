@@ -391,8 +391,8 @@ public class ScreenManager {
                 new Object[]{"imageDDSample", "widgets-category", "Image Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new ImageDDSample()},
 
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
-                new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()}
-                new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
+                new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
+                new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()}
                 
         };
     }
