@@ -21,5 +21,5 @@ public interface GwtProxySvc extends RemoteService {
 		}
 	}
 	
-    MyData gimmeData(int start, int limit, String sort, String dir);
+    MyData gimmeData(int start, int limit, String sort, String dir, String[][] params);
 }

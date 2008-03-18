@@ -1,6 +1,7 @@
 package com.gwtextux.client.data;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.gwtext.client.core.UrlParam;
 import com.gwtext.client.data.DataProxy;
 import com.gwtext.client.util.JavaScriptObjectHelper;
 
@@ -60,8 +61,42 @@ public abstract class GWTProxy extends DataProxy{
         });
         
     }-*/;
+
+    /**
+     * Return the base params.
+     *
+     * @return the base params                      
+     */
+    public UrlParam[] getBaseParams(JavaScriptObject store) {
+        JavaScriptObject baseParamsNative = convertBaseParams(store);
+        JavaScriptObject[] urlParamsJ = JavaScriptObjectHelper.toArray(baseParamsNative);
+        UrlParam[] baseParams = new UrlParam[urlParamsJ.length];
+        for (int i = 0; i < urlParamsJ.length; i++) {
+            UrlParam urlParam = new UrlParam(urlParamsJ[i]);
+            baseParams[i] = urlParam;
+        }
+        return baseParams;
+    }
+
+    private native JavaScriptObject convertBaseParams(JavaScriptObject store) /*-{
+        var params = new Array();
+        var i = 0;
+        var o = store.baseParams;
+        for(var key in o){
+            var ov = o[key];
+            var param = @com.gwtext.client.core.UrlParam::instance(Ljava/lang/String;Ljava/lang/String;)(key, ov);
+            params[i] = param.@com.gwtext.client.core.JsObject::getJsObj()();
+            i++;
+        }
+        return params;
+    }-*/;    
+
+    public void load(int start, int limit, String sort, String dir, JavaScriptObject o){
+        JavaScriptObject store = JavaScriptObjectHelper.getAttributeAsJavaScriptObject(JavaScriptObjectHelper.getAttributeAsJavaScriptObject(o, "request"), "scope");
+        load(start, limit, sort, dir, o, getBaseParams(store));
+    }
     
-    public abstract void load(int start, int limit, String sort, String dir, final JavaScriptObject o);
+    public abstract void load(int start, int limit, String sort, String dir, JavaScriptObject o, UrlParam[] baseParams);
     
     protected void loadResponse(JavaScriptObject o, boolean success, int totalRecords, String[][] data){
         loadResponse(o, true, totalRecords,  JavaScriptObjectHelper.convertToJavaScriptArray(data));        

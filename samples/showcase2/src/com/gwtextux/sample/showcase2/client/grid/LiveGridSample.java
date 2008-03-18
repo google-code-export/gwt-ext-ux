@@ -8,15 +8,24 @@
 package com.gwtextux.sample.showcase2.client.grid;
 
 
+import java.util.Date;
+
 import com.gwtext.client.core.SortDir;
+import com.gwtext.client.data.DateFieldDef;
 import com.gwtext.client.data.FieldDef;
-import com.gwtext.client.data.ObjectFieldDef;
+import com.gwtext.client.data.IntegerFieldDef;
+import com.gwtext.client.data.Record;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.SortState;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
+import com.gwtext.client.util.DateUtil;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.grid.CellMetadata;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.Renderer;
 import com.gwtextux.client.data.BufferedJsonReader;
 import com.gwtextux.client.data.BufferedStore;
 import com.gwtextux.client.widgets.BufferedGridToolbar;
@@ -34,7 +43,7 @@ public class LiveGridSample extends ShowcasePanel {
         if (panel == null) {
             panel = new Panel();
 
-            FieldDef[] fieldDefs = new FieldDef[] { new ObjectFieldDef("number_field"), new ObjectFieldDef("string_field"), new ObjectFieldDef("date_field") };
+            FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"), new StringFieldDef("string_field"), new DateFieldDef("date_field", "Y-m-d H:i:s") };
             RecordDef recordDef = new RecordDef(fieldDefs);
             
              BufferedJsonReader reader=new BufferedJsonReader("response.value.items", recordDef );
@@ -60,7 +69,11 @@ public class LiveGridSample extends ShowcasePanel {
              ColumnModel colModel = new ColumnModel(new ColumnConfig[]{
                      new ColumnConfig("Number", "number_field", 120, true),
                      new ColumnConfig("String", "string_field", 120, true),
-                     new ColumnConfig("Date", "date_field", 120, true)
+                     new ColumnConfig("Date", "date_field", 120, true,new Renderer() {
+                         public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum, Store store) {
+                             return DateUtil.format((Date) value, "d.m.y H:i");
+                         }
+                     })
                      });
 
             GridPanel grid = new GridPanel(store, colModel);

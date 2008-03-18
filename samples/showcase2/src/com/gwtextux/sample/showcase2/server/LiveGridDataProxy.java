@@ -107,8 +107,10 @@ public class LiveGridDataProxy extends HttpServlet {
         try {
             String dir = "ASC".equals(req.getParameter("dir")) ? "+" : "-";
             String sort = req.getParameter("sort");
-            int start = Integer.parseInt(req.getParameter("start"));
-            int limit = Integer.parseInt(req.getParameter("limit"));
+            String start_param = req.getParameter("start");
+            int start = start_param == null ? 0 : Integer.parseInt(start_param);
+            String limit_param = req.getParameter("limit");
+            int limit = limit_param == null ? 100 : Integer.parseInt(limit_param);
 
             int total_count = data.length;
             limit = Math.min(limit, total_count - start);
