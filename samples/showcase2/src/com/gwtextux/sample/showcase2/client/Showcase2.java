@@ -13,21 +13,21 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.gwtext.client.widgets.*;
-import com.gwtext.client.widgets.tree.TreePanel;
-import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
-import com.gwtext.client.widgets.event.PanelListenerAdapter;
-import com.gwtext.client.widgets.menu.Menu;
-import com.gwtext.client.widgets.menu.Item;
-import com.gwtext.client.widgets.menu.BaseItem;
-import com.gwtext.client.widgets.menu.event.BaseItemListenerAdapter;
-import com.gwtext.client.widgets.layout.BorderLayoutData;
-import com.gwtext.client.widgets.layout.BorderLayout;
-import com.gwtext.client.widgets.layout.FitLayout;
-import com.gwtext.client.core.RegionPosition;
-import com.gwtext.client.core.Margins;
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Margins;
 import com.gwtext.client.core.Position;
+import com.gwtext.client.core.RegionPosition;
+import com.gwtext.client.widgets.*;
+import com.gwtext.client.widgets.event.PanelListenerAdapter;
+import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
+import com.gwtext.client.widgets.layout.BorderLayout;
+import com.gwtext.client.widgets.layout.BorderLayoutData;
+import com.gwtext.client.widgets.layout.FitLayout;
+import com.gwtext.client.widgets.menu.BaseItem;
+import com.gwtext.client.widgets.menu.Item;
+import com.gwtext.client.widgets.menu.Menu;
+import com.gwtext.client.widgets.menu.event.BaseItemListenerAdapter;
+import com.gwtext.client.widgets.tree.TreePanel;
 
 
 public class Showcase2 implements EntryPoint, HistoryListener {
@@ -95,7 +95,7 @@ public class Showcase2 implements EntryPoint, HistoryListener {
         mainPanel.add(westPanel, westLayoutData);
 
         final Panel introPanel = new Panel();
-        introPanel.setTitle("GWT-Ext 2.0 Showcase");
+        introPanel.setTitle("GWT-Ext UX Showcase");
         introPanel.setPaddings(10);
         introPanel.setLayout(new FitLayout());
         final ShowcaseView showcaseView = new ShowcaseView(screenManager);

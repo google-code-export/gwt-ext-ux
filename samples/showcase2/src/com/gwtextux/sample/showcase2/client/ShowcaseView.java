@@ -7,19 +7,19 @@
  */
 package com.gwtextux.sample.showcase2.client;
 
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Command;
-import com.gwtext.client.widgets.Panel;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Element;
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.XTemplate;
+import com.gwtext.client.data.Record;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.util.DOMUtil;
+import com.gwtext.client.util.Format;
 import com.gwtext.client.widgets.DataView;
+import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.DataViewListenerAdapter;
 import com.gwtext.client.widgets.layout.FitLayout;
-import com.gwtext.client.core.XTemplate;
-import com.gwtext.client.core.EventObject;
-import com.gwtext.client.data.Store;
-import com.gwtext.client.data.Record;
-import com.gwtext.client.util.Format;
-import com.gwtext.client.util.DOMUtil;
 
 public class ShowcaseView extends Panel {
 
@@ -52,7 +52,7 @@ public class ShowcaseView extends Panel {
         panel.setAutoScroll(true);
         panel.setCollapsible(true);
         panel.setLayout(new FitLayout());
-        panel.setTitle("Welcome to GWT-Ext 2.0");
+        panel.setTitle("GWT-Ext User Extenstions (UX) Showcase");
 
         final DataView dataView = new DataView("div.thumb-wrap") {
             public void prepareData(Data data) {
