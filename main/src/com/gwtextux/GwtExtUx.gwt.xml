@@ -20,5 +20,6 @@
     <inherits name="com.gwtextux.LiveGrid"/>
     <inherits name="com.gwtextux.ManagedIFrame"/>
     <inherits name="com.gwtextux.UploadDialog"/>
+    <inherits name="com.gwtextux.GridSearchPlugin"/>
 
 </module>
