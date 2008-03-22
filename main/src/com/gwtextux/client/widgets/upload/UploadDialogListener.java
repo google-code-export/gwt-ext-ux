@@ -1,6 +1,7 @@
 package com.gwtextux.client.widgets.upload;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.event.WindowListener;
 
 public interface UploadDialogListener extends WindowListener {
@@ -44,7 +45,8 @@ public interface UploadDialogListener extends WindowListener {
 	 * Fires when file is successfuly uploaded
 	 * @param source the UploadDialog
 	 * @param filename the name of the file to queue
-	 * @param data js-object builded from json-data returned from upload handler response.
+	 * @param data JavaScriptObect builded from json-data returned from upload handler response.
+	 * Use the JavaScriptObjectHelper.getAttribute to get the data from the JSon object.
 	 */
 	public void onUploadSuccess(UploadDialog source, String filename, JavaScriptObject data);
 
@@ -52,7 +54,8 @@ public interface UploadDialogListener extends WindowListener {
 	 * Fires when file upload error occured
 	 * @param source the UploadDialog
 	 * @param filename the name of the file to queue
-	 * @param data js-object builded from json-data returned from upload handler response.
+	 * @param data JavaScriptObect builded from json-data returned from upload handler response.
+	 * Use the JavaScriptObjectHelper.getAttribute to get the data from the JSon object.
 	 */
 	public void onUploadError(UploadDialog source, String filename, JavaScriptObject data);
 

@@ -12,6 +12,12 @@ import com.gwtext.client.core.UrlParam;
 import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.Window;
 
+/**
+ * This is a wrapper class for the UploadDialog user extension created
+ * by MaximGB.  This window is used to upload files to the server.
+ * @author mlim1972
+ *
+ */
 public class UploadDialog extends Window {
     private static JavaScriptObject configPrototype;
 
@@ -98,6 +104,10 @@ public class UploadDialog extends Window {
         return new $wnd.Ext.ux.UploadDialog.Dialog(config);
     }-*/;
     
+    /**
+     * Adds listeners to the dialog to handle the different events
+     * @param listener the listener implementation
+     */
     public native void addListener(UploadDialogListener listener) /*-{
 	    this.@com.gwtext.client.widgets.Window::addListener(Lcom/gwtext/client/widgets/event/WindowListener;)(listener);
 	    var uploadDialogJ = this;
@@ -171,21 +181,35 @@ public class UploadDialog extends Window {
 	
 	}-*/;
 
+    /**
+     * Starts the upload programmatically
+     */
     public native void startUpload() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         w.startUpload();
     }-*/;
     
+    /**
+     * Stops the upload process
+     */
     public native void stopUpload() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    w.stopUpload();
 	}-*/;
     
+    /**
+     * returns the URL where the files are posted
+     * @return the String URL where files are posted
+     */
     public native String getUrl() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    return w.getUrl();
 	}-*/;
 
+    /**
+     * sets the URL to post the files
+     * @param url the String URL where files are posted
+     */
     public native void setUrl(String url) /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    w.setUrl(url);
@@ -248,37 +272,65 @@ public class UploadDialog extends Window {
         return params;
     }-*/;
 
+    /**
+     * gets if auto start is enable or not
+     * @return true or false if auto start is enabled
+     */
     public native boolean getUploadAutostart() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    return w.getUploadAutostart();
 	}-*/;
 	
+    /**
+     * set the auto start so that files are uploaded as they are added to the dialog
+     * @param autostart true or false to enable auto start
+     */
 	public native void setUploadAutostart(boolean autostart) /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    w.setUploadAutostart(autostart);
 	}-*/;
 	
-	
+	/**
+	 * gets true or false if it is allowed to close the dialog during upload
+	 * @return true or false if closing of the dialog is allowed while uploading
+	 */
     public native boolean getAllowCloseOnUpload() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    return w.getAllowCloseOnUpload();
 	}-*/;
 	
+	/**
+	 * sets true or false if it is allowed to close the dialog during upload
+	 * @param allowCloseOnUpload true or false if closing of the dialog is allowed while uploading
+	 */
 	public native void setAllowCloseOnUpload(boolean allowCloseOnUpload) /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    w.setAllowCloseOnUpload(allowCloseOnUpload);
 	}-*/;
 	
+	/**
+	 * true or false if the queue should be reset when the dialog is hidden
+	 * @return true or false if the queue should be reset when the dialog is hidden
+	 */
     public native boolean getResetOnHide() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    return w.getResetOnHide();
 	}-*/;
 	
+    /**
+     * sets true or false if the queue should be reset when the dialog is hidden
+     * @param resetonhide true or false if the queue should be reset when the dialog is hidden
+     */
 	public native void setResetOnHide(boolean resetonhide) /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 	    w.setResetOnHide(resetonhide);
 	}-*/;
 	
+	/**
+	 * extensions permitted.  This allow to filter files that are accepted by the server
+	 * @param exts extensions allowed to upload (ie. "gif", "jpeg").  Right now, it is 
+	 * case sensitive so JPEG and jpeg are treated differently.
+	 */
     public void setPermittedExtensions(String[] exts) {
         JavaScriptObject[] strs = new JavaScriptObject[exts.length];
         JavaScriptObject nativeStrArray = JavaScriptObjectHelper.convertToJavaScriptArray(strs);
@@ -295,6 +347,10 @@ public class UploadDialog extends Window {
 		dialog.setPermittedExtensions(nativeStringArray);
     }-*/;
     
+    /**
+     * gets the permitted extensions
+     * @return the array of permitted extensions
+     */
     public String[] getPermittedExtensions() {
         JavaScriptObject exts = getPermittedExtensions(getJsObj());
         return JavaScriptObjectHelper.convertToJavaStringArray(exts);
@@ -304,26 +360,46 @@ public class UploadDialog extends Window {
 		return dialog.getPermittedExtensions();
     }-*/;
 
+    /**
+     * returns true or false depending if the uploading is in progress
+     * @return true or false if upload is happening
+     */
     public native boolean isUploading()/*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 		return w.isUploading();
 	}-*/;
     
+    /**
+     * returns true or false depending if the queue is not empty
+     * @return true or false depending if the queue is not empty
+     */
     public native boolean isNotEmptyQueue()/*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 		return w.isNotEmptyQueue();
 	}-*/;
     
+    /**
+     * gets the queue count
+     * @return the queue count
+     */
     public native int getQueuedCount()/*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 		return w.getQueuedCount();
 	}-*/;
     
+    /**
+     * returns true or false if there are files in the queue that are not uploaded yet
+     * @return true or false if there are files in the queue that are not uploaded yet
+     */
     public native boolean hasUnuploadedFiles()/*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
 		return w.hasUnuploadedFiles();
 	}-*/;
     
+    /**
+     * sets the name of the variable to use for the files uploaded to the server. By defaule it is "file"
+     * @param varname name of the variable to use for the files uploaded to the server. By defaule it is "file"
+     */
     public void setPostVarName(String varname){
     	JavaScriptObjectHelper.setAttribute(getJsObj(), "post_var_name", varname);
     }
