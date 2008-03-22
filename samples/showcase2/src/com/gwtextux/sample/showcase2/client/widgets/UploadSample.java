@@ -9,11 +9,14 @@ package com.gwtextux.sample.showcase2.client.widgets;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.UrlParam;
+import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtextux.client.widgets.upload.UploadDialog;
+import com.gwtextux.client.widgets.upload.UploadDialogListenerAdapter;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
+import com.google.gwt.core.client.JavaScriptObject;
 
 
 /**
@@ -32,6 +35,62 @@ public class UploadSample extends ShowcasePanel {
             Button button = new Button("Upload File", new ButtonListenerAdapter() {
                 public void onClick(final Button button, EventObject e) {
                     UploadDialog dialog = new UploadDialog();
+                    dialog.addListener(new UploadDialogListenerAdapter(){
+                    	public void onUploadFailed(UploadDialog source, String filename) {
+                    		System.out.println("onUploadFailed");
+                    		System.out.println("filename="+filename);
+                    	}
+                    	public void onUploadSuccess(UploadDialog source, String filename,
+                    			JavaScriptObject data) {	
+                    		System.out.println("onUploadSuccess");
+                    		System.out.println("filename="+filename);
+                    		System.out.println("code="+JavaScriptObjectHelper.getAttribute(data, "code"));
+                    	}
+                    	
+                    	public boolean onBeforeAdd(UploadDialog source, String filename) {
+                    		System.out.println("onBeforeAdd");
+                    		System.out.println("filename="+filename);
+                    		return true;
+                    	}
+
+                    	public void onFileAdd(UploadDialog source, String filename) {
+                    		System.out.println("onFileAdd");
+                    		System.out.println("filename="+filename);
+                    	}
+
+                    	public void onFileRemove(UploadDialog source, String filename) {
+                    		System.out.println("onFileRemove");
+                    		System.out.println("filename="+filename);
+                    	}
+
+                    	public void onFileUploadStart(UploadDialog source, String filename) {
+                    		System.out.println("onFileUploadStart");
+                    		System.out.println("filename="+filename);
+                    	}
+
+                    	public void onResetQueue(UploadDialog source) {
+                    		System.out.println("onResetQueue");
+                    	}
+
+                    	public void onUploadComplete(UploadDialog source) {
+                    		System.out.println("onUploadComplete");
+                    	}
+
+                    	public void onUploadError(UploadDialog source, String filename, JavaScriptObject data) {
+                    		System.out.println("onUploadError");
+                    		System.out.println("filename="+filename);
+                    		System.out.println("code="+JavaScriptObjectHelper.getAttribute(data, "code"));
+                    	}
+
+                    	public void onUploadStart(UploadDialog source) {
+                    		System.out.println("onUploadStart");
+                    	}
+
+                    	public void onUploadStop(UploadDialog source) {	
+                    		System.out.println("onUploadStart");
+                    	}
+
+                    });
                     dialog.setUrl("UploadSvc");
                     //dialog.setPermittedExtensions(new String[]{"jpg", "gif"});
                     UrlParam param[] = new UrlParam[2];

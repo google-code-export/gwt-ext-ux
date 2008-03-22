@@ -133,16 +133,14 @@ public class UploadDialog extends Window {
 	    );
 	
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('uploadsuccess',
-	            function(source,filename,data) {
-	                var message = data.response.message;
-	                listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onUploadSuccess(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;Ljava/lang/String;)(uploadDialogJ, filename, message);
+	            function(source,filename,data) {	                
+	                listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onUploadSuccess(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(uploadDialogJ, filename, data); 
 	            }
 	    );
 	
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('uploaderror',
 	            function(source,filename,data) {
-	                var message = data.response.message;
-	                listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onUploadError(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;Ljava/lang/String;)(uploadDialogJ, filename, message);
+	                listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onUploadError(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(uploadDialogJ, filename, data); 
 	            }
 	    );
 	
@@ -173,7 +171,6 @@ public class UploadDialog extends Window {
 	
 	}-*/;
 
-    
     public native void startUpload() /*-{
         var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
         w.startUpload();

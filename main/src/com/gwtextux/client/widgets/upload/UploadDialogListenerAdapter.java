@@ -1,5 +1,6 @@
 package com.gwtextux.client.widgets.upload;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.widgets.event.WindowListenerAdapter;
 
 public class UploadDialogListenerAdapter extends WindowListenerAdapter
@@ -24,7 +25,7 @@ public class UploadDialogListenerAdapter extends WindowListenerAdapter
 	public void onUploadComplete(UploadDialog source) {
 	}
 
-	public void onUploadError(UploadDialog source, String filename, String data) {
+	public void onUploadError(UploadDialog source, String filename, JavaScriptObject data) {
 	}
 
 	public void onUploadFailed(UploadDialog source, String filename) {
@@ -37,7 +38,7 @@ public class UploadDialogListenerAdapter extends WindowListenerAdapter
 	}
 
 	public void onUploadSuccess(UploadDialog source, String filename,
-			String data) {		
+			JavaScriptObject data) {		
 	}
 
 }

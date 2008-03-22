@@ -75,13 +75,16 @@ public class UploadSvcImpl extends HttpServlet {
 		JSONObject response = null;
 		try {
 			response = new JSONObject();
-			response.put("success", "true");
-			response.put("message", "uploaded successfully");
+			response.put("success", true);
+			response.put("error", "uploaded successfully");
+			response.put("code", "232");
 		} catch (Exception e) {
 
 		}
+
 		Writer w = new OutputStreamWriter(resp.getOutputStream());
 		w.write(response.toString());
+		System.out.println(response.toString());
 		w.close();
 		resp.setStatus(HttpServletResponse.SC_OK);
 	}
