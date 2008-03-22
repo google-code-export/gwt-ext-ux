@@ -100,6 +100,8 @@ public class ImageDDSample extends ShowcasePanel {
     }
     
     public String getIntro() {
-        return "<p>This is a simple example illustrating the Image widget, Image events and drag/drop. The images can handle mouse events as well as context menu.</p>";
+        return "<p>This is a simple example illustrating the Image widget, " +
+        "Image events and drag/drop. The images can handle mouse events as well as " +
+        "context menu.</p><p>This sample and widget was added by <b>Mario Lim</b></p>";
     }
 }

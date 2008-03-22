@@ -110,7 +110,7 @@ public class UploadSample extends ShowcasePanel {
     public String getIntro() {
         return "<p>This example demonstrates Upload Dialog. The component allows to " +
         "upload file(s) to the server.  Other parameters can also be passed as well as "+
-        "restricting by file extensions.</p>";
+        "restricting by file extensions.</p><p>This sample and wrapper was added by <b>Mario Lim</b></p>";
     }
 
 
