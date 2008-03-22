@@ -397,8 +397,8 @@ public class UploadDialog extends Window {
 	}-*/;
     
     /**
-     * sets the name of the variable to use for the files uploaded to the server. By defaule it is "file"
-     * @param varname name of the variable to use for the files uploaded to the server. By defaule it is "file"
+     * sets the name of the variable to use for the files uploaded to the server. By default it is "file"
+     * @param varname name of the variable to use for the files uploaded to the server. By default it is "file"
      */
     public void setPostVarName(String varname){
     	JavaScriptObjectHelper.setAttribute(getJsObj(), "post_var_name", varname);
