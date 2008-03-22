@@ -8,7 +8,6 @@
 package com.gwtextux.sample.showcase2.client.grid;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -18,22 +17,16 @@ import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.DateFieldDef;
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.IntegerFieldDef;
-import com.gwtext.client.data.Record;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
-import com.gwtext.client.util.DateUtil;
 import com.gwtext.client.widgets.PagingToolbar;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.ToolTip;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
-import com.gwtext.client.widgets.grid.CellMetadata;
-import com.gwtext.client.widgets.grid.ColumnConfig;
-import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
-import com.gwtext.client.widgets.grid.Renderer;
 import com.gwtextux.client.data.GWTProxy;
 import com.gwtextux.sample.showcase2.client.GwtProxySvc;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
@@ -85,17 +78,7 @@ public class GWTProxySample extends ShowcasePanel {
             final Store store = new Store(new GWTProxyImpl(), new ArrayReader(recordDef), true);
             store.setBaseParams(new UrlParam[]{new UrlParam("paramName", "paramValue")});
 
-            ColumnModel colModel = new ColumnModel(new ColumnConfig[]{
-                    new ColumnConfig("Number", "number_field", 140, true),
-                    new ColumnConfig("String", "string_field", 140, true),
-                    new ColumnConfig("Date", "date_field", 140, true,new Renderer() {
-                        public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum, Store store) {
-                            return DateUtil.format((Date) value, "d.m.y H:i");
-                        }
-                    })
-                    });
-            
-            GridPanel grid = new GridPanel(store, colModel);
+            GridPanel grid = new GridPanel(store, LiveGridSample.createColModel());
             grid.setWidth(500);
             grid.setHeight(400);
             grid.setTitle("Grid that uses GWTProxy to load data from server");
@@ -125,6 +108,8 @@ public class GWTProxySample extends ShowcasePanel {
             grid.setBottomToolbar(pagingToolbar);
             store.load(0, pagingToolbar.getPageSize());
 
+            grid.getView().setAutoFill(true);
+            grid.getView().setForceFit(true);
             panel.add(grid);
         }
 

@@ -43,50 +43,58 @@ public class LiveGridSample extends ShowcasePanel {
         if (panel == null) {
             panel = new Panel();
 
-            FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"), new StringFieldDef("string_field"), new DateFieldDef("date_field", "Y-m-d H:i:s") };
+            FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"),
+                    new StringFieldDef("string_field"), new DateFieldDef("date_field", "Y-m-d H:i:s") };
             RecordDef recordDef = new RecordDef(fieldDefs);
-            
-             BufferedJsonReader reader=new BufferedJsonReader("response.value.items", recordDef );
-             reader.setVersionProperty("response.value.version");
-             reader.setTotalProperty("response.value.total_count");
-             reader.setId("id");
-             
-             BufferedStore store=new BufferedStore(reader);
-             store.setAutoLoad(true);
-             store.setBufferSize(300);
-             store.setSortInfo(new SortState("number_field", SortDir.ASC));
-             store.setUrl("LiveGridDataProxy");
-             
-             BufferedGridView view = new BufferedGridView();
-             view.setLoadMask("Wait ...");
-             view.setNearLimit(100);
-             
-             BufferedGridToolbar toolbar=new BufferedGridToolbar(view);
-             toolbar.setDisplayInfo(true);
-             
-             BufferedRowSelectionModel brsm = new BufferedRowSelectionModel();
 
-             ColumnModel colModel = new ColumnModel(new ColumnConfig[]{
-                     new ColumnConfig("Number", "number_field", 120, true),
-                     new ColumnConfig("String", "string_field", 120, true),
-                     new ColumnConfig("Date", "date_field", 120, true,new Renderer() {
-                         public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum, Store store) {
-                             return DateUtil.format((Date) value, "d.m.y H:i");
-                         }
-                     })
-                     });
+            BufferedJsonReader reader = new BufferedJsonReader("response.value.items", recordDef);
+            reader.setVersionProperty("response.value.version");
+            reader.setTotalProperty("response.value.total_count");
+            reader.setId("id");
 
-            GridPanel grid = new GridPanel(store, colModel);
+            BufferedStore store = new BufferedStore(reader);
+            store.setAutoLoad(true);
+            store.setBufferSize(300);
+            store.setSortInfo(new SortState("number_field", SortDir.ASC));
+            store.setUrl("LiveGridDataProxy");
+
+            BufferedGridView view = new BufferedGridView();
+            view.setLoadMask("Wait ...");
+            view.setNearLimit(100);
+
+            BufferedGridToolbar toolbar = new BufferedGridToolbar(view);
+            toolbar.setDisplayInfo(true);
+
+            BufferedRowSelectionModel brsm = new BufferedRowSelectionModel();
+
+            GridPanel grid = new GridPanel(store, createColModel());
             grid.setEnableDragDrop(false);
             grid.setSelectionModel(brsm);
             grid.setView(view);
             grid.setBottomToolbar(toolbar);
             grid.setWidth(400);
+            grid.getView().setAutoFill(true);
+            grid.getView().setForceFit(true);
 
             panel.add(grid);
         }
 
         return panel;
+    }
+
+    static ColumnModel createColModel() {
+        ColumnConfig columnConfig3 = new ColumnConfig("Date", "date_field");
+        columnConfig3.setRenderer(new Renderer() {
+            public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum,
+                    Store store) {
+                return DateUtil.format((Date) value, "d.m.Y  H:i");
+            }
+        });
+        ColumnModel colModel = new ColumnModel(new ColumnConfig[] { new ColumnConfig("Number", "number_field"),
+                new ColumnConfig("String", "string_field"), columnConfig3 });
+        for (int i = 0; i < colModel.getColumnConfigs().length; i++)
+            ((ColumnConfig) colModel.getColumnConfigs()[i]).setSortable(true);
+        return colModel;
     }
 
     public String getIntro() {
