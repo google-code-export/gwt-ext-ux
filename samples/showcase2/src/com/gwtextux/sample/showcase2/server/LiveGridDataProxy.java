@@ -140,7 +140,8 @@ public class LiveGridDataProxy extends HttpServlet {
             value.put("total_count", Integer.toString(total_count));
             value.put("version", new Long(1)); 
             
-            Writer w = new OutputStreamWriter(resp.getOutputStream());
+            resp.setContentType("application/json; charset=utf-8");
+            Writer w = new OutputStreamWriter(resp.getOutputStream(), "utf-8");
             w.write(feeds.toString());
             w.close();
             resp.setStatus(HttpServletResponse.SC_OK);
