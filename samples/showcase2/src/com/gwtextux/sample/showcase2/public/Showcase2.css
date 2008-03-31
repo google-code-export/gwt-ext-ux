@@ -626,3 +626,7 @@
     background:transparent url(images/download.gif) no-repeat top left !important;
     height:36px;
 }
+
+.credits-icon {
+	background-image: url( images/silk/photo.png) !important;
+}
