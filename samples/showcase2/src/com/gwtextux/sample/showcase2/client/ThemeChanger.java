@@ -46,7 +46,7 @@ public class ThemeChanger extends ComboBox {
 		setDisplayField("label");
 		setForceSelection(true);
 		setTriggerAction(ComboBox.ALL);
-		setValue("Green");
+		setValue("Slate");
 		setFieldLabel("Switch theme");
 		addListener(new ComboBoxListenerAdapter() {
 			public void onSelect(ComboBox comboBox, Record record, int index) {
