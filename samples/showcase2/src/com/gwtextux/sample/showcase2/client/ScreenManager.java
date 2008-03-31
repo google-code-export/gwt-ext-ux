@@ -55,6 +55,7 @@ import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
+import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 
 public class ScreenManager {
 
@@ -199,7 +200,15 @@ public class ScreenManager {
         TreeNode root = new TreeNode("Showcase Explorer");
         treePanel.setRootNode(root);
 
-        Store store = getStore();
+		CreditsPanel creditsPanel = new CreditsPanel();
+
+		TreeNode creditsNode = new TreeNode("Credits");
+		creditsNode.setIconCls("credits-icon");
+		creditsNode.setId("credits");
+		root.appendChild(creditsNode);
+		addNodeClickListener(creditsNode, creditsPanel, "credits-icon");
+
+		Store store = getStore();
 
         Record[] records = store.getRecords();
         for (int i = 0; i < records.length; i++) {
@@ -379,7 +388,9 @@ public class ScreenManager {
                 new Object[]{"localPagingGrid", "grids-category", "Grid with Local Paging", null, "images/thumbnails/grid/grid-local-paging.gif", null, new LocalPagingSample()},
                 new Object[]{"liveGrid", "grids-category", "Live Grid", null, "images/thumbnails/grid/live-grid.gif", null, new LiveGridSample()},
                 new Object[]{"gwtProxySample", "grids-category", "Grid with GWT Proxy", null, "images/thumbnails/grid/grid-with-gwtproxy.gif", null, new GWTProxySample()},
-                new Object[]{"gridSearchSample", "grids-category", "Grid with Search", null, "images/thumbnails/grid/grid-search.gif", null, new GridSearchSample()},
+
+				//termporarily commented out
+				//new Object[]{"gridSearchSample", "grids-category", "Grid with Search", null, "images/thumbnails/grid/grid-search.gif", null, new GridSearchSample()},
 
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},

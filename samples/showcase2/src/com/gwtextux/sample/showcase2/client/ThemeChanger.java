@@ -27,29 +27,34 @@ import com.gwtext.client.widgets.form.event.ComboBoxListenerAdapter;
  */
 public class ThemeChanger extends ComboBox {
 
-    public ThemeChanger() {
+	public ThemeChanger() {
 
-        final Store store = new SimpleStore(new String[]{"theme", "label"}, new Object[][]{
-                new Object[]{"js/ext/resources/css/xtheme-gray.css", "Gray"},
-                new Object[]{"xtheme-default.css", "Aero Glass"}
-        });
-        store.load();
+		final Store store = new SimpleStore(new String[]{"theme", "label"}, new Object[][]{
+				new Object[]{"themes/slate/css/xtheme-slate.css", "Slate"},
+				new Object[]{"themes/green/css/xtheme-green.css", "Green"},
+				new Object[]{"js/ext/resources/css/xtheme-gray.css", "Gray"},
+				new Object[]{"xtheme-default.css", "Aero Glass"},
+				new Object[]{"themes/indigo/css/xtheme-indigo.css", "Indigo"},
+				new Object[]{"themes/silverCherry/css/xtheme-silverCherry.css", "Silver Cherry"}
+		});
 
-        setFieldLabel("Select Theme");
-        setEditable(false);
-        setStore(store);
-        setDisplayField("label");
-        setForceSelection(true);
-        setTriggerAction(ComboBox.ALL);
-        setValue("Gray");
-        setFieldLabel("Switch theme");
-        addListener(new ComboBoxListenerAdapter() {
-            public void onSelect(ComboBox comboBox, Record record, int index) {
-                String theme = record.getAsString("theme");
-                CSS.swapStyleSheet("theme", theme);
-            }
-        });
-        setWidth(100);
-    }
+		store.load();
+
+		setFieldLabel("Select Theme");
+		setEditable(false);
+		setStore(store);
+		setDisplayField("label");
+		setForceSelection(true);
+		setTriggerAction(ComboBox.ALL);
+		setValue("Green");
+		setFieldLabel("Switch theme");
+		addListener(new ComboBoxListenerAdapter() {
+			public void onSelect(ComboBox comboBox, Record record, int index) {
+				String theme = record.getAsString("theme");
+				CSS.swapStyleSheet("theme", theme);
+			}
+		});
+		setWidth(100);
+	}
 }
 
