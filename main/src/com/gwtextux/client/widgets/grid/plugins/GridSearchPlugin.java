@@ -39,6 +39,11 @@ public class GridSearchPlugin extends ComponentPlugin {
 	
 	public void init(Component component) {
 	}
+	
+    public native String getSearchValue() /*-{
+	    var plugin = this.@com.gwtext.client.core.JsObject::getJsObj()();
+	    return plugin.field ? plugin.field.getValue() : '';
+	}-*/;
 
     public void setSearchText(String searchText) {
 		JavaScriptObjectHelper.setAttribute(configJS, "searchText", searchText);
