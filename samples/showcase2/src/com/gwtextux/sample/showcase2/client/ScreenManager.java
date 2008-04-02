@@ -389,8 +389,7 @@ public class ScreenManager {
                 new Object[]{"liveGrid", "grids-category", "Live Grid", null, "images/thumbnails/grid/live-grid.gif", null, new LiveGridSample()},
                 new Object[]{"gwtProxySample", "grids-category", "Grid with GWT Proxy", null, "images/thumbnails/grid/grid-with-gwtproxy.gif", null, new GWTProxySample()},
 
-				//termporarily commented out
-				//new Object[]{"gridSearchSample", "grids-category", "Grid with Search", null, "images/thumbnails/grid/grid-search.gif", null, new GridSearchSample()},
+				new Object[]{"gridSearchSample", "grids-category", "Grid with Search", null, "images/thumbnails/grid/grid-search.gif", null, new GridSearchSample()},
 
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
