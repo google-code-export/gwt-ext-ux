@@ -1080,7 +1080,26 @@ Ext.extend(Ext.ux.grid.BufferedGridView, Ext.grid.GridView, {
             this.processRows(firstRow);
         }
     },
-
+   
+    /**
+     * Focuses the specified cell.
+     * @param {Number} row The row index
+     * @param {Number} col The column index
+     */
+    focusCell : function(row, col, hscroll)
+    {
+        var xy = this.ensureVisible(row, col, hscroll);
+        if (!xy) {
+        	return;
+				}
+        this.focusEl.setXY(xy);
+        if(Ext.isGecko){
+            this.focusEl.focus();
+        }else{
+            this.focusEl.focus.defer(1, this.focusEl);
+        }
+        
+    },
 
     /**
      * Makes sure that the requested /row/col is visible in the viewport.
@@ -1100,13 +1119,14 @@ Ext.extend(Ext.ux.grid.BufferedGridView, Ext.grid.GridView, {
         
         col = (col !== undefined ? col : 0);
         
+        var rowInd = row-this.rowIndex;
         if (row >= this.rowIndex+this.visibleRows) {
             this.adjustScrollerPos(((row-(this.rowIndex+this.visibleRows))+1)*this.rowHeight);
         } else if (row < this.rowIndex) {
-            this.adjustScrollerPos((row-this.rowIndex)*this.rowHeight);
+            this.adjustScrollerPos((rowInd)*this.rowHeight);
         } 
-        
-        var rowEl = this.getRow(row-this.rowIndex), cellEl;
+        var rowInd = rowInd < 0 ? row : rowInd;
+        var rowEl = this.getRow(rowInd), cellEl;
         if(!(hscroll === false && col === 0)){
             while(this.cm.isHidden(col)){
                 col++;
@@ -1116,23 +1136,10 @@ Ext.extend(Ext.ux.grid.BufferedGridView, Ext.grid.GridView, {
         if(!rowEl){
             return;
         }
+        
+        var c = this.scroller.dom;
 
-        if(hscroll !== false){
-            var cleft = parseInt(cellEl.offsetLeft, 10);
-            var cright = cleft + cellEl.offsetWidth;
-
-            var sleft = parseInt(cellEl.scrollLeft, 10);
-            var sright = sleft + cellEl.clientWidth;
-            if(cleft < sleft){
-                cellEl.scrollLeft = cleft;
-            }else if(cright > sright){
-                cellEl.scrollLeft = cright-cellEl.clientWidth;
-            }
-		}
-		
-
-		
-        return cellEl || rowEl;
+				return cellEl ? Ext.fly(cellEl).getXY() : [c.scrollLeft, Ext.fly(rowEl).getY()];
     },   
 
    
@@ -1491,7 +1498,6 @@ Ext.extend(Ext.ux.grid.BufferedGridView, Ext.grid.GridView, {
         }
         
         liveScroller.dom.scrollTop += pixels;
-		this.onLiveScroll();
         
         if (suspendEvent === true) {
             liveScroller.dom.scrollTop = liveScroller.dom.scrollTop;
