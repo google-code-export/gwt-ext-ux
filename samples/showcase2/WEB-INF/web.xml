@@ -1,0 +1,32 @@
+<web-app>
+   <servlet>
+       <servlet-name>GwtProxySvc</servlet-name>
+       <servlet-class>com.gwtextux.sample.showcase2.server.GwtProxySvcImpl</servlet-class>
+   </servlet>
+
+
+    <servlet>
+       <servlet-name>LiveGridDataProxy</servlet-name>
+       <servlet-class>com.gwtextux.sample.showcase2.server.LiveGridDataProxy</servlet-class>
+   </servlet>
+
+    <servlet>
+       <servlet-name>UploadSvc</servlet-name>
+       <servlet-class>com.gwtextux.sample.showcase2.server.UploadSvcImpl</servlet-class>
+   </servlet>
+
+   <servlet-mapping>
+       <servlet-name>GwtProxySvc</servlet-name>
+       <url-pattern>/GwtProxySvc</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+       <servlet-name>LiveGridDataProxy</servlet-name>
+       <url-pattern>/LiveGridDataProxy</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+       <servlet-name>UploadSvc</servlet-name>
+       <url-pattern>/UploadSvc</url-pattern>
+   </servlet-mapping>
+</web-app>
