@@ -97,6 +97,7 @@
     <property name="gwt.version" value="1.4.60" />
 
     <property name="gwt.user.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-user.jar" />
+	<property name="gwt.servlet.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-servlet.jar" />
 	<property name="gwt.dev.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-dev-${build.host.platform}.jar" />
     
     <property name="gwtext.version" value="2.0.3" />
