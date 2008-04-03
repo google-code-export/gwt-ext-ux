@@ -94,6 +94,7 @@ public class CreditsPanel extends ShowcasePanel {
 				new Object[]{"Managed IFrame", "Matthew Lieder", "Doug Hendricks", "<a href=\"http://extjs.com/learn/Extension:ManagedIframe\" target=\"_blank\">http://extjs.com/learn/Extension:ManagedIframe</a>"},
 				new Object[]{"Multi Month Calendar", "Michal Bergmann", "Aung Win Myat", "<a href=\"http://extjs.com/learn/Extension:Multi_Month_Calendar\" target=\"_blank\">http://extjs.com/learn/Extension:Multi_Month_Calendar</a>"},
 				new Object[]{"File upload dialog", "Mario Lim", "Maxim Bazhenov", "<a href=\"http://max-bazhenov.com/dev/upload-dialog-2.0/index.php\" target=\"_blank\">http://max-bazhenov.com/dev/upload-dialog-2.0/index.php</a>"},
+				new Object[]{"Grid Search Plugin", "Matthew Lieder", "Jozef Sakalos", "<a href=\"http://gridsearch.extjs.eu/\" target=\"_blank\">http://gridsearch.extjs.eu/</a>"},
 				new Object[]{"Image", "Mario Lim", "", ""}
 		};
 	}
