@@ -99,7 +99,7 @@
     <property name="gwt.user.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-user.jar" />
 	<property name="gwt.dev.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-dev-${build.host.platform}.jar" />
     
-    <property name="gwtext.version" value="2.0.1" />
+    <property name="gwtext.version" value="2.0.3" />
     <property name="gwtext.jar" location="${gwtextux.tools.lib}/gwt-ext/${gwtext.version}/gwtext.jar" />
 
     <!-- JUnit support -->
