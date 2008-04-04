@@ -7,32 +7,15 @@
  */
 package com.gwtextux.sample.showcase2.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
-import com.gwtext.client.data.ArrayReader;
-import com.gwtext.client.data.FieldDef;
-import com.gwtext.client.data.MemoryProxy;
-import com.gwtext.client.data.Node;
-import com.gwtext.client.data.NodeTraversalCallback;
-import com.gwtext.client.data.ObjectFieldDef;
-import com.gwtext.client.data.Record;
-import com.gwtext.client.data.RecordDef;
-import com.gwtext.client.data.Store;
-import com.gwtext.client.data.StringFieldDef;
+import com.gwtext.client.data.*;
 import com.gwtext.client.util.DelayedTask;
 import com.gwtext.client.util.Format;
-import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.Component;
-import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.TabPanel;
-import com.gwtext.client.widgets.Toolbar;
-import com.gwtext.client.widgets.ToolbarButton;
+import com.gwtext.client.widgets.*;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
@@ -46,16 +29,19 @@ import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 import com.gwtextux.sample.showcase2.client.chooser.ImageChooserSample;
 import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
-import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
 import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
+import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
+import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
-import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
-import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
+import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScreenManager {
 
@@ -244,6 +230,7 @@ public class ScreenManager {
             addNodeClickListener(node, panel, iconCls);
         }
         treeFilter = new TreeFilter(treePanel);
+        treePanel.expandAll();
         return treePanel;
     }
 
