@@ -22,7 +22,7 @@
 
 	<!-- Global Properties -->
 	<property environment="env" />
-	<condition property="gwtextux.version" value="${env.GWTEXTUX_VERSION}" else="0.1.1">
+	<condition property="gwtextux.version" value="${env.GWTEXTUX_VERSION}" else="0.2">
 		<isset property="env.GWTEXTUX_VERSION" />
 	</condition>
 	<condition property="ext.version" value="${env.EXT_VERSION}" else="2.0.1">
@@ -52,6 +52,7 @@
 	<property name="javac.nowarn" value="true" />
 	<property name="junit.out" location="${project.build}/test" />
     <property name="gwt.doctool.jar" location="${gwtextux.tools.lib}/gwt-build-tools/gwt-doctool.jar" />
+	<property name="yui.compressor.jar" location="${gwtextux.tools.lib}/yui/yuicompressor-2.3.4.jar" />
 
 
     <!-- Sanity check -->
