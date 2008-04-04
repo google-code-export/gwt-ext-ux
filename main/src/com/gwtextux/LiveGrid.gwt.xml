@@ -8,7 +8,6 @@
 -->
 
 <module>
-    <inherits name="com.gwtextux.GwtExtUx"/>
 	<script src="js/livegrid/BufferedGridDragZone.js"/>
 	<script src="js/livegrid/BufferedGridToolbar.js"/>
 	<script src="js/livegrid/BufferedGridView.js"/>
