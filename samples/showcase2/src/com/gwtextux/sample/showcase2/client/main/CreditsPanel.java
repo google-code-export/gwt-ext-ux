@@ -48,7 +48,7 @@ public class CreditsPanel extends ShowcasePanel {
 			final GridPanel grid = new GridPanel();
 			grid.setColumnModel(new ColumnModel(columnConfigs));
 			grid.setStore(store);
-			grid.setHeight(200);
+			grid.setHeight(260);
 			grid.setWidth(660);
 			grid.setTitle("Credits for Extensions");
 
