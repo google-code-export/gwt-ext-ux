@@ -6,4 +6,4 @@ This product includes software developed by:
  - The Ext project (http://www.extjs.com/)
  - The GWT-Ext project (http://www.gwt-ext.com/)
 
-For source availability and license information see COPYING.
+For source availability and license information see COPYING.html
