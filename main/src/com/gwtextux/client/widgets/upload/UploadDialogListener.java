@@ -1,7 +1,6 @@
 package com.gwtextux.client.widgets.upload;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.event.WindowListener;
 
 public interface UploadDialogListener extends WindowListener {
