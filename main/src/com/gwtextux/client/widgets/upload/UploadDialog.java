@@ -114,7 +114,7 @@ public class UploadDialog extends Window {
 	
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('filetest',
 	            function(source,filename) {
-	                listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onBeforeAdd(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;)(uploadDialogJ, filename);
+	                return listener.@com.gwtextux.client.widgets.upload.UploadDialogListener::onBeforeAdd(Lcom/gwtextux/client/widgets/upload/UploadDialog;Ljava/lang/String;)(uploadDialogJ, filename);
 	            }
 	    );
 
