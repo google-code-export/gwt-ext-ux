@@ -7,11 +7,11 @@
  */
 package com.gwtextux.client.widgets;
 
-import java.util.Date;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.Component;
+
+import java.util.Date;
 
 /**
  * @author Michal Bergmann
@@ -50,16 +50,16 @@ public class MultiMonthCalendar extends Component {
         setValueNative(value.getTime());
     }
 
-    private native void setValueNative(long value)/*-{
+    private native void setValueNative(double value)/*-{
             var c = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
             c.setValue(new $wnd.Date(value));
         }-*/;
 
     public Date getValue() {
-        return new Date(getValueNative());
+        return new Date((long)getValueNative());
     }
 
-    private native long getValueNative()/*-{
+    private native double getValueNative()/*-{
             var val = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()().getValue();
             return (val == '' || val == null || val === undefined)? -1 : val.getTime();
         }-*/;
@@ -155,7 +155,7 @@ public class MultiMonthCalendar extends Component {
     
     /**
      * 
-     * @return The default date format string which can be overriden for localization support.  The format must be valid according to {@link Date#parseDate} (defaults to 'm/d/y').
+     * @return The default date format string which can be overriden for localization support.  The format must be valid according to {@link com.gwtext.client.util.DateUtil#parseDate} (defaults to 'm/d/y').
      */
     public String getFormat(){
         return getAttribute("format");
@@ -163,7 +163,7 @@ public class MultiMonthCalendar extends Component {
     
     /**
      *     
-     * @param format The default date format string which can be overriden for localization support.  The format must be valid according to {@link Date#parseDate} (defaults to 'm/d/y').
+     * @param format The default date format string which can be overriden for localization support.  The format must be valid according to {@link com.gwtext.client.util.DateUtil#parseDate} (defaults to 'm/d/y').
      */
     public void setFormat(String format){
         setAttribute("format", format, false);
@@ -281,7 +281,7 @@ public class MultiMonthCalendar extends Component {
     
     /**
      * 
-     * @param nextText The previous month navigation button tooltip (defaults to 'Previous Month (Control+Left)')
+     * @param prevText The previous month navigation button tooltip (defaults to 'Previous Month (Control+Left)')
      */
     public void setPrevText(String prevText){
         setAttribute("prevText", prevText, false);
