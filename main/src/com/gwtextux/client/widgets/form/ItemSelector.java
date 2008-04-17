@@ -79,7 +79,7 @@ public class ItemSelector extends Field {
 		setAttribute("drawUpIcon", drawUpIcon, true);
 	}
 
-	public void setDrawDownIcon(String drawDownIcon) throws IllegalArgumentException {
+	public void setDrawDownIcon(boolean drawDownIcon) throws IllegalArgumentException {
 		setAttribute("drawDownIcon", drawDownIcon, true);
 	}
 
