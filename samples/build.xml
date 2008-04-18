@@ -23,9 +23,9 @@
      <fileset dir="${gwtextux.build.out}/samples/Showcase2/www/com.gwtextux.sample.showcase2.Showcase2"/>
      <!-- supplied JAR -->
      <lib file="${gwt.servlet.jar}"/> 
-     <!--<lib dir="lib">
-			<include name="**/*.jar"/>
-	</lib> -->
+     <lib dir="showcase2/lib">
+       <include name="**/*.jar"/>
+     </lib>
    </war>
  </target>
  

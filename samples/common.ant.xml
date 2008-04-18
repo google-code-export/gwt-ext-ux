@@ -6,6 +6,7 @@
 	<property name="sample.package" value="${sample.root}" />
 	<property name="sample.main" value="${sample.module}" />
 
+	<property name="gwtextux.lib" location="${gwtextux.root}/samples/${sample.root}/lib" />
 
 
 	<!-- Mirror directory for scripts; makes building distro easier -->
@@ -23,8 +24,12 @@
             <fileset dir="${gwtextux.tools.lib.ext}">
                 <exclude name="**/ext-all-debug.js"/>
             </fileset>
-        </copy>
-    </target>
+    </copy>
+    <mkdir dir="${sample.build}/lib" />
+    <copy todir="${sample.build}/lib">
+			<fileset dir="lib" />
+		</copy>
+  </target>
 
     <!-- Platform shouldn't matter here, just picking one -->
 	<property.ensure name="gwtextux.dev.jar" location="${gwtextux.build.lib}/gwtextux.jar" />
@@ -37,6 +42,7 @@
 				<pathelement location="${gwt.dev.jar}" />
 				<pathelement location="${gwtext.jar}" />
 				<pathelement location="${gwtextux.dev.jar}" />
+				<pathelement location="${gwtextux.lib}/commons-fileupload-1.2.1.jar" />
 			</classpath>
 		</gwt.javac>
 	</target>

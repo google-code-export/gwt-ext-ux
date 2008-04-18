@@ -37,8 +37,10 @@ import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
 import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
+import com.gwtextux.sample.showcase2.client.tree.FileTreePanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
+import com.gwtextux.sample.showcase2.client.widgets.SwfUploadPanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
 
 import java.util.ArrayList;
@@ -384,6 +386,8 @@ public class ScreenManager {
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
 
+                new Object[]{"tree-category", null, "Trees", "tree-category-icon", null, null, null},
+                new Object[]{"filetreepanel", "tree-category", "File Tree Panel", null, "images/thumbnails/tree/filetreepanel.jpg", null, new FileTreePanelSample()},
 
                 new Object[]{"combination-category", null, "Combination Samples", "combination-category-icon", null, null, null},
                 new Object[]{"imageChooser", "combination-category", "Image Chooser", null, "images/thumbnails/combination/chooser.gif", null, new ImageChooserSample()},
@@ -394,7 +398,8 @@ public class ScreenManager {
 
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
-                new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()}
+                new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
+                new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()}
                 
         };
     }

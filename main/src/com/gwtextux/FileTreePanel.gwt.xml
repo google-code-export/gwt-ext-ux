@@ -1,0 +1,14 @@
+<module>
+    <inherits name="com.gwtextux.GwtExtUx"/>
+    
+	<script src="js/filetree/js/Ext.ux.form.BrowseButton.js"/>
+	<script src="js/filetree/js/Ext.ux.FileUploader.js"/>
+	<script src="js/filetree/js/Ext.ux.UploadPanel.js"/>
+	<script src="js/filetree/js/Ext.ux.FileTreeMenu.js"/>
+	<script src="js/filetree/js/Ext.ux.FileTreePanel.js"/>
+	<script src="js/filetree/js/Ext.ux.ThemeCombo.js"/>
+	<stylesheet src="js/filetree/css/filetree.css"/>
+	<stylesheet src="js/filetree/css/filetype.css"/>
+	<stylesheet src="js/filetree/css/icons.css"/>
+    
+</module>

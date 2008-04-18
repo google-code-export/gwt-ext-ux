@@ -14,6 +14,11 @@
        <servlet-name>UploadSvc</servlet-name>
        <servlet-class>com.gwtextux.sample.showcase2.server.UploadSvcImpl</servlet-class>
    </servlet>
+   
+   <servlet>
+       <servlet-name>UploadSvc</servlet-name>
+       <servlet-class>com.gwtextux.sample.showcase2.server.FileTreeSvcImpl</servlet-class>
+   </servlet>
 
    <servlet-mapping>
        <servlet-name>GwtProxySvc</servlet-name>
@@ -28,5 +33,10 @@
    <servlet-mapping>
        <servlet-name>UploadSvc</servlet-name>
        <url-pattern>/UploadSvc</url-pattern>
+   </servlet-mapping>
+   
+   <servlet-mapping>
+       <servlet-name>FileTreeSvc</servlet-name>
+       <url-pattern>/FileTreeSvc</url-pattern>
    </servlet-mapping>
 </web-app>
