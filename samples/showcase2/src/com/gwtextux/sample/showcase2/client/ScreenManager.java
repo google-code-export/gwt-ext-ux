@@ -42,6 +42,8 @@ import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 import com.gwtextux.sample.showcase2.client.widgets.SwfUploadPanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
+import com.gwtextux.sample.showcase2.client.timeplot.TimePlotTest;
+import com.gwtextux.sample.showcase2.client.timeline.TimeLineTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -396,11 +398,16 @@ public class ScreenManager {
                 new Object[]{"multiMonthCalendar", "widgets-category", "Multi month calendar", null,"images/thumbnails/widgets/multimonthcalendar.gif", null, new MultiMonthCalendarSample()},
                 new Object[]{"imageDDSample", "widgets-category", "Image Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new ImageDDSample()},
 
+
+                // sjivan -- please uncomment next line 
+                //   new Object[]{"timeplotWidget", "widgets-category", "TimePlot Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new TimePlotTest()},
+                new Object[]{"timelinePanel", "widgets-category", "Timeline Sample", null, null, null, new TimeLineTest()},
+
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
                 new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
                 new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()}
-                
+
         };
     }
 }
