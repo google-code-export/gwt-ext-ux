@@ -1,7 +1,7 @@
 Extension Page : http://www.silverbiology.com/ext_samples/SwfUploadPanel/uploaddemo.php
 Author : Michael Giddens
 v 0.4 (March 6th 2008)
-License : ?
+License : MIT
 
 There were some changes to the original code.  
 The original files are renamed .org so that a comparison can be made.
