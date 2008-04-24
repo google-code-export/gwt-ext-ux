@@ -16,7 +16,7 @@
    </servlet>
    
    <servlet>
-       <servlet-name>UploadSvc</servlet-name>
+       <servlet-name>FileTreeSvc</servlet-name>
        <servlet-class>com.gwtextux.sample.showcase2.server.FileTreeSvcImpl</servlet-class>
    </servlet>
 
