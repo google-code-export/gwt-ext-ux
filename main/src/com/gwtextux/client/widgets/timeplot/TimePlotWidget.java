@@ -33,11 +33,8 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
-import com.gwtextux.sample.showcase2.client.timeplot.CommandLoadXMLDataset;
-import com.gwtextux.sample.showcase2.client.timeplot.CommandLoadTextDataset;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,98 +63,26 @@ public class TimePlotWidget extends Widget
 
     protected void onLoad()
     {
+        Window.alert("initialise called");
         super.onLoad();
-        Color redcolor = Color.createColor("#ff0000");
-        Color bluecolor = Color.createColor("#0000ff");
-        Color greencolor = Color.createColor("#00ff00");
-        Color lightGreencolor = Color.createColor("#5C832F");
-        Color gridcolor = Color.createColor("#ffff00");
+        if (timeplot == null) initialise();
+    }
 
-        TimeGeometryOptions tgopts = TimeGeometryOptions.create();
-        tgopts.setGridColor(gridcolor);
-        tgopts.setAxisLabelsPlacement("bottom");
-        TimeGeometry tgeo = TimeGeometry.create(tgopts);
+    public void initialise()
+    {
 
-        ValueGeometryOptions geometry1opts = ValueGeometryOptions.create();
-        geometry1opts.setAxisLabelsPlacement("left");
-        geometry1opts.setGridColor(gridcolor);
-        geometry1opts.setGridType("short");
-        geometry1opts.setMin(0);
-        ValueGeometry geometry1 = ValueGeometry.create(geometry1opts);
-
-        ValueGeometryOptions geometry2opts = ValueGeometryOptions.create();
-        geometry2opts.setMin(0);
-        ValueGeometry geometry2 = ValueGeometry.create(geometry2opts);
-
-        List eventSources = getEventSources();
-        List dataSources = getDataSources();
-
-        EventSource eventSource3 = EventSource.create();
-        eventSources.add(eventSource3);
-
-
-        EventSource eventSource1 = EventSource.create();
-        eventSources.add(eventSource1);
-
-        DataSource dataSource1 = DataSource.create(eventSource1, 1);
-        dataSources.add(dataSource1);
-
-        EventSource eventSource2 = EventSource.create();
-        eventSources.add(eventSource2);
-
-        DataSource dataSource2 = DataSource.create(eventSource2, 1);
-        dataSources.add(dataSource2);
-
-        ArrayList plotInfos = getPlotInfos();
-
-        PlotOptions plotOptions1 = PlotOptions.create();
-        plotOptions1.setId("Population");
-        plotOptions1.setDataSource(dataSource1);
-        plotOptions1.setTimeGeometry(tgeo);
-        plotOptions1.setValueGeometry(geometry1);
-        plotOptions1.setLineColor(greencolor);
-        plotOptions1.setDotColor(lightGreencolor);
-        plotOptions1.setShowValues(true);
-        PlotInfo pinfo1 = PlotInfo.create(plotOptions1);
-        plotInfos.add(pinfo1);
-
-
-        PlotOptions plotOptions2 = PlotOptions.create();
-        plotOptions2.setId("Immigration");
-        plotOptions2.setDataSource(dataSource2);
-        plotOptions2.setTimeGeometry(tgeo);
-        plotOptions2.setValueGeometry(geometry2);
-        plotOptions2.setLineColor(bluecolor);
-        plotOptions2.setDotColor(bluecolor);
-        plotOptions2.setShowValues(true);
-        PlotInfo pinfo2 = PlotInfo.create(plotOptions2);
-        plotInfos.add(pinfo2);
-
-
-        PlotOptions plotOptions3 = PlotOptions.create();
-        plotOptions3.setId("Events");
-        plotOptions3.setEventSource(eventSource3);
-        plotOptions3.setTimeGeometry(tgeo);
-        plotOptions3.setLineColor(redcolor);
-        PlotInfo pinfo3 = PlotInfo.create(plotOptions3);
-        plotInfos.add(pinfo3);
-
+        renderer.render(this);
         timeplot = TimePlot.create(plotInfos, divElement, getClientElement());
-        DeferredCommand.add(new CommandLoadXMLDataset(eventSource3, this, "data/us_history.xml"));
-        DeferredCommand.add(new CommandLoadTextDataset(eventSource1, this, "data/us_population.txt", " "));
-        DeferredCommand.add(new CommandLoadTextDataset(eventSource2, this, "data/immigration.txt", " "));
-
-    //    renderer.render(this);
     }
 
     public void clearData()
     {
         if (dataSources != null)
-            for (Iterator iterator = dataSources.iterator(); iterator.hasNext();)
-            {
-                DataSource dataSource = (DataSource) iterator.next();
-                dataSource.clear();
-            }
+        for (Iterator iterator = dataSources.iterator(); iterator.hasNext();)
+        {
+            DataSource dataSource = (DataSource) iterator.next();
+            dataSource.clear();
+        }
 
         if (eventSources != null)
             for (Iterator iterator = eventSources.iterator(); iterator.hasNext();)
