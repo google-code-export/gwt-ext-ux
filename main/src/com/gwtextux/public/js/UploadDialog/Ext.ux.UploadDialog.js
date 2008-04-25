@@ -1364,7 +1364,7 @@ Ext.extend(Ext.ux.UploadDialog.Dialog, Ext.Window, {
     }
     try { 
         var rt = response.responseText;
-        var filter = rt.match(/^<pre>((?:.|\n)*)<\/pre>$/i);
+        var filter = rt.match(/^<[^>]+>((?:.|\n)*)<\/[^>]+>$/);
         if (filter) {
             rt = filter[1];
         }
