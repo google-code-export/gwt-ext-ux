@@ -33,7 +33,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
 
 /**
- * TimeLineImpl
+ * TimePlotImpl
  *
  * @author antonio.signore@gmail.com
  */
@@ -56,7 +56,7 @@ public class TimePlotImpl
 	}-*/;
 
     public native static void loadText(EventSource eventSource, TimePlot timePlot, String dataUrl, String separator) /*-{
-        timePlot.loadText(dataUrl, separator, eventSource);
+        timePlot.loadloadText(dataUrl, separator, eventSource);
     }-*/;
 
     public native static void loadText(EventSource eventSource, TimePlot timePlot, String dataUrl, String separator, JavaScriptObject filter) /*-{

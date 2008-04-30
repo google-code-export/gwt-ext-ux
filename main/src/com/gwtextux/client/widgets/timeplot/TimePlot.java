@@ -31,6 +31,7 @@ package com.gwtextux.client.widgets.timeplot;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.UIObject;
 
 import java.util.List;

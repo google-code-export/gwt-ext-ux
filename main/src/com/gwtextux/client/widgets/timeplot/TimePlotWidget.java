@@ -63,14 +63,12 @@ public class TimePlotWidget extends Widget
 
     protected void onLoad()
     {
-        Window.alert("initialise called");
         super.onLoad();
         if (timeplot == null) initialise();
     }
 
     public void initialise()
     {
-
         renderer.render(this);
         timeplot = TimePlot.create(plotInfos, divElement, getClientElement());
     }
