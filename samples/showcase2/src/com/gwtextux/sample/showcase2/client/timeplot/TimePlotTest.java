@@ -31,14 +31,15 @@ package com.gwtextux.sample.showcase2.client.timeplot;
 
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 import com.gwtext.client.widgets.Panel;
+import com.google.gwt.user.client.Window;
 
 public class TimePlotTest extends ShowcasePanel
 {
-    public static TimePlotPanel timeplotPanel = null;
+    public static TimePlotPanel timeplotPanel;
 
     public TimePlotTest()
     {
-        timeplotPanel = new TimePlotPanel("300","200");
+        timeplotPanel = new TimePlotPanel("100%","200");
     }
 
     public Panel getViewPanel()
@@ -58,10 +59,5 @@ public class TimePlotTest extends ShowcasePanel
     {
         timeplotPanel.onWindowResized(width, height);
     }
-
-    /*  public static TimePlotPanel getMainPanel()
-    {
-        return timeplotPanel;
-    }*/
 
 }

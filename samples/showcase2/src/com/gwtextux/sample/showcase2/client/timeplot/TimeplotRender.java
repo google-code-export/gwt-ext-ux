@@ -31,6 +31,7 @@ package com.gwtextux.sample.showcase2.client.timeplot;
 
 
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Window;
 import com.gwtextux.client.widgets.timeplot.*;
 import com.gwtextux.client.widgets.timeplot.Color;
 import com.gwtextux.client.widgets.timeplot.TimePlotWidget;
@@ -46,6 +47,10 @@ import java.util.List;
 public class TimeplotRender implements ITimePlotRender
 {
 
+    EventSource eventSource1;
+    EventSource eventSource2;
+    EventSource eventSource3;
+
     /**
      * Create timeline custom elements.
      *
@@ -53,6 +58,7 @@ public class TimeplotRender implements ITimePlotRender
      */
     public void render(TimePlotWidget widget)
     {
+
         Color redcolor = Color.createColor("#ff0000");
         Color bluecolor = Color.createColor("#0000ff");
         Color greencolor = Color.createColor("#00ff00");
@@ -78,21 +84,17 @@ public class TimeplotRender implements ITimePlotRender
         List eventSources = widget.getEventSources();
         List dataSources = widget.getDataSources();
 
-        EventSource eventSource3 = EventSource.create();
+        eventSource3 = EventSource.create();
         eventSources.add(eventSource3);
         
-        DeferredCommand.add(new CommandLoadXMLDataset(eventSource3, widget, "data/us_history.xml"));
-
-        EventSource eventSource1 = EventSource.create();
+        eventSource1 = EventSource.create();
         eventSources.add(eventSource1);
-        DeferredCommand.add(new CommandLoadTextDataset(eventSource1, widget, "data/us_population.txt", " "));
 
         DataSource dataSource1 = DataSource.create(eventSource1, 1);
         dataSources.add(dataSource1);
 
-        EventSource eventSource2 = EventSource.create();
+        eventSource2 = EventSource.create();
         eventSources.add(eventSource2);
-        DeferredCommand.add(new CommandLoadTextDataset(eventSource2, widget, "data/immigration.txt", " "));
 
         DataSource dataSource2 = DataSource.create(eventSource2, 1);
         dataSources.add(dataSource2);
@@ -110,7 +112,6 @@ public class TimeplotRender implements ITimePlotRender
         PlotInfo pinfo1 = PlotInfo.create(plotOptions1);
         plotInfos.add(pinfo1);
 
-
         PlotOptions plotOptions2 = PlotOptions.create();
         plotOptions2.setId("Immigration");
         plotOptions2.setDataSource(dataSource2);
@@ -122,7 +123,6 @@ public class TimeplotRender implements ITimePlotRender
         PlotInfo pinfo2 = PlotInfo.create(plotOptions2);
         plotInfos.add(pinfo2);
 
-
         PlotOptions plotOptions3 = PlotOptions.create();
         plotOptions3.setId("Events");
         plotOptions3.setEventSource(eventSource3);
@@ -130,6 +130,14 @@ public class TimeplotRender implements ITimePlotRender
         plotOptions3.setLineColor(redcolor);
         PlotInfo pinfo3 = PlotInfo.create(plotOptions3);
         plotInfos.add(pinfo3);
+
+    }
+
+    public void postCreate(TimePlotWidget widget)
+    {
+        DeferredCommand.add(new CommandLoadXMLDataset(eventSource3, widget, "data/us_history.xml"));
+        DeferredCommand.add(new CommandLoadTextDataset(eventSource1, widget, "data/us_population.txt", " "));
+        DeferredCommand.add(new CommandLoadTextDataset(eventSource2, widget, "data/immigration.txt", " "));
 
     }
 

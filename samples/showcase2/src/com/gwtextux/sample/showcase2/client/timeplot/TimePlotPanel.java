@@ -29,49 +29,53 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.gwtextux.sample.showcase2.client.timeplot;
 
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.gwtextux.client.widgets.timeplot.ITimePlotRender;
 import com.gwtextux.client.widgets.timeplot.TimePlotWidget;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Container;
+import com.gwtext.client.widgets.event.PanelListenerAdapter;
+import com.gwtext.client.core.Function;
+import com.gwtext.client.core.ExtElement;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
 
 
-public class TimePlotPanel extends Composite
+public class TimePlotPanel extends Panel
 {
-    private ScrollPanel panel = null;
     TimePlotWidget plotWidget = null;
+    ITimePlotRender render;
 
     public TimePlotPanel(String width, String height)
     {
-        panel = new ScrollPanel();
-        ITimePlotRender render = new TimeplotRender();
+        render = new TimeplotRender();
         plotWidget = new TimePlotWidget(width, height, render, "chart1");
-        panel.add(plotWidget);
-        panel.setAlwaysShowScrollBars(true);
-        initWidget(panel);
+        this.add(plotWidget);
     }
+
+     protected void afterRender() {
+		DeferredCommand.addCommand(new Command() {
+			public void execute() {
+					DeferredCommand.addCommand(new Command() {
+						public void execute() {
+                            render.postCreate(plotWidget);
+						}
+					});
+				}
+		});
+	}
 
     public void onWindowResized(int width, int height)
     {
         resize(width, height);
     }
 
-    public ScrollPanel getPanel()
-    {
-        return panel;
-    }
-
-   /* private void resize()
-    {
-        plotWidget.resize();
-    }*/
-
      private void resize(int width, int height)
     {
         if ((width > 0) && (height > 0))
         {
-            panel.setWidth(Integer.toString(width) + "px");
-            panel.setHeight(Integer.toString(height) + "px");
             plotWidget.setWidth(Integer.toString(width) + "px");
             plotWidget.setHeight(Integer.toString(height) + "px");
             plotWidget.resize();

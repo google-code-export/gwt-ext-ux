@@ -163,7 +163,7 @@ public class FileTreePanelSample extends ShowcasePanel {
                       Connection con = new Connection(conCfg);
                       con.request(reqParam);
                       
-                      AsyncTreeNode aNode = new AsyncTreeNode(ftp.getRootNode().getJsObj());
+                      AsyncTreeNode aNode =null;// new AsyncTreeNode(ftp.getRootNode().getJsObj());
                       aNode.reload();
                 }
             });

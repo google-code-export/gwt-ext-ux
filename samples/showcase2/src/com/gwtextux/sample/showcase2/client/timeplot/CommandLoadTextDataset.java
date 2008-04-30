@@ -30,6 +30,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.gwtextux.sample.showcase2.client.timeplot;
 
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.gwtextux.client.widgets.timeplot.EventSource;
 import com.gwtextux.client.widgets.timeplot.TimePlotWidget;
 
