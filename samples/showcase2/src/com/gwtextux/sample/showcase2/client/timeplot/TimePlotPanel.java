@@ -32,15 +32,8 @@ package com.gwtextux.sample.showcase2.client.timeplot;
 import com.gwtextux.client.widgets.timeplot.ITimePlotRender;
 import com.gwtextux.client.widgets.timeplot.TimePlotWidget;
 import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.Container;
-import com.gwtext.client.widgets.event.PanelListenerAdapter;
-import com.gwtext.client.core.Function;
-import com.gwtext.client.core.ExtElement;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
 
 
 public class TimePlotPanel extends Panel
@@ -60,7 +53,7 @@ public class TimePlotPanel extends Panel
 			public void execute() {
 					DeferredCommand.addCommand(new Command() {
 						public void execute() {
-                            render.postCreate(plotWidget);
+                            render.afterRender(plotWidget);
 						}
 					});
 				}

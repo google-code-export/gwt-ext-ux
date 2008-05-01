@@ -133,12 +133,11 @@ public class TimeplotRender implements ITimePlotRender
 
     }
 
-    public void postCreate(TimePlotWidget widget)
+    public void afterRender(TimePlotWidget widget)
     {
         DeferredCommand.add(new CommandLoadXMLDataset(eventSource3, widget, "data/us_history.xml"));
         DeferredCommand.add(new CommandLoadTextDataset(eventSource1, widget, "data/us_population.txt", " "));
         DeferredCommand.add(new CommandLoadTextDataset(eventSource2, widget, "data/immigration.txt", " "));
-
     }
 
 }
