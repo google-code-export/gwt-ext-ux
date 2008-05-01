@@ -42,7 +42,7 @@ public class TimeLineTest extends ShowcasePanel implements WindowResizeListener
      */
     private String getInitialDataset()
     {
-         String dataset = "http://localhost:9999/hedge/com.gwtextux.sample.showcase2.Showcase2/data/timeline.xml";
+        String dataset = "data/timeline.xml";
         return (dataset);
     }
 

@@ -7,9 +7,6 @@ import com.gwtextux.client.widgets.timeline.ITimeLineRender;
 import com.gwtextux.client.widgets.timeline.TimeLineWidget;
 
 
-/**
- * A composite that holds SIMILE Timeline control
- */
 public class TimeLinePanel extends Composite
 {
     // GUI elements
@@ -49,13 +46,10 @@ public class TimeLinePanel extends Composite
     {
         if ((width > 0) && (height > 0))
         {
-
             panel.setWidth(Integer.toString(width) + "px");
             panel.setHeight(Integer.toString(height) + "px");
-
             simileWidget.setWidth(Integer.toString(width) + "px");
             simileWidget.setHeight(Integer.toString(height) + "px");
-
             simileWidget.layout();
         }
 

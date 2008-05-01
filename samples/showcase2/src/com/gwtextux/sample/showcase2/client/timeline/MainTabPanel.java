@@ -49,16 +49,7 @@ public class MainTabPanel extends Composite
     {
         if ((width > 0) && (height > 0))
         {
-/*
-            int tabBarAbsoluteLeft = panelTabbed.getTabBar().getAbsoluteLeft();
-            int tabBarOffsetHeight = panelTabbed.getTabBar().getOffsetHeight();
-
-            int viewWidth = width - tabBarAbsoluteLeft;
-            int viewHeight = height - tabBarOffsetHeight;
-*/
-
             tabTimeLine.onWindowResized(width, height);
-
             tabTimeLine.setWidth(Integer.toString(width) + "px");
             tabTimeLine.setHeight(Integer.toString(height) + "px");
         }

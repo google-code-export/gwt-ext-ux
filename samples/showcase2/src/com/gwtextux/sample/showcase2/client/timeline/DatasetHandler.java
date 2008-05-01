@@ -8,12 +8,6 @@ import com.gwtextux.sample.showcase2.client.timeline.command.CommandLoadDataset;
 import com.gwtextux.client.widgets.timeline.TimeLineWidget;
 import com.gwtextux.client.widgets.timeline.TimelineXMLHandler;
 
-/**
- * This class handles requesting and processing the data.
- *
- * @author ajr
- *
- */
 class DatasetHandler implements TimelineXMLHandler
 {
 	// Instance
@@ -29,7 +23,6 @@ class DatasetHandler implements TimelineXMLHandler
      */
     public DatasetHandler()
     {
-        // Popup
         popupBusy = new BusyPopup();
     }
 
