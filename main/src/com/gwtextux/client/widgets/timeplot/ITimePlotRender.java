@@ -32,5 +32,5 @@ package com.gwtextux.client.widgets.timeplot;
 public interface ITimePlotRender
 {
     public void render(TimePlotWidget widget);
-    public void postCreate(TimePlotWidget widget);
+    public void afterRender(TimePlotWidget widget);
 }
