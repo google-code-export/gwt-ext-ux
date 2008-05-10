@@ -56,7 +56,7 @@ public class TimePlotImpl
 	}-*/;
 
     public native static void loadText(EventSource eventSource, TimePlot timePlot, String dataUrl, String separator) /*-{
-        timePlot.loadloadText(dataUrl, separator, eventSource);
+        timePlot.loadText(dataUrl, separator, eventSource);
     }-*/;
 
     public native static void loadText(EventSource eventSource, TimePlot timePlot, String dataUrl, String separator, JavaScriptObject filter) /*-{

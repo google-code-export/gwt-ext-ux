@@ -8,8 +8,6 @@
 	<inherits name="com.google.gwt.user.History"/>
 	<inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="com.gwtextux.MultiSelect"/>
-    <inherits name="com.gwtextux.Timeplot"/>
-    <inherits name='com.gwtextux.Timeline' />
     
     <entry-point class='com.gwtextux.sample.showcase2.client.Showcase2'/>
 
