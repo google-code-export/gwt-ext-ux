@@ -1,4 +1,5 @@
-
 <module>
-    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.gwtextux.GwtExtUx"/>
+    <script src="js/util/timeline-helper.js" />
+    <script src="js/api/timeline-api.js" />
 </module>

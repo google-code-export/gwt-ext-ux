@@ -24,5 +24,7 @@
 	<inherits name="com.gwtextux.GridSummaryPlugin"/>
     <inherits name="com.gwtextux.FileTreePanel"/>
     <inherits name="com.gwtextux.SwfUploadPanel"/>
+    <inherits name="com.gwtextux.Timeline"/>
+    <inherits name="com.gwtextux.Timeplot"/>
 
 </module>
