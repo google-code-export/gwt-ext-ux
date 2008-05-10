@@ -1,6 +1,4 @@
 <module>
     <inherits name="com.gwtextux.GwtExtUx"/>
-
     <script src="http://static.simile.mit.edu/timeplot/api/1.0/timeplot-api.js"/>
-
 </module>
