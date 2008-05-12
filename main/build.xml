@@ -12,6 +12,22 @@
 
     </fileset>
 
+    <target name="combineJS" description="Combines all the JS files and minifies it">
+        <property name="jsdir" location="src/com/gwtextux/public/js"/>
+        <concat destfile="${gwtextux.build.out}/ext-ux-all.js" fixlastline="yes">
+            <filelist dir="${jsdir}/UploadDialog" files="Ext.ux.UploadDialog.packed.js"/>
+            <filelist dir="${jsdir}/gridsearch" files="ext-ux-grid-search.js"/>
+            <filelist dir="${jsdir}/livegrid" files="BufferedGridDragZone.js,BufferedGridToolbar.js,BufferedGridView.js,BufferedJsonReader.js,BufferedRowSelectionModel.js,BufferedStore.js"/>
+            <filelist dir="${jsdir}/mif" files="ext-ux-miframe.js"/>
+            <filelist dir="${jsdir}/msis" files="Multiselect.js,DDView.js"/>
+            <filelist dir="${jsdir}/multicalendar" files="MultiMonthCalendar.js"/>
+        </concat>
+
+        <java jar="${yui.compressor.jar}" fork="true">
+             <arg line="${gwtextux.build.out}/ext-ux-all.js --nomunge -o ${gwtextux.build.out}/ext-ux-all-min.js"/>
+        </java>
+        
+    </target>
     <!--
          Default web mode test cases
      -->
