@@ -34,7 +34,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 public class TimeGeometry extends JavaScriptObject
 {
-    public TimeGeometry()
+    protected TimeGeometry()
     {
         super();
     }

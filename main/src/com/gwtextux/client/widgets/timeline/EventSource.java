@@ -29,7 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class EventSource extends JavaScriptObject
 {
-    protected EventSource(int opaque)
+    protected EventSource()
     {
         super();
     }
@@ -43,7 +43,7 @@ public class EventSource extends JavaScriptObject
      * Load data stream into timeline event source
      * @param dataUrl
      */
-    public void loadXML(String dataUrl)
+    public final void loadXML(String dataUrl)
     {
         EventSourceImpl.loadXML(dataUrl, this);
     }
@@ -53,7 +53,7 @@ public class EventSource extends JavaScriptObject
      * 
      * @param dataUrl
      */
-    public void loadXMLText(String xmlText)
+    public final void loadXMLText(String xmlText)
     {
         EventSourceImpl.loadXMLText(xmlText, GWT.getModuleBaseURL(), this);
     }
@@ -63,7 +63,7 @@ public class EventSource extends JavaScriptObject
      *  
      * @param json
      */
-    public void loadJSON(String json) 
+    public final void loadJSON(String json) 
     {
 		EventSourceImpl.loadJSON(json, GWT.getModuleBaseURL(),this);
 	}
@@ -72,13 +72,13 @@ public class EventSource extends JavaScriptObject
      * Load data stream into timeline event source
      * @param dataUrl
      */
-    public void load(JavaScriptObject xml, String url)
+    public final void load(JavaScriptObject xml, String url)
     {
         EventSourceImpl.loadXML(xml, url, this);
     }
     
 
-    public void clear()
+    public final void clear()
     {
         EventSourceImpl.clear(this);
     }

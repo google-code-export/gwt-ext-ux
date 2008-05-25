@@ -52,7 +52,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * how much of the timeline's space this band takes up, expressed as a percent in a string, e.g., "30%"
      */
-    public String getId()
+    public final String getId()
     {
         return JavaScriptObjectHelper.getAttribute(this, "id");
     }
@@ -60,7 +60,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, how much of the timeline's space this band takes up, expressed as a percent in a string, e.g., "30%"
      */
-    public void setId(String width)
+    public final void setId(String width)
     {
         JavaScriptObjectHelper.setAttribute(this, "id", width);
     }
@@ -68,7 +68,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, Data source
      */
-    public void setDataSource(DataSource value)
+    public final void setDataSource(DataSource value)
     {
         JavaScriptObjectHelper.setAttribute(this, "dataSource", value);
     }
@@ -76,7 +76,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * Data source
      */
-    public JavaScriptObject getDataSource()
+    public final JavaScriptObject getDataSource()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "dataSource");
     }
@@ -85,7 +85,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, Event source
      */
-    public void setEventSource(EventSource value)
+    public final void setEventSource(EventSource value)
     {
         JavaScriptObjectHelper.setAttribute(this, "eventSource", value);
     }
@@ -93,7 +93,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * Event source
      */
-    public JavaScriptObject getEventSource()
+    public final JavaScriptObject getEventSource()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "eventSource");
     }
@@ -102,7 +102,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, Event source
      */
-    public void setTimeGeometry(TimeGeometry value)
+    public final void setTimeGeometry(TimeGeometry value)
     {
         JavaScriptObjectHelper.setAttribute(this, "timeGeometry", value);
     }
@@ -110,7 +110,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * Event source
      */
-    public JavaScriptObject getTimeGeometry()
+    public final JavaScriptObject getTimeGeometry()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "timeGeometry");
     }
@@ -119,7 +119,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, Event source
      */
-    public void setValueGeometry(ValueGeometry value)
+    public final void setValueGeometry(ValueGeometry value)
     {
         JavaScriptObjectHelper.setAttribute(this, "valueGeometry", value);
     }
@@ -127,13 +127,13 @@ public class PlotOptions extends JavaScriptObject
     /**
      * Event source
      */
-    public JavaScriptObject getValueGeometry()
+    public final JavaScriptObject getValueGeometry()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "valueGeometry");
     }
 
 
-    public JavaScriptObject getLineColor()
+    public final JavaScriptObject getLineColor()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "lineColor");
     }
@@ -141,13 +141,13 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, a time unit from Timeline.DateTime, e.g., Timeline.DateTime.WEEK.
      */
-    public void setLineColor(Color value)
+    public final void setLineColor(Color value)
     {
         JavaScriptObjectHelper.setAttribute(this, "lineColor", value);
     }
 
 
-    public JavaScriptObject getDotColor()
+    public final JavaScriptObject getDotColor()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "dotColor");
     }
@@ -155,7 +155,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * required, a time unit from Timeline.DateTime, e.g., Timeline.DateTime.WEEK.
      */
-    public void setDotColor(Color value)
+    public final void setDotColor(Color value)
     {
         JavaScriptObjectHelper.setAttribute(this, "dotColor", value);
     }
@@ -164,7 +164,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * a boolean specifying whether event titles are to be painted. The default is true.
      */
-    public boolean getShowValues()
+    public final boolean getShowValues()
     {
         return JavaScriptObjectHelper.getAttributeAsBoolean(this, "showValues");
     }
@@ -172,7 +172,7 @@ public class PlotOptions extends JavaScriptObject
     /**
      * optional, a boolean specifying whether event titles are to be painted. The default is true.
      */
-    public void setShowValues(boolean value)
+    public final void setShowValues(boolean value)
     {
         JavaScriptObjectHelper.setAttribute(this, "showValues", value);
     }

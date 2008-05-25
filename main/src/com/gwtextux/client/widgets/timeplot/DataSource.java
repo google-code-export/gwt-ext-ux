@@ -48,7 +48,7 @@ public class DataSource extends JavaScriptObject
         return DataSourceImpl.createDataSourceObject(s, column);
     }
 
-    public void clear()
+    public final void clear()
     {
         DataSourceImpl.clear(this);
     }

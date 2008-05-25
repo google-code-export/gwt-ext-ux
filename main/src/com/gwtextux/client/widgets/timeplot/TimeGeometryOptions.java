@@ -48,22 +48,22 @@ public class TimeGeometryOptions extends JavaScriptObject
         return TimeGeometryOptionsImpl.create();
     }
 
-    public JavaScriptObject getGridColor()
+    public final JavaScriptObject getGridColor()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "gridColor");
     }
 
-    public void setGridColor(Color value)
+    public final void setGridColor(Color value)
     {
         JavaScriptObjectHelper.setAttribute(this, "gridColor", value);
     }
 
-    public String getAxisLabelsPlacement()
+    public final String getAxisLabelsPlacement()
     {
         return JavaScriptObjectHelper.getAttribute(this, "axisLabelsPlacement");
     }
 
-    public void setAxisLabelsPlacement(String width)
+    public final void setAxisLabelsPlacement(String width)
     {
         JavaScriptObjectHelper.setAttribute(this, "axisLabelsPlacement", width);
     }

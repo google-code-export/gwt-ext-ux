@@ -44,52 +44,52 @@ public class ValueGeometryOptions extends JavaScriptObject
         return ValueGeometryOptionsImpl.create();
     }
 
-    public JavaScriptObject getGridColor()
+    public final JavaScriptObject getGridColor()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "gridColor");
     }
 
-    public void setGridColor(Color value)
+    public final void setGridColor(Color value)
     {
         JavaScriptObjectHelper.setAttribute(this, "gridColor", value);
     }
 
-    public String getGridType()
+    public final String getGridType()
     {
         return JavaScriptObjectHelper.getAttribute(this, "gridType");
     }
 
-    public void setGridType(String width)
+    public final void setGridType(String width)
     {
         JavaScriptObjectHelper.setAttribute(this, "gridType", width);
     }
 
-    public int getAxisLabelsPlacement()
+    public final int getAxisLabelsPlacement()
     {
         return JavaScriptObjectHelper.getAttributeAsInt(this, "axisLabelsPlacement");
     }
 
-    public void setAxisLabelsPlacement(String width)
+    public final void setAxisLabelsPlacement(String width)
     {
         JavaScriptObjectHelper.setAttribute(this, "axisLabelsPlacement", width);
     }
 
-    public int getMin()
+    public final int getMin()
     {
         return JavaScriptObjectHelper.getAttributeAsInt(this, "min");
     }
 
-    public void setMin(int min)
+    public final void setMin(int min)
     {
         JavaScriptObjectHelper.setAttribute(this, "min", min);
     }
 
-    public int getMax()
+    public final int getMax()
     {
         return JavaScriptObjectHelper.getAttributeAsInt(this, "max");
     }
 
-    public void setMax(int min)
+    public final void setMax(int min)
     {
         JavaScriptObjectHelper.setAttribute(this, "max", min);
     }

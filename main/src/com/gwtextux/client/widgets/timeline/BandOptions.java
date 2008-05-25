@@ -29,7 +29,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class BandOptions extends JavaScriptObject
 {
-    protected BandOptions(int opaque)
+    protected BandOptions()
     {
         super();
     }
@@ -43,7 +43,7 @@ public class BandOptions extends JavaScriptObject
      * how much of the timeline's space this band takes up, expressed as a percent in a string, e.g., "30%"
      *
      */
-    public String getWidth()
+    public final String getWidth()
     {
         return JavaScriptObjectHelper.getAttribute(this, "width");
     }
@@ -51,7 +51,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * required, how much of the timeline's space this band takes up, expressed as a percent in a string, e.g., "30%"
      */
-    public void setWidth(String width)
+    public final void setWidth(String width)
     {
         JavaScriptObjectHelper.setAttribute(this, "width", width);
     }
@@ -60,7 +60,7 @@ public class BandOptions extends JavaScriptObject
      * a time unit from Timeline.DateTime, e.g., Timeline.DateTime.WEEK.
      *
      */
-    public int getIntervalUnit()
+    public final int getIntervalUnit()
     {
         return JavaScriptObjectHelper.getAttributeAsInt(this, "intervalUnit");
     }
@@ -68,7 +68,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * required, a time unit from Timeline.DateTime, e.g., Timeline.DateTime.WEEK.
      */
-    public void setIntervalUnit(int value)
+    public final void setIntervalUnit(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "intervalUnit", value);
     }
@@ -77,7 +77,7 @@ public class BandOptions extends JavaScriptObject
      * the number of pixels that the time unit above is mapped to, e.g., 100.
      *
      */
-    public int getIntervalPixels()
+    public final int getIntervalPixels()
     {
         return JavaScriptObjectHelper.getAttributeAsInt(this, "intervalPixels");
     }
@@ -85,7 +85,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * required, the number of pixels that the time unit above is mapped to, e.g., 100.
      */
-    public void setIntervalPixels(int value)
+    public final void setIntervalPixels(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "intervalPixels", value);
     }
@@ -94,7 +94,7 @@ public class BandOptions extends JavaScriptObject
      * a boolean specifying whether event titles are to be painted. The default is true. 
      *
      */
-    public boolean getShowEventText()
+    public final boolean getShowEventText()
     {
         return JavaScriptObjectHelper.getAttributeAsBoolean(this, "showEventText");
     }
@@ -102,7 +102,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * optional, a boolean specifying whether event titles are to be painted. The default is true.
      */
-    public void setShowEventText(boolean value)
+    public final void setShowEventText(boolean value)
     {
         JavaScriptObjectHelper.setAttribute(this, "showEventText", value);
     }
@@ -113,7 +113,7 @@ public class BandOptions extends JavaScriptObject
      * default theme. E.g., 0.5.
      *
      */
-    public float getTrackGap()
+    public final float getTrackGap()
     {
         return JavaScriptObjectHelper.getAttributeAsFloat(this, "trackGap");
     }
@@ -123,7 +123,7 @@ public class BandOptions extends JavaScriptObject
      * tracks on which events are painted. The default value is retrieved from the provided or 
      * default theme. E.g., 0.5.
      */
-    public void setTrackGap(float value)
+    public final void setTrackGap(float value)
     {
         JavaScriptObjectHelper.setAttribute(this, "trackGap", value);
     }
@@ -133,7 +133,7 @@ public class BandOptions extends JavaScriptObject
      * The default value is retrieved from the provided or default theme. E.g., 1.5.
      *
      */
-    public float getTrackHeight()
+    public final float getTrackHeight()
     {
         return JavaScriptObjectHelper.getAttributeAsFloat(this, "trackHeight");
     }
@@ -142,7 +142,7 @@ public class BandOptions extends JavaScriptObject
      * optional, the height of each track in em  (dependent on the current font). 
      * The default value is retrieved from the provided or default theme. E.g., 1.5.
      */
-    public void setTrackHeight(float value)
+    public final void setTrackHeight(float value)
     {
         JavaScriptObjectHelper.setAttribute(this, "trackHeight", value);
     }
@@ -150,7 +150,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * required, Band theme
      */
-    public void setTheme(Theme value)
+    public final void setTheme(Theme value)
     {
         JavaScriptObjectHelper.setAttribute(this, "theme", value);
     }
@@ -158,7 +158,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * Band theme
      */
-    public JavaScriptObject getTheme()
+    public final JavaScriptObject getTheme()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "theme");
     }
@@ -166,7 +166,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * required, Event source
      */
-    public void setEventSource(EventSource value)
+    public final void setEventSource(EventSource value)
     {
         JavaScriptObjectHelper.setAttribute(this, "eventSource", value);
     }
@@ -174,7 +174,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * Event source
      */
-    public JavaScriptObject getEventSource()
+    public final JavaScriptObject getEventSource()
     {
         return JavaScriptObjectHelper.getAttributeAsJavaScriptObject(this, "eventSource");
     }
@@ -182,7 +182,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * optional, set date
      */
-    public void setDate(String value)
+    public final void setDate(String value)
     {
         JavaScriptObjectHelper.setAttribute(this, "date", value);
     }
@@ -190,7 +190,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * optional, set time zone
      */
-    public void setTimeZone(int value)
+    public final void setTimeZone(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "timeZone", value);
     }
@@ -198,7 +198,7 @@ public class BandOptions extends JavaScriptObject
     /**
      * optional, set hot zones
      */
-    public void setZones(List zones)
+    public final void setZones(List zones)
     {
     	JavaScriptObject[] zonesArr = JavaScriptObjectHelper.listToArray(zones);
 

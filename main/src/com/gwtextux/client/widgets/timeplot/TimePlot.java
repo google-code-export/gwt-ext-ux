@@ -31,7 +31,6 @@ package com.gwtextux.client.widgets.timeplot;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.UIObject;
 
 import java.util.List;
@@ -69,27 +68,27 @@ public class TimePlot extends JavaScriptObject
      * @param dataUrl
      * @param handler
      */
-    public void loadXML(EventSource eventSource, String dataUrl)
+    public final void loadXML(EventSource eventSource, String dataUrl)
     {
         TimePlotImpl.loadXML(eventSource, this, dataUrl);
     }
 
-    public void loadText(EventSource eventSource, String dataUrl, String separator)
+    public final void loadText(EventSource eventSource, String dataUrl, String separator)
     {
         TimePlotImpl.loadText(eventSource, this, dataUrl, separator);
     }
 
-    public void loadText(EventSource eventSource, String dataUrl, String separator, JavaScriptObject filter)
+    public final void loadText(EventSource eventSource, String dataUrl, String separator, JavaScriptObject filter)
     {
         TimePlotImpl.loadText(eventSource, this, dataUrl, separator, filter);
     }
 
-    public void closeBubble(int index)
+    public final void closeBubble(int index)
     {
         TimePlotImpl.closeBubble(index, this);
     }
 
-    public void resize()
+    public final void resize()
     {
         TimePlotImpl.resize(this);
     }

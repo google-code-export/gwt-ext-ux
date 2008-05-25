@@ -27,7 +27,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class BandInfo extends JavaScriptObject
 {
-    protected BandInfo(int opaque)
+    protected BandInfo()
     {
         super();
     }
@@ -42,12 +42,12 @@ public class BandInfo extends JavaScriptObject
         return BandInfoImpl.createHotZone(options);
     }
     
-    public void setSyncWith(int value)
+    public final void setSyncWith(int value)
     {
         BandInfoImpl.setSyncWith(this, value);
     }
 
-    public void setHighlight(boolean value)
+    public final void setHighlight(boolean value)
     {
         BandInfoImpl.setHighlight(this, value);
     }
@@ -57,7 +57,7 @@ public class BandInfo extends JavaScriptObject
      * 
      * @param decorators
      */
-    public void setDecorators(List decorators)
+    public final void setDecorators(List decorators)
     {
     	JavaScriptObject[] decoratorArr = JavaScriptObjectHelper.listToArray(decorators);
 

@@ -26,7 +26,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Theme extends JavaScriptObject
 {
-    protected Theme(int opaque)
+    protected Theme()
     {
         super();
     }
@@ -36,7 +36,7 @@ public class Theme extends JavaScriptObject
         return ThemeImpl.create();
     }
 
-    public void setEventLabelWidth(int width)
+    public final void setEventLabelWidth(int width)
     {
         ThemeImpl.setEventLabelWidth(this, width);
     }

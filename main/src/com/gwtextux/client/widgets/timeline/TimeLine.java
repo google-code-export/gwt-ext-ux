@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class TimeLine extends JavaScriptObject
 {
-    protected TimeLine(int opaque)
+    protected TimeLine()
     {
         super();
     }
@@ -55,7 +55,7 @@ public class TimeLine extends JavaScriptObject
      * Redraw timeline 
      *
      */
-    public void layout()
+    public final void layout()
     {
         TimeLineImpl.layout(this);
     }
@@ -66,7 +66,7 @@ public class TimeLine extends JavaScriptObject
      * @param dataUrl
      * @param handler
      */
-    public void loadXML(String dataUrl, TimelineXMLHandler handler)
+    public final void loadXML(String dataUrl, TimelineXMLHandler handler)
     {
         TimeLineImpl.loadXML(dataUrl, handler);
     }
@@ -75,7 +75,7 @@ public class TimeLine extends JavaScriptObject
      * Close info bubble for indicated band
      * @param index
      */
-    public void closeBubble(int index)
+    public final void closeBubble(int index)
     {
     	TimeLineImpl.closeBubble(index, this);
     }

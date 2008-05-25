@@ -38,12 +38,9 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class EventSource extends JavaScriptObject
 {
-    TimePlot timeplot;
-
-    protected EventSource(TimePlot timeplot)
+    protected EventSource()
     {
         super();
-        this.timeplot = timeplot;
     }
 
     public static EventSource create()
@@ -68,7 +65,7 @@ public class EventSource extends JavaScriptObject
     }
     */
 
-    public void clear()
+    public final void clear()
     {
         EventSourceImpl.clear(this);
     }

@@ -27,7 +27,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class HotZoneBandOptions extends JavaScriptObject
 {
-    protected HotZoneBandOptions(int opaque)
+    protected HotZoneBandOptions()
     {
         super();
     }
@@ -41,7 +41,7 @@ public class HotZoneBandOptions extends JavaScriptObject
      * required, a String or a Date object that specifies the beginning date/time of the zone. It is parsed by Timeline.DateTime.parseGregorianDateTime()  
      * to get a Date object.
      */
-    public void setStart(String value)
+    public final void setStart(String value)
     {
         JavaScriptObjectHelper.setAttribute(this, "start", value);
     }
@@ -50,7 +50,7 @@ public class HotZoneBandOptions extends JavaScriptObject
      * required, a String or a Date object that specifies the ending date/time of the zone. It is parsed by Timeline.DateTime.parseGregorianDateTime()  
      * to get a Date object.
      */
-    public void setEnd(String value)
+    public final void setEnd(String value)
     {
         JavaScriptObjectHelper.setAttribute(this, "end", value);
     }
@@ -59,7 +59,7 @@ public class HotZoneBandOptions extends JavaScriptObject
      * required, a number specifying the magnification of the mapping in this zone. A greater-than-1 number causes more pixels to be mapped 
      * to the same time interval, resulting in a zoom-in effect.
      */
-    public void setMagnify(int value)
+    public final void setMagnify(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "magnify", value);
     }
@@ -68,7 +68,7 @@ public class HotZoneBandOptions extends JavaScriptObject
      * required, one of the Gregorian calendar unit defined in Timeline.DateTime, e.g., Timeline.DateTime.MINUTE. This argument specifies 
      * the interval at which ticks and labels are painted on the band's background inside this hot-zone..
      */
-    public void setUnit(int value)
+    public final void setUnit(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "unit", value);
     }
@@ -77,7 +77,7 @@ public class HotZoneBandOptions extends JavaScriptObject
      * optional, default to 1. A label is painted for every multiple of unit. For example, if unit is Timeline.DateTime.MINUTE and 
      * multiple is 15, then there is a label for every 15 minutes (i.e., 15, 30, 45,...). 
      */
-    public void setMultiple(int value)
+    public final void setMultiple(int value)
     {
         JavaScriptObjectHelper.setAttribute(this, "multiple", value);
     }
