@@ -1,9 +1,6 @@
 package com.gwtextux.sample.showcase2.client.timeline;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowResizeListener;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.widgets.Panel;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 import com.gwtextux.client.widgets.timeplot.ClientSizeHelper;

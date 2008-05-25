@@ -403,7 +403,7 @@ public class ScreenManager {
                 // TODO: proper thumbnail for TimePlot Sample
                  new Object[]{"timeplotWidget", "widgets-category", "TimePlot Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new TimePlotTest()},
                 // TODO: proper thumbnail for Timeline Sampleh
-                new Object[]{"timelinePanel", "widgets-category", "Timeline Sample", null, null, null, new TimeLineTest()},
+                //new Object[]{"timelinePanel", "widgets-category", "Timeline Sample", null, null, null, new TimeLineTest()},
 
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
