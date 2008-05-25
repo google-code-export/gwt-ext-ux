@@ -27,6 +27,7 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
 	appendOnly:false,
 	sortField:null,
 	sortDir:'ASC',
+	textDelimiter:'|',
 	defaultAutoCreate : {tag: "div"},
 	
     initComponent: function(){
@@ -120,13 +121,20 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
 	},	
 	
 	getValue: function(valueField){
-		var returnArray = [];
-		var selectionsArray = this.view.getSelectedIndexes();
-		if (selectionsArray.length == 0) {return '';}
-		for (var i=0; i<selectionsArray.length; i++) {
-			returnArray.push(this.store.getAt(selectionsArray[i]).get(((valueField != null)? valueField : this.valueField)));
+		if(this.view)
+		{
+			var returnArray = [];
+			var selectionsArray = this.view.getSelectedIndexes();
+			if (selectionsArray.length == 0) {return '';}
+			for (var i=0; i<selectionsArray.length; i++) {
+				returnArray.push(this.store.getAt(selectionsArray[i]).get(((valueField != null)? valueField : this.valueField)));
+			}
+			return returnArray.join(this.delimiter);
 		}
-		return returnArray.join(this.delimiter);
+		else
+		{
+			return "";
+		}
 	},
 
 	setValue: function(values) {
@@ -166,7 +174,26 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
     setRawValue: function(values){
         setValue(values);
     },
+    
+    selectAll: function() {
+        var selections = [];
+        for (var i = 0; i < this.view.store.getTotalCount(); i++) {
+            selections.push(i);
+        }
+        this.view.select(selections);
+	    this.hiddenField.dom.value = this.getValue();
+	    this.validate();
+    },
 
+	getSelectedTexts: function() {
+		var selectedItems = this.view.getSelectedNodes();
+		var selectedTexts = [];
+		for (var i = 0; i < selectedItems.length; i++) {
+			selectedTexts.push(selectedItems[i].innerHTML);
+		}
+		return selectedTexts.join(this.textDelimiter);
+	},
+	
     validateValue : function(value){
         if (value.length < 1) { // if it has no value
              if (this.allowBlank) {
@@ -186,6 +213,13 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
             return false;
         }
         return true;
+    },
+    
+    onDestroy: function() {
+        if( this.view ) {
+            this.view.destroy();
+        }
+        Ext.ux.Multiselect.superclass.onDestroy.call(this);
     }
 });
 
@@ -249,7 +283,7 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
 			copy: this.allowDup,
 			allowTrash: this.allowDup,
 			dragGroup: this.readOnly ? null : "drop2-"+this.el.dom.id,
-			dropGroup: this.readOnly ? null : "drop1-"+this.el.dom.id,
+			dropGroup: this.readOnly ? null : "drop2-"+this.el.dom.id+",drop1-"+this.el.dom.id,
 			width: this.msWidth,
 			height: this.msHeight,
 			dataFields: this.dataFields,
@@ -280,7 +314,6 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
 			delimiter: this.delimiter,
 			allowDup: this.allowDup,
 			dragGroup: this.readOnly ? null : "drop1-"+this.el.dom.id,
-			//dropGroup: this.readOnly ? null : "drop2-"+this.el.dom.id+(this.toSortField ? "" : ",drop1-"+this.el.dom.id),
 			dropGroup: this.readOnly ? null : "drop2-"+this.el.dom.id+",drop1-"+this.el.dom.id,
 			width: this.msWidth,
 			height: this.msHeight,
@@ -501,7 +534,18 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
 		for (var i=0; i<store.getCount(); i++) {
 			record = store.getAt(i);
 			values.push(record.get(this.valueField));
+			if(!this.allowDup) {	
+				var index  = this.fromMultiselect.view.store.find(this.valueField, record.get(this.valueField));
+				var rdup = this.fromMultiselect.view.store.getAt(index);
+												
+				if(rdup) {	
+					this.fromMultiselect.view.store.remove(rdup);						
+				}
+			}
 		}
+		this.fromMultiselect.view.refresh();
+		this.fromMultiselect.store.sort(this.displayField,'ASC');
+		
 		this.hiddenField.dom.value = values.join(this.delimiter);
 		this.fireEvent('change', this, this.getValue(), this.hiddenField.dom.value);
 	},
@@ -522,7 +566,48 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
 			this.fromMultiselect.store.sort(this.displayField,'ASC');
 		}
 		this.valueChanged(this.toMultiselect.store);
-	}
+	},
+	
+	selectAll: function() {
+        var selections = [];
+        for (var i = 0; i < this.fromMultiselect.store.getCount(); i++) {
+            selections.push(i);
+        }
+        this.fromMultiselect.view.select(selections);
+		this.fromTo();
+		this.toMultiselect.view.clearSelections(true);
+	},
+	
+	setValue: function(val) 
+	{
+    	if(!val) {
+        	return;
+    	}
+		val = val instanceof Array ? val : val.split(',');
+		var rec, i, id;
+		for(i = 0; i < val.length; i++) {
+			id = val[i];
+			if(this.toStore.find(valueField,id)) {
+				continue;
+			}
+			index = this.fromStore.find(valueField,id);
+			if(index) {
+				rec = this.fromStore.getAt(index)
+				this.toStore.add(rec);
+				this.fromStore.remove(rec);
+			}
+		}
+	},
+	
+	onDestroy: function() {
+        if( this.fromMultiselect ) {
+            this.fromMultiselect.destroy();
+        }
+        if( this.toMultiselect ) {
+            this.toMultiselect.destroy();
+        }
+        Ext.ux.ItemSelector.superclass.onDestroy.call(this);
+    }
 });
 
 Ext.reg("itemselector", Ext.ux.ItemSelector);

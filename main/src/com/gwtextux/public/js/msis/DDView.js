@@ -86,12 +86,14 @@ Ext.extend(Ext.ux.DDView, Ext.DataView, {
         this.purgeListeners(); 
         this.getEl().removeAllListeners(); 
         this.getEl().remove(); 
-        if (this.dragZone) { 
+        if (this.dragZone) {
+            Ext.dd.ScrollManager.unregister(this.dragZone.el); 
             if (this.dragZone.destroy) { 
                 this.dragZone.destroy(); 
             } 
         } 
         if (this.dropZone) { 
+        	Ext.dd.ScrollManager.unregister(this.dropZone.el); 
             if (this.dropZone.destroy) { 
                 this.dropZone.destroy(); 
             } 
