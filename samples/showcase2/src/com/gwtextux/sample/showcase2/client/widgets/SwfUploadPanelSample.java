@@ -28,12 +28,14 @@ public class SwfUploadPanelSample extends ShowcasePanel {
         if (panel == null) {
             panel = new Panel();
 
-        	SwfUploadPanel swfpanel = new SwfUploadPanel();
+        	final SwfUploadPanel swfpanel = new SwfUploadPanel();
         	swfpanel.setHeight(300);
         	swfpanel.setWidth(500);
         	swfpanel.setTitle("SwfUploadPanel");
         	swfpanel.setUploadUrl("UploadSvc");
         	swfpanel.setFlashUrl("js/swfuploadpanel/swfupload_f9.swf");
+        	
+            
         	swfpanel.addListener(new SwfUploadPanelListenerAdapter(){
         		public void onFileQueued(SwfUploadPanel swfUploadPanel, String filename) {
         			log(EVENT, "onFileQueued. File='" + filename);
@@ -51,6 +53,7 @@ public class SwfUploadPanelSample extends ShowcasePanel {
 
         		public void onSwfUploadLoaded(SwfUploadPanel swfUploadPanel) {
         			log(EVENT, "onSwfUploadLoaded event fired...");
+        			swfpanel.addPostParam("name3", "value3");
         		}         
         	});
         	swfpanel.show();

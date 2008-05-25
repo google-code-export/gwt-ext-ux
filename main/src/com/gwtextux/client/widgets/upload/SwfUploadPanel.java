@@ -193,14 +193,19 @@ public class SwfUploadPanel extends GridPanel {
         return getAttribute("upload_url");
     }
     
-    //TODO: need to know what params are...
-    public void setPostParams(String params){
-        setAttribute("post_params", params, true);
-    }
+
+    /**
+     * Add extra post-parameters to the request.  This method can only be
+     * called after SfwUpload is initialized (i.e. create a listener for
+     * onSwfUploadLoaded and call this method in there).
+     * @param name name of the post parameter
+     * @param value the value of the post parameter
+     */
+    public native void addPostParam(String name, String value) /*-{
+        var w = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
+        w.addPostParam(name,value);
+    }-*/;
     
-    public String getPostParams(){
-        return getAttribute("post_params");
-    }
     
     public void setSingleFileSelect(boolean singleFileSelect){
         setAttribute("single_file_select", singleFileSelect, true);
