@@ -20,6 +20,11 @@
        <servlet-class>com.gwtextux.sample.showcase2.server.FileTreeSvcImpl</servlet-class>
    </servlet>
 
+    <servlet>
+       <servlet-name>Redirect</servlet-name>
+       <servlet-class>com.gwtextux.sample.showcase2.server.Redirect</servlet-class>
+   </servlet>
+
    <servlet-mapping>
        <servlet-name>GwtProxySvc</servlet-name>
        <url-pattern>/GwtProxySvc</url-pattern>
@@ -39,4 +44,11 @@
        <servlet-name>FileTreeSvc</servlet-name>
        <url-pattern>/FileTreeSvc</url-pattern>
    </servlet-mapping>
+   
+   <servlet-mapping>
+       <servlet-name>Redirect</servlet-name>
+       <url-pattern>/redirect</url-pattern>
+   </servlet-mapping>
+   
+   
 </web-app>

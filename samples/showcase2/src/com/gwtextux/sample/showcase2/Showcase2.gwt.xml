@@ -23,5 +23,5 @@
 -->
     <entry-point class='com.gwtextux.sample.showcase2.client.Showcase2'/>
 
-
+	<servlet path="/redirect" class="com.gwtextux.sample.showcase2.server.Redirect" />
 </module>
