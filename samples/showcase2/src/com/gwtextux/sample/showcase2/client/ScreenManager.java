@@ -401,7 +401,7 @@ public class ScreenManager {
 
                 // sjivan -- please uncomment next line 
                 // TODO: proper thumbnail for TimePlot Sample
-                 new Object[]{"timeplotWidget", "widgets-category", "TimePlot Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new TimePlotTest()},
+                //new Object[]{"timeplotWidget", "widgets-category", "TimePlot Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new TimePlotTest()},
                 // TODO: proper thumbnail for Timeline Sampleh
                 //new Object[]{"timelinePanel", "widgets-category", "Timeline Sample", null, null, null, new TimeLineTest()},
 
