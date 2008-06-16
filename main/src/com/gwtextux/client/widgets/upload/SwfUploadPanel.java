@@ -126,69 +126,130 @@ public class SwfUploadPanel extends GridPanel {
 	}-*/;
 
     /**
-     * 
-     * @param singleSelect
+     * Single file select.  By default this is set to false
+     * @param singleSelect true if selectability is only for one file
      */
     public void setSingleSelect(boolean singleSelect){
         setAttribute("single_select", singleSelect, true);
     }
     
+    /**
+     * Get if the SwfUploadPanel is setup for single select or not
+     * @return true if it is single select; otherwise, it returns false
+     */
     public boolean getSingleSelect(){
         return getAttributeAsBoolean("single_select");
     }
     
+    /**
+     * File types to allow
+     * @param fileTypes the file types separated by comma
+     */
     public void setFileTypes(String fileTypes){
         setAttribute("file_types", fileTypes, true);
     }
     
+    /**
+     * returns the list of file types allowed
+     * @return the list of file types allowed
+     */
     public String getFileTypes(){
         return getAttribute("file_types");
     }
     
+    /**
+     * Sets the description shown when the dialog to select files is opened
+     * @param desc the description to show.  By default the description is 
+     * "All Files".
+     */
     public void setFileTypesDescription(String desc){
         setAttribute("file_types_description", desc, true);
     }
     
+    /**
+     * gets the file type description
+     * @return
+     */
     public String getFileTypesDescription(){
         return getAttribute("file_types_description");
     }
     
+    /**
+     * sets the file size limit for uploading.
+     * @param limit the size limit.  By default it is 102400 (100MB)
+     */
     public void setFileSizeLimit(int limit){
         setAttribute("file_size_limit", limit, true);
     }
     
+    /**
+     * gets the file size limit
+     * @return the file size limit
+     */
     public int getFileSizeLimit(){
         return getAttributeAsInt("file_size_limit");
     }
     
+    /**
+     * Sets the file upload limit
+     * @param limit the limit for files to be uploade. Default 0.
+     */
     public void setFileUploadLimit(int limit){
         setAttribute("file_upload_limit", limit, true);
     }
     
+    /**
+     * Gets the file upload limit
+     * @return the current file upload limit
+     */
     public int getFileUploadLimit(){
         return getAttributeAsInt("file_upload_limit");
     }
     
+    /**
+     * Sets the file post name.  The name received at the server side.
+     * @param name the name for the file uploaded.  By default it is "Filedata"
+     */
     public void setFilePostName(String name){
         setAttribute("file_post_name", name, true);
     }
     
+    /**
+     * Gets the file post name
+     * @return the name for the file to upload
+     */
     public String getFilePostName(){
         return getAttribute("file_post_name");
     }
     
+    /**
+     * The URL for the flash file (swfupload_f9.swf)
+     * @param url the relative URL of swfupload_f9.swf
+     */
     public void setFlashUrl(String url){
         setAttribute("flash_url", url, true);
     }
     
+    /**
+     * Gets the relative URL for swfupload_f9.swf
+     * @return the URL for swfupload_f9.swf
+     */
     public String getFlashUrl(){
         return getAttribute("flash_url");
     }
     
+    /**
+     * The URL to upload the file
+     * @param url URL to upload the file
+     */
     public void setUploadUrl(String url){
         setAttribute("upload_url", url, true);
     }
     
+    /**
+     * Gets the URL where to upload the file
+     * @return the URL where the file is uploaded
+     */
     public String getUploadUrl(){
         return getAttribute("upload_url");
     }
@@ -207,26 +268,50 @@ public class SwfUploadPanel extends GridPanel {
     }-*/;
     
     
+    /**
+     * Set if it only accept single selections
+     * @param singleFileSelect boolean setting if it select single
+     */
     public void setSingleFileSelect(boolean singleFileSelect){
         setAttribute("single_file_select", singleFileSelect, true);
     }
     
+    /**
+     * Returns true or false if the panel is configured to do single file selection
+     * @return true or false for single file selection
+     */
     public boolean getSingleFileSelect(){
         return getAttributeAsBoolean("single_file_select");
     }
     
+    /**
+     * Set if there should be a confirmation when files are deleted from the queue
+     * @param confirm true or false if the file can be deleted with a confirmation dialog
+     */
     public void setConfirmDelete(boolean confirm){
         setAttribute("confirm_delete", confirm, true);
     }
     
+    /**
+     * Returns true or false if the delete confirmation is set
+     * @return true or false for delete confirmation
+     */
     public boolean getConfirmDelete(){
         return getAttributeAsBoolean("confirm_delete");
     }
     
+    /**
+     * set debug statements
+     * @param debug debug statements
+     */
     public void setDebug(String debug){
         setAttribute("debug", debug, true);
     }
     
+    /**
+     * gets the debug statements
+     * @return gets the debug statements
+     */
     public String getDebug(){
         return getAttribute("debug");
     }
