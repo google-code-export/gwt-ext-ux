@@ -1,0 +1,15 @@
+<!--
+ * GWT-Ext Widget Library
+ * Copyright(c) 2007-2008, GWT-Ext.
+ * licensing@gwt-ext.com
+ *
+ * http://www.gwt-ext.com/license
+ *
+-->
+
+<module>
+    <inherits name="com.gwtextux.GwtExtUx" />
+    
+	<script src="js/gridcellactions/ext-ux-grid-cellactions.js" />
+	<stylesheet src="js/gridcellactions/ext-ux-grid-cellactions.css" />
+</module>
