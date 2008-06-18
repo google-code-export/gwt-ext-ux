@@ -22,10 +22,10 @@
 
 	<!-- Global Properties -->
 	<property environment="env" />
-	<condition property="gwtextux.version" value="${env.GWTEXTUX_VERSION}" else="0.2">
+	<condition property="gwtextux.version" value="${env.GWTEXTUX_VERSION}" else="0.3">
 		<isset property="env.GWTEXTUX_VERSION" />
 	</condition>
-	<condition property="ext.version" value="${env.EXT_VERSION}" else="2.0.1">
+	<condition property="ext.version" value="${env.EXT_VERSION}" else="2.0.2">
 		<isset property="env.EXT_VERSION" />
 	</condition>
     <condition property="gwtextux.tools.check" value="${env.GWTEXT_TOOLS}" else="${gwtextux.root}/../tools">
@@ -101,7 +101,7 @@
 	<property name="gwt.servlet.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-servlet.jar" />
 	<property name="gwt.dev.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-dev-${build.host.platform}.jar" />
     
-    <property name="gwtext.version" value="2.0.3" />
+    <property name="gwtext.version" value="2.0.4" />
     <property name="gwtext.jar" location="${gwtextux.tools.lib}/gwt-ext/${gwtext.version}/gwtext.jar" />
 
     <!-- JUnit support -->
