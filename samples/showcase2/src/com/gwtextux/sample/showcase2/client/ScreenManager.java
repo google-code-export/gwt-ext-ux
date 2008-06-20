@@ -31,6 +31,7 @@ import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
 import com.gwtextux.sample.showcase2.client.grid.CustomReaderSample;
 import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
+import com.gwtextux.sample.showcase2.client.grid.GridCellActionsSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSummarySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
@@ -386,6 +387,8 @@ public class ScreenManager {
 				// TODO: proper thumbnail for Grid with Summary Footer
 				new Object[]{"gridSummarySample", "grids-category", "Grid with Summary Footer", null, "images/thumbnails/grid/grid-search.gif", null, new GridSummarySample()},
 				new Object[]{"customReaderSample", "grids-category", "Grid with CustomReader", null, "images/thumbnails/grid/grid-with-customreader.gif", null, new CustomReaderSample()},
+				
+				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
