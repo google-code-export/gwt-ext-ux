@@ -18,6 +18,12 @@
 	<inherits name="com.gwtextux.GridCellActionsPlugin"/>
     <inherits name="com.gwtextux.FileTreePanel"/>
     <inherits name="com.gwtextux.SwfUploadPanel"/>
+
+	<!--
+	use to inject only css. the user can then add the ux js themselves to thier host html file
+	<inherits name="com.gwtextux.GwtExtUxNoScript"/>
+	-->
+	
 <!--  
     <inherits name="com.gwtextux.Timeline"/>
     <inherits name="com.gwtextux.Timeplot"/>
