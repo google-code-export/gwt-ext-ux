@@ -68,7 +68,7 @@
 		</outofdate>
 	
 		<!-- in case there is anything in ext because of running sample from svn -->
-		<delete includeemptydirs="true">
+		<delete includeemptydirs="true" failonerror="false">
 	    <fileset dir="${sample.build}/www/com.gwtextux.sample.${sample.package}.${sample.module}/js/ext" includes="**/*"/>
 	  </delete>
 
