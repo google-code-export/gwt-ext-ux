@@ -1,0 +1,19 @@
+
+<module>
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.xml.XML"/>
+    <inherits name="com.google.gwt.http.HTTP"/>
+
+    <inherits name="com.gwtext.GwtExt"/>
+	<stylesheet src="js/filetree/css/famflag.css"/>
+	<stylesheet src="js/filetree/css/filetree.css"/>
+	<stylesheet src="js/filetree/css/filetype.css"/>
+	<stylesheet src="js/filetree/css/icons.css"/>
+	<stylesheet src="js/gridcellactions/ext-ux-grid-cellactions.css"/>
+	<stylesheet src="js/gridsummary/Ext.ux.grid.GridSummary.css"/>
+	<stylesheet src="js/livegrid/BufferedGrid.css"/>
+	<stylesheet src="js/msis/Multiselect.css"/>
+	<stylesheet src="js/multicalendar/MultiMonthCalendar.css"/>
+	<stylesheet src="js/swfuploadpanel/SwfUploadPanel.css"/>
+	<stylesheet src="js/UploadDialog/css/Ext.ux.UploadDialog.css"/>	
+</module>
