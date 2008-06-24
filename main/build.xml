@@ -14,17 +14,21 @@
 
     <target name="combineJS" description="Combines all the JS files and minifies it">
         <property name="jsdir" location="src/com/gwtextux/public/js"/>
-        <concat destfile="${gwtextux.build.out}/ext-ux-all.js" fixlastline="yes">
-            <filelist dir="${jsdir}/UploadDialog" files="Ext.ux.UploadDialog.packed.js"/>
+        <concat destfile="${gwtextux.root}/samples/showcase2/src/com/gwtextux/sample/showcase2/public/js/ext-ux-all.js" fixlastline="yes">
+            <filelist dir="${jsdir}/filetree/js" files="Ext.ux.FileTreeMenu.js,Ext.ux.FileTreePanel.js,Ext.ux.FileUploader.js,Ext.ux.form.BrowseButton.js,Ext.ux.IconCombo.js,Ext.ux.LangSelectCombo.js,Ext.ux.ThemeCombo.js,Ext.ux.UploadPanel.js"/>
+            <filelist dir="${jsdir}/gridcellactions" files="ext-ux-grid-cellactions.js"/>
             <filelist dir="${jsdir}/gridsearch" files="ext-ux-grid-search.js"/>
+            <filelist dir="${jsdir}/gridsummary" files="Ext.ux.grid.GridSummary.js"/>
             <filelist dir="${jsdir}/livegrid" files="BufferedGridDragZone.js,BufferedGridToolbar.js,BufferedGridView.js,BufferedJsonReader.js,BufferedRowSelectionModel.js,BufferedStore.js"/>
-            <filelist dir="${jsdir}/mif" files="ext-ux-miframe.js"/>
+			<filelist dir="${jsdir}/mif" files="ext-ux-miframe.js"/>
             <filelist dir="${jsdir}/msis" files="Multiselect.js,DDView.js"/>
             <filelist dir="${jsdir}/multicalendar" files="MultiMonthCalendar.js"/>
-        </concat>
+            <filelist dir="${jsdir}/swfuploadpanel" files="SwfUpload.js,SwfUploadPanel.js"/>			
+			<filelist dir="${jsdir}/UploadDialog" files="Ext.ux.UploadDialog.packed.js"/>
+		</concat>
 
         <java jar="${yui.compressor.jar}" fork="true">
-             <arg line="${gwtextux.build.out}/ext-ux-all.js --nomunge -o ${gwtextux.build.out}/ext-ux-all-min.js"/>
+             <arg line="${gwtextux.root}/samples/showcase2/src/com/gwtextux/sample/showcase2/public/js/ext-ux-all.js --nomunge -o ${gwtextux.root}/samples/showcase2/src/com/gwtextux/sample/showcase2/public/js/ext-ux-all-min.js"/>
         </java>
         
     </target>
@@ -60,7 +64,7 @@
         </gwt.javac>
     </target>
 
-    <target name="build" depends="compile" description="Build and package this project">
+    <target name="build" depends="compile,combineJS" description="Build and package this project">
         <mkdir dir="${gwtextux.build.lib}"/>
         <gwt.jar>
             <fileset dir="src">
