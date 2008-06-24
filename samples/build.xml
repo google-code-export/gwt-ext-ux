@@ -15,7 +15,7 @@
    description="builds the war file">
    <property name="war" value="demo-ux.war" />
    <delete file="${project.build}/${war}"/>
-   <copy file="${gwtextux.build.out}/samples/Showcase2/www/com.gwtextux.sample.showcase2.Showcase2/Showcase2.html" tofile="${gwtextux.build.out}/samples/Showcase2/www/com.gwtextux.sample.showcase2.Showcase2/index.html"/>
+   <!-- <copy file="${gwtextux.build.out}/samples/Showcase2/www/com.gwtextux.sample.showcase2.Showcase2/Showcase2.html" tofile="${gwtextux.build.out}/samples/Showcase2/www/com.gwtextux.sample.showcase2.Showcase2/index.html"/> -->
    <war warfile="${project.build}/${war}" webxml="showcase2/WEB-INF/web.xml">
      <!-- bytecode from your Java code -->
      <classes dir="${gwtextux.build.out}/samples/Showcase2/bin" includes="**/*.class"/>
