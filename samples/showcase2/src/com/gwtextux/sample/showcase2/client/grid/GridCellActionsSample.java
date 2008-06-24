@@ -54,12 +54,12 @@ public class GridCellActionsSample extends ShowcasePanel {
 					"company");
 			companyColumnConfig.setCellActions(new GridCellAction[] { new GridCellAction("grid-icon", "View details", new Function() {
 				public void execute() {
-					MessageBox.alert("Callback", "This is a callback action dialog");
+					MessageBox.alert("Callback", "This is a callback action for Details icon");
 				}
 			}), 
-			new GridCellAction("settings-icon", "Tooltip", new Function() {
+			new GridCellAction("settings-icon", "Settings", new Function() {
 				public void execute() {
-					MessageBox.alert("Callback", "This is a callback action dialog");
+					MessageBox.alert("Callback", "This is a callback action for Settings icon");
 				}
 			})});
 			ColumnWithCellActionsConfig industryColumnConfig = new ColumnWithCellActionsConfig("Industry", "industry", 100, true);
