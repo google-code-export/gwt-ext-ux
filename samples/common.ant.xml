@@ -19,12 +19,14 @@
 		<copy todir="${sample.build}/src">
 			<fileset dir="src" />
 		</copy>
-        <mkdir dir="${sample.build}/src/com/gwtext/sample/${sample.package}/public/js/ext" />
-        <copy todir="${sample.build}/src/com/gwtext/sample/${sample.package}/public/js/ext">
-            <fileset dir="${gwtextux.tools.lib.ext}">
-                <exclude name="**/ext-all-debug.js"/>
-            </fileset>
+    <mkdir dir="${sample.build}/src/com/gwtext/sample/${sample.package}/public/js/ext" />
+		<!--
+    <copy todir="${sample.build}/src/com/gwtext/sample/${sample.package}/public/js/ext">
+      <fileset dir="${gwtextux.tools.lib.ext}">
+        <exclude name="**/ext-all-debug.js"/>
+      </fileset>
     </copy>
+    -->
     <mkdir dir="${sample.build}/lib" />
     <copy todir="${sample.build}/lib">
 			<fileset dir="lib" />
@@ -64,6 +66,12 @@
 				</java>
 			</sequential>
 		</outofdate>
+	
+		<!-- in case there is anything in ext because of running sample from svn -->
+		<delete includeemptydirs="true">
+	    <fileset dir="${sample.build}/www/com.gwtextux.sample.${sample.package}.${sample.module}/js/ext" includes="**/*"/>
+	  </delete>
+
 	</target>
 
 	<macrodef name="applicationCreator">
