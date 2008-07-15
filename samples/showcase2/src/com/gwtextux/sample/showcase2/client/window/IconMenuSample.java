@@ -7,6 +7,7 @@
  */
 package com.gwtextux.sample.showcase2.client.window;
 
+import com.gwtext.client.widgets.Panel;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 
 public class IconMenuSample extends ShowcasePanel {
