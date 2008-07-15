@@ -1,0 +1,9 @@
+
+<module>
+    <inherits name="com.gwtextux.GwtExtUx" />
+	
+	<script src="js/flotPlotter/jquery.js" />
+	<script src="js/flotPlotter/jquery.flot.js" />
+	<script src="js/flotPlotter/excanvas.js" />
+	<script src="js/flotPlotter/flotWrapper.js" />
+</module>

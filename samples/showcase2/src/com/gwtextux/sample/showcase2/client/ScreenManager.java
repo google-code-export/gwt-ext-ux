@@ -30,6 +30,7 @@ import com.gwtextux.sample.showcase2.client.chooser.ImageChooserSample;
 import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
 import com.gwtextux.sample.showcase2.client.grid.CustomReaderSample;
+import com.gwtextux.sample.showcase2.client.grid.FlotPlotterSample;
 import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
 import com.gwtextux.sample.showcase2.client.grid.GridCellActionsSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
@@ -389,6 +390,7 @@ public class ScreenManager {
 				new Object[]{"customReaderSample", "grids-category", "Grid with CustomReader", null, "images/thumbnails/grid/grid-with-customreader.gif", null, new CustomReaderSample()},
 				
 				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
+				new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
