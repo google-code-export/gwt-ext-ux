@@ -52,20 +52,20 @@ public class IconMenuSample extends ShowcasePanel {
         	IconMenuConfig config = new IconMenuConfig();
         	config.setTooltip("Click to Open Menu");
         	config.addSeparator();
-        	config.add(new Item() {
+        	config.addCustomItem(new Item() {
         		{
         			setText("Zoom in");
         			setIconCls("zoom-in-icon");
         		}
         	});
-        	config.add(new Item() {
+        	config.addCustomItem(new Item() {
         		{
         			setText("Zoom out");
         			setIconCls("zoom-out-icon");
         		}
         	});
         	config.addSeparator();
-        	config.add(new Item() {
+        	config.addCustomItem(new Item() {
         		{
         			setText("Print");
         			setIconCls("print-icon");
