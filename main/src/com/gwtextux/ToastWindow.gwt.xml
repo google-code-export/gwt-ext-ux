@@ -11,6 +11,7 @@
 
     <inherits name="com.gwtextux.ToastWindow"/>
 
-	<script src="js/window/ToastWindow.js" />
+	<script src="js/window/ToastWindow.js"/>
+	<stylesheet src="js/window/ToastWindow.css"/>
 	
 </module>

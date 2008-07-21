@@ -48,6 +48,9 @@ import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
 import com.gwtextux.sample.showcase2.client.timeplot.TimePlotTest;
 import com.gwtextux.sample.showcase2.client.timeline.TimeLineTest;
 
+import com.gwtextux.sample.showcase2.client.window.ToastWindowSample;
+import com.gwtextux.sample.showcase2.client.window.IconMenuSample;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -415,8 +418,10 @@ public class ScreenManager {
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
                 new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
-                new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()}
-
+                new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},
+                
+                new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new ToastWindowSample()},
+                new Object[]{"IconMenu", "windows-category", "IconMenu Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new IconMenuSample()}
         };
     }
 }

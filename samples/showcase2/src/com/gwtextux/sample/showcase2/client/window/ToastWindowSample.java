@@ -9,6 +9,8 @@ package com.gwtextux.sample.showcase2.client.window;
 
 import com.gwtext.client.core.EventObject;
 
+import java.util.Date;
+
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
@@ -22,17 +24,22 @@ public class ToastWindowSample extends ShowcasePanel {
         return "source/window/ToastWindowSample.java.html";
     }
 
+    public String getIntro() {
+        return "<p>This is an MSN-style popup 'toast' notification window.</p>";
+    }
+    
     public Panel getViewPanel() {
         if (panel == null) {
         	panel = new Panel();
         	
         	Button button = new Button("Show");
+        	button.setIconCls("wand-icon");
             button.addListener(new ButtonListenerAdapter() {
                 public void onClick(Button button, EventObject e) {
                     ToastWindow tw = new ToastWindow();
-                    tw.setTitle("Notification");
-                    tw.setIconCls("");
-                    tw.setMessage("");
+                    tw.setTitle("Message");
+                    tw.setIconCls((Math.random() > 0.5) ? "information" : "exclamation");
+                    tw.setMessage("Message generated on : " + new Date());
                     tw.show();
                 }
             });

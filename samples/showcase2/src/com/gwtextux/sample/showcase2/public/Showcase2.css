@@ -178,6 +178,26 @@
     background-image: url( images/silk/delete.gif ) !important;
 }
 
+.zoom-in-icon {
+    background-image: url( images/silk/zoom_in.gif ) !important;
+}
+
+.zoom-out-icon {
+    background-image: url( images/silk/zoom_out.gif ) !important;
+}
+
+.print-icon {
+    background-image: url( images/silk/printer.gif ) !important;
+}
+
+.window-icon {
+    background-image: url( images/silk/window.gif ) !important;
+}
+
+.wand-icon {
+    background-image: url( images/silk/wand.gif ) !important;
+}
+
 .image-icon {
     background-image: url( images/silk/image.gif ) !important;
 }
