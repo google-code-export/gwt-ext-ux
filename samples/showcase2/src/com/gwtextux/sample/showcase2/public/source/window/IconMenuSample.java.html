@@ -1,24 +1,128 @@
+<html>
+<head>
+<link rel="stylesheet" href="../../js/sh/SyntaxHighlighter.css" type="text/css" />
+<script src="../../js/sh/shCore.js"></script>
+<script src="../../js/sh/shBrushJava.js"></script>
+<style>
+
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 700px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name="code" class="java:nogutter:nocontrols" rows="15" cols="120">
 /*
  * GWT-Ext Widget Library
  * Copyright(c) 2007-2008, GWT-Ext.
  * licensing@gwt-ext.com
- * 
+ *
  * http://www.gwt-ext.com/license
  */
-package com.gwtextux.sample.showcase2.client.window;
+ 
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Window;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.menu.Item;
+import com.gwtextux.client.widgets.window.plugins.IconMenu;
+import com.gwtextux.client.widgets.window.plugins.IconMenuConfig;
 
-import com.gwtextux.sample.showcase2.client.ShowcasePanel;
+public class IconMenuSample implements EntryPoint {
 
-public class IconMenuSample extends ShowcasePanel {
+	public void onModuleLoad() {
+	
+    	final Window window1 = createWindow("IconMenu Example 1");
+    	window1.addPlugin(new IconMenu());
+    	
+    	Button button1 = new Button() {
+    		{
+    			setText("Window 1");
+    			setIconCls("wand-icon");
+    			addListener(new ButtonListenerAdapter() {
+    				public void onClick(Button button, EventObject e) {
+    					window1.show();
+    				}
+    			});
+    		}
+    	};
+    	
+    	IconMenuConfig config = new IconMenuConfig();
+    	config.setTooltip("Click to Open Menu");
+    	config.addSeparator();
+    	config.addCustomItem(new Item() {
+    		{
+    			setText("Zoom in");
+    			setIconCls("zoom-in-icon");
+    		}
+    	});
+    	config.addCustomItem(new Item() {
+    		{
+    			setText("Zoom out");
+    			setIconCls("zoom-out-icon");
+    		}
+    	});
+    	config.addSeparator();
+    	config.addCustomItem(new Item() {
+    		{
+    			setText("Print");
+    			setIconCls("print-icon");
+    		}
+    	});
+    	
+    	final Window window2 = createWindow("IconMenu Example 2");
+    	window2.addPlugin(new IconMenu(config));
+    	
+    	Button button2 = new Button() {
+    		{
+    			setText("Window 2");
+    			setIconCls("image-icon");
+    			addListener(new ButtonListenerAdapter() {
+    				public void onClick(Button button, EventObject e) {
+    					window2.show();
+    				}
+    			});
+    		}
+    	};
+    	
+    	HorizontalPanel panel = new HorizontalPanel();
+    	panel.setSpacing(10);
+    	
+    	panel.add(button1);
+    	panel.add(button2);
+    	
+    	RootPanel.get().add(panel);
+	}
 
-    public String getSourceUrl() {
-        return "source/window/IconMenuSample.java.html";
-    }
-
-    public Panel getViewPanel() {
-        if (panel == null) {
-
-        }
-        return panel;
-    }
+	private Window createWindow(String title) {
+		Window window = new Window();
+		
+		window.setTitle(title);
+		window.setIconCls("window-icon");
+		window.setWidth(400);
+		window.setHeight(300);
+		
+		return window;
+	}
 }
+ </textarea>
+<script class="javascript">
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>
