@@ -423,8 +423,8 @@ public class ScreenManager {
                 new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},
                 
                 new Object[]{"windows-category", null, "Windows", "windows-category-icon", null, "Windows", null},
-                new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/windows/icon-menu.gif", null, new ToastWindowSample()},
-                new Object[]{"IconMenu", "windows-category", "IconMenu Sample", null,"images/thumbnails/windows/toast-window.gif", null, new IconMenuSample()}
+                new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/window/icon-menu.gif", null, new ToastWindowSample()},
+                new Object[]{"IconMenu", "windows-category", "IconMenu Sample", null,"images/thumbnails/window/toast-window.gif", null, new IconMenuSample()}
         };
     }
 }
