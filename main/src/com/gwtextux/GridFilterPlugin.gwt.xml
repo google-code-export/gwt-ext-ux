@@ -1,0 +1,29 @@
+<!--
+ * GWT-Ext Widget Library
+ * Copyright(c) 2007-2008, GWT-Ext.
+ * licensing@gwt-ext.com
+ *
+ * http://www.gwt-ext.com/license
+ *
+-->
+
+<module>
+    <inherits name="com.gwtextux.GwtExtUx" />
+    
+    <!-- Menu items -->
+	<script src="js/gridfilter/menu/EditableItem.js" />
+	<script src="js/gridfilter/menu/RangeMenu.js" />
+
+	<!-- Main plugin -->
+	<script src="js/gridfilter/grid/GridFilters.js" />
+
+	<!-- Filter types -->
+	<script src="js/gridfilter/grid/filter/Filter.js" />
+	<script src="js/gridfilter/grid/filter/StringFilter.js" />
+	<script src="js/gridfilter/grid/filter/DateFilter.js" />
+	<script src="js/gridfilter/grid/filter/ListFilter.js" />
+	<script src="js/gridfilter/grid/filter/NumericFilter.js" />
+	<script src="js/gridfilter/grid/filter/BooleanFilter.js" />
+
+	<stylesheet src="js/gridfilter/resources/style.css"/>
+</module>

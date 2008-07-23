@@ -14,6 +14,7 @@
     <inherits name="com.gwtextux.ManagedIFrame"/>
     <inherits name="com.gwtextux.UploadDialog"/>
 	<inherits name="com.gwtextux.GridSearchPlugin"/>
+	<inherits name="com.gwtextux.GridFilterPlugin"/>
 	<inherits name="com.gwtextux.GridSummaryPlugin"/>
 	<inherits name="com.gwtextux.GridCellActionsPlugin"/>
     <inherits name="com.gwtextux.FileTreePanel"/>

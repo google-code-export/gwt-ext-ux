@@ -33,6 +33,7 @@ import com.gwtextux.sample.showcase2.client.grid.CustomReaderSample;
 import com.gwtextux.sample.showcase2.client.grid.FlotPlotterSample;
 import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
 import com.gwtextux.sample.showcase2.client.grid.GridCellActionsSample;
+import com.gwtextux.sample.showcase2.client.grid.GridFilterSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSummarySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
@@ -388,6 +389,7 @@ public class ScreenManager {
                 new Object[]{"gwtProxySample", "grids-category", "Grid with GWT Proxy", null, "images/thumbnails/grid/grid-with-gwtproxy.gif", null, new GWTProxySample()},
                 // TODO: proper thumbnail for Grid with Search
 				new Object[]{"gridSearchSample", "grids-category", "Grid with Search", null, "images/thumbnails/grid/grid-search.gif", null, new GridSearchSample()},
+				new Object[]{"gridFilterSample", "grids-category", "Grid with Filter", null, "images/thumbnails/grid/grid-search.gif", null, new GridFilterSample()},
 				// TODO: proper thumbnail for Grid with Summary Footer
 				new Object[]{"gridSummarySample", "grids-category", "Grid with Summary Footer", null, "images/thumbnails/grid/grid-search.gif", null, new GridSummarySample()},
 				new Object[]{"customReaderSample", "grids-category", "Grid with CustomReader", null, "images/thumbnails/grid/grid-with-customreader.gif", null, new CustomReaderSample()},
@@ -420,6 +422,7 @@ public class ScreenManager {
                 new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
                 new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},
                 
+                new Object[]{"windows-category", null, "Windows", "windows-category-icon", null, "Windows", null},
                 new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new ToastWindowSample()},
                 new Object[]{"IconMenu", "windows-category", "IconMenu Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new IconMenuSample()}
         };
