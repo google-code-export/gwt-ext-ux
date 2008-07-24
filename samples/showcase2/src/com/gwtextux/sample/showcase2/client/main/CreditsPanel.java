@@ -101,6 +101,8 @@ public class CreditsPanel extends ShowcasePanel {
 				new Object[]{"Image", "Mario Lim", "", ""},
 				new Object[]{"CustomReader", "Abhijeet Maharana", "", ""},
 				new Object[]{"Grid Cell Action Plugin", "Mariusz Pala", "Jozef Sakalos", "<a href=\"http://cellactions.extjs.eu/\" target=\"_blank\">http://cellactions.extjs.eu/</a>"},
+				new Object[]{"IconMenu Plugin", "Ammar Belakhel", "Jozef Sakalos", "<a href=\"http://extjs.com/forum/showthread.php?t=30677\" target=\"_blank\">http://extjs.com/forum/showthread.php?t=30677</a>"},
+				new Object[]{"ToastWindow", "Ammar Belakhel", "Effatal", "<a href=\"http://extjs.com/forum/showthread.php?t=32365\" target=\"_blank\">http://extjs.com/forum/showthread.php?t=32365</a>"}
 		};
 	}
 
