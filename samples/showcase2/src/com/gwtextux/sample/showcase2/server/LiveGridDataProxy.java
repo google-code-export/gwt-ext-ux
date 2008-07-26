@@ -43,8 +43,6 @@ public class LiveGridDataProxy extends HttpServlet {
         }
     }
     
-    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
-
     static Object[][] data;
     
     static Map sorted_data=new HashMap();
@@ -127,7 +125,7 @@ public class LiveGridDataProxy extends HttpServlet {
                 item.put("number_field", o[1].toString());
                 item.put("string_field", o[2]);
                 Date value = (Date) o[3];
-                item.put("date_field", df.format(value));
+                item.put("date_field", value.getTime());
                 items.add(item);
             }
             

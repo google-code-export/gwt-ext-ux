@@ -72,11 +72,10 @@ public class GWTProxySample extends ShowcasePanel {
         if (panel == null) {
             panel = new Panel();
 
-			FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"), new StringFieldDef("string_field"), new DateFieldDef("date_field", "Y-m-d H:i:s") };
+			FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"), new StringFieldDef("string_field"), new StringFieldDef("date_field") };
             RecordDef recordDef = new RecordDef(fieldDefs);
             
             final Store store = new Store(new GWTProxyImpl(), new ArrayReader(recordDef), true);
-            store.setBaseParams(new UrlParam[]{new UrlParam("paramName", "paramValue")});
 
             GridPanel grid = new GridPanel(store, LiveGridSample.createColModel());
             grid.setWidth(500);

@@ -44,7 +44,7 @@ public class LiveGridSample extends ShowcasePanel {
             panel = new Panel();
 
             FieldDef[] fieldDefs = new FieldDef[] { new IntegerFieldDef("number_field"),
-                    new StringFieldDef("string_field"), new DateFieldDef("date_field", "Y-m-d H:i:s") };
+                    new StringFieldDef("string_field"), new StringFieldDef("date_field") };
             RecordDef recordDef = new RecordDef(fieldDefs);
 
             BufferedJsonReader reader = new BufferedJsonReader("response.value.items", recordDef);
@@ -81,13 +81,26 @@ public class LiveGridSample extends ShowcasePanel {
 
         return panel;
     }
+    
+    private static String ns(int n, int d){
+    	String s=Integer.toString(n);
+    	while(s.length()<d)
+    		s="0"+s;
+    	return s;
+    }
+    
+    private static String formatDate(Date d){
+    	return ns(d.getDate(), 2)+"."+ns(d.getMonth() + 1, 2)+"."+ns(d.getYear() + 1900, 4)+" "+ns(d.getHours(), 2)+ ":"+ns(d.getMinutes(), 2); 
+    }
 
     static ColumnModel createColModel() {
         ColumnConfig columnConfig3 = new ColumnConfig("Date", "date_field");
         columnConfig3.setRenderer(new Renderer() {
             public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum,
                     Store store) {
-                return DateUtil.format((Date) value, "d.m.Y  H:i");
+            	if (value == null)
+            		return "NULL";
+            	return formatDate(new Date((long)Double.parseDouble((String)value)));
             }
         });
         ColumnModel colModel = new ColumnModel(new ColumnConfig[] { new ColumnConfig("Number", "number_field"),
