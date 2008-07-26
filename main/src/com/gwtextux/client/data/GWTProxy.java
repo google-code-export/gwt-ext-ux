@@ -98,7 +98,7 @@ public abstract class GWTProxy extends DataProxy{
     
     public abstract void load(int start, int limit, String sort, String dir, JavaScriptObject o, UrlParam[] baseParams);
     
-    protected void loadResponse(JavaScriptObject o, boolean success, int totalRecords, String[][] data){
+    protected void loadResponse(JavaScriptObject o, boolean success, int totalRecords, Object[][] data) {
         loadResponse(o, true, totalRecords,  JavaScriptObjectHelper.convertToJavaScriptArray(data));        
     }
     
