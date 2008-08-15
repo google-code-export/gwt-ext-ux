@@ -37,15 +37,6 @@ public class HtmlEditor extends com.gwtext.client.widgets.form.HtmlEditor {
 	public String getXType() {
 		return "enhancedhtmleditor";
 	}
-
-	public void addPlugin(ComponentPlugin plugin) {
-		super.addPlugin(plugin);
-		addListener("render", new Function(){
-			public void execute() {
-				HtmlEditor.this.getOwnerContainer().doLayout();
-			};
-		});
-	}
 	
 	private static native void init()/*-{
 		var c = new $wnd.Ext.ux.HTMLEditor();
