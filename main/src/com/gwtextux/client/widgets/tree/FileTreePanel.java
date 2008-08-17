@@ -4,7 +4,6 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.Element;
 import com.gwtext.client.core.UrlParam;
 import com.gwtext.client.util.JavaScriptObjectHelper;
-import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 
 public class FileTreePanel extends TreePanel {
