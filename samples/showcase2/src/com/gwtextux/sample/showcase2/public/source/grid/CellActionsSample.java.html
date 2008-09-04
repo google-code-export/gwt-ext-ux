@@ -1,3 +1,36 @@
+<html>
+<head>
+<link rel="stylesheet" href="../../js/sh/SyntaxHighlighter.css" type="text/css" />
+<script src="../../js/sh/shCore.js"></script>
+<script src="../../js/sh/shBrushJava.js"></script>
+<style>
+
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 650px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name="code" class="java:nogutter:nocontrols" rows="15" cols="120">
+/*
+ * GWT-Ext Widget Library
+ * Copyright(c) 2007-2008, GWT-Ext.
+ * licensing@gwt-ext.com
+ *
+ * http://www.gwt-ext.com/license
+ */
 package com.gwtextux.sample.showcase2.client.grid;
 
 import java.util.Date;
@@ -30,21 +63,20 @@ import com.gwtextux.sample.showcase2.client.SampleData;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 
 public class GridCellActionsSample extends ShowcasePanel {
-	
+
 	 public String getSourceUrl() {
-	        return "source/grid/CellActionsSample.java.html";
+	        return "source/grid/LocalPagingSample.java.html";
 	    }
-	
+
 	public Panel getViewPanel() {
 		if (panel == null) {
 			panel = new Panel();
 			panel.setBorder(false);
 			panel.setPaddings(15);
 
-			RecordDef recordDef = new RecordDef(new FieldDef[] { new StringFieldDef("icon"), new StringFieldDef("company"),
-					new FloatFieldDef("price"), new FloatFieldDef("change"), new FloatFieldDef("pctChange"), 
-					new DateFieldDef("lastChanged", "n/j h:ia"), new StringFieldDef("symbol"), new StringFieldDef("industry"), 
-					new StringFieldDef("action") });
+			RecordDef recordDef = new RecordDef(new FieldDef[] { new StringFieldDef("icon"), new StringFieldDef("company"), new FloatFieldDef("price"),
+					new FloatFieldDef("change"), new FloatFieldDef("pctChange"), new DateFieldDef("lastChanged", "n/j h:ia"),
+					new StringFieldDef("symbol"), new StringFieldDef("industry"), new StringFieldDef("action") });
 
 			GridPanel grid = new GridPanel();
 
@@ -57,7 +89,7 @@ public class GridCellActionsSample extends ShowcasePanel {
 			grid.setStore(store);
 
 			final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");
-			
+
 			GridCellAction dynamicCellAction = new GridCellAction();
 			dynamicCellAction.setIconIndex("icon");
 			dynamicCellAction.setTooltip("dynamic");
@@ -67,28 +99,25 @@ public class GridCellActionsSample extends ShowcasePanel {
 					return true;
 				}
 			});
-			
-			ColumnWithCellActionsConfig companyColumnConfig = new ColumnWithCellActionsConfig("Company", "company", 
-					240, true, null, "company");
+
+			ColumnWithCellActionsConfig companyColumnConfig = new ColumnWithCellActionsConfig("Company", "company", 240, true, null,
+					"company");
 			companyColumnConfig.setCellActions(new GridCellAction[] { new GridCellAction("grid-icon", "View details"),
 			new GridCellAction("settings-icon", "Settings")});
-			
-			ColumnWithCellActionsConfig industryColumnConfig = new ColumnWithCellActionsConfig("Industry", "industry", 
-					100, true);
+
+			ColumnWithCellActionsConfig industryColumnConfig = new ColumnWithCellActionsConfig("Industry", "industry", 100, true);
 			industryColumnConfig.setCellActions(new GridCellAction[] { new GridCellAction("folder-icon", "Tooltip 2")});
-			
-			ColumnWithCellActionsConfig actionColumnConfig = new ColumnWithCellActionsConfig("Action", "action", 
-					100, true);
+
+			ColumnWithCellActionsConfig actionColumnConfig = new ColumnWithCellActionsConfig("Action", "acion", 100, true);
 			actionColumnConfig.setCellActions(new GridCellAction[] {dynamicCellAction});
-			
+
 			BaseColumnConfig[] columns = new BaseColumnConfig[] { companyColumnConfig,
 					new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() {
-						public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, 
-								int colNum, Store store) {
+						public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, int colNum, Store store) {
 							Date date = (Date) value;
 							return dateFormatter.format(date);
 						}
-					}), industryColumnConfig, actionColumnConfig };
+					}), industryColumnConfig };
 
 			ColumnModel columnModel = new ColumnModel(columns);
 			grid.setColumnModel(columnModel);
@@ -105,34 +134,34 @@ public class GridCellActionsSample extends ShowcasePanel {
 				public boolean execute(GridPanel grid, Record record,
 						String action, Object value, String dataIndex,
 						int rowIndex, int colIndex) {
-					
-					if(!dataIndex.equals("action")){
-						//display message when all but action (pie-chart, line-chart) icons are displayed 
-						MessageBox.alert("Callback", "Row: " + rowIndex + "; col: " + colIndex + 
-								"; value: " + value + "; dataIndex: " + dataIndex);
+					MessageBox.alert("Callback", "Row: " + rowIndex + " col: " + colIndex +
+							" value " + record.getAsString("icon") + " dataIndex " + dataIndex);
+					if(!record.getAsString("icon").equalsIgnoreCase("pie-chart-icon") &&
+							!record.getAsString("icon").equalsIgnoreCase("line-chart-icon")){
+						//display message when other icons are clicked that those specified above
+						MessageBox.alert("Callback", "Row: " + rowIndex + " col: " + colIndex +
+								" value " + value + " dataIndex " + dataIndex);
 					}
 					return false;
 				}
 			});
-			
-			//change icons for dynamically set icons 
+
+			//change icons for dynamically set icons
 			cellActionsPlugin.addGlobalGridCellListener("pie-chart-icon", new GridCellActionListener(){
 				public boolean execute(GridPanel grid, Record record, String action,
 						Object value, String dataIndex, int rowIndex, int colIndex) {
 					record.beginEdit();
 					record.set("icon", "line-chart-icon");
-					record.set("action", "Stop");
 					record.endEdit();
 					return false;
 				}
 			});
-			
+
 			cellActionsPlugin.addGlobalGridCellListener("line-chart-icon", new GridCellActionListener(){
 				public boolean execute(GridPanel grid, Record record, String action,
 						Object value, String dataIndex, int rowIndex, int colIndex) {
 					record.beginEdit();
 					record.set("icon", "pie-chart-icon");
-					record.set("action", "Start");
 					record.endEdit();
 					return false;
 				}
@@ -153,7 +182,7 @@ public class GridCellActionsSample extends ShowcasePanel {
 		Object[][] companyData = null;
 	      if (companyData == null) {
 	          companyData = new Object[][]{
-	        		  new Object[]{"pie-chart-icon", "3m Co", new Double(71.72), new Double(0.02), new Double(0.03), "9/1 12:00am", "MMM", "Manufacturing", "Start"},
+	                  new Object[]{"pie-chart-icon", "3m Co", new Double(71.72), new Double(0.02), new Double(0.03), "9/1 12:00am", "MMM", "Manufacturing", "Start"},
 	                  new Object[]{"pie-chart-icon", "Alcoa Inc", new Double(29.01), new Double(0.42), new Double(1.47), "9/1 12:00am", "AA", "Manufacturing", "Start"},
 	                  new Object[]{"pie-chart-icon", "Altria Group Inc", new Double(83.81), new Double(0.28), new Double(0.34), "9/1 12:00am", "MO", "Manufacturing", "Start"},
 	                  new Object[]{"pie-chart-icon", "American Express Company", new Double(52.55), new Double(0.01), new Double(0.02), "9/1 12:00am", "AXP", "Finance", "Start"},
@@ -189,3 +218,10 @@ public class GridCellActionsSample extends ShowcasePanel {
 	      return companyData;
 	}
 }
+
+</textarea>
+<script class="javascript">
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

@@ -21,9 +21,11 @@
  */
 package com.gwtextux.client.widgets.grid.plugins;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.JsObject;
 import com.gwtext.client.util.JavaScriptObjectHelper;
+import com.gwtext.client.widgets.grid.GridPanel;
 
 /**
  * Grid Cell action configuration.
@@ -32,6 +34,7 @@ import com.gwtext.client.util.JavaScriptObjectHelper;
  * @author Jozef Sakalos (Original Ext component author)
  * @author Mariusz Pala (GWT-Ext wrapper author)
  * 
+ * @author Krzysztof (enhancements author)
  */
 public class GridCellAction extends JsObject {
 
@@ -50,6 +53,21 @@ public class GridCellAction extends JsObject {
 	public GridCellAction(String iconCls) {
 		this();
 		setIconCls(iconCls);
+	}
+
+	/**
+	 * Constructor that builds statically defined cell action. Use it if you want to specify actions 
+	 * that will be defined as per cell.
+	 * 
+	 * @param iconCls icon CSS class
+	 * @param tooltip
+	 */
+	public GridCellAction(String iconCls, String tooltip) {
+		this();
+		setIconCls(iconCls);
+		if (tooltip != null) {
+			setTooltip(tooltip);
+		}
 	}
 
 	/**
@@ -73,10 +91,85 @@ public class GridCellAction extends JsObject {
 
 	}
 
+	/**
+	 * Sets callback {@code Function} for this cell but it is not very useful. It only gives a notification
+	 * that cell was clicked. 
+	 * @param callback
+	 */
 	public void setCallback(Function callback) {
 		JavaScriptObjectHelper.setAttribute(jsObj, "callback", callback);
 	}
+	
+	
+	/**
+	 * Constructor that takes {@code GridCellActionListener} listener. Use it if you want to specify statically 
+	 * defined actions that will be defined as per cell.
+	 *  
+	 * @param iconCls icon CSS class
+	 * @param tooltip 
+	 * @param listener 
+	 */
+	public GridCellAction(String iconCls, String tooltip, GridCellActionListener listener) {
+		this();
+		setIconCls(iconCls);
+		if (tooltip != null) {
+			setTooltip(tooltip);
+		}
+		if (listener != null) {
+			setGridCellActionListener(listener);
+		}
 
+	}
+
+	/**
+	 * Constructor that takes {@code GridCellActionListener} listener. Use it if you want to specify statically 
+	 * defined actions that will be defined per as per cell. 
+	 * @param listener
+	 */
+	public GridCellAction(GridCellActionListener listener) {
+		this();
+		if (listener != null) {
+			setGridCellActionListener(listener);
+		}
+	}
+	
+	/**
+	 * Sets the listener to call if the action icon is clicked in a cell.
+	 * This listener works for statically defined actions. Set
+	 * global grid cell listener configuration option in {@code GridCellActionsPlugin} 
+	 * for dynamic store bound actions. This listener won't work if you set 
+	 * dynamic icons and dynamic tooltip for this cell.
+	 * 
+	 * @param listener the listener to call when an icon is clicked
+	 */
+	public native void setGridCellActionListener(GridCellActionListener listener) /*-{
+	var config = this.@com.gwtext.client.core.JsObject::getJsObj()();
+		config['callback'] = function(grid, record, action, value, dataIndex, rowIndex, colIndex) {
+			var g = @com.gwtextux.client.widgets.grid.plugins.GridCellAction::createGrid(Lcom/google/gwt/core/client/JavaScriptObject;)(grid);
+			
+			var r = @com.gwtext.client.data.Record::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(record);
+			var v = (value  == null || value === undefined || value == '') ? null : $wnd.GwtExt.convertToJavaType(value);
+
+            return listener.@com.gwtextux.client.widgets.grid.plugins.GridCellActionListener::execute(Lcom/gwtext/client/widgets/grid/GridPanel;Lcom/gwtext/client/data/Record;Ljava/lang/String;Ljava/lang/Object;Ljava/lang/String;II)(g,r,action,v,dataIndex,rowIndex,colIndex);
+        }
+	}-*/;
+	
+	/**
+	 * An utility method that is used by the {@code setGridCellActionListener} to create {@code Grid} from 
+	 * JavaScript response. 
+	 *  
+	 * @param jsObj the JavaScript object representing {@code GridPanel} that was returner from GridCellActionPlugin. 
+	 * @return {@code GridPanel}
+	 */
+	private static GridPanel createGrid(JavaScriptObject jsObj){
+		return new GridPanel(jsObj);
+	}
+
+	
+	private GridCellAction(JavaScriptObject jsObj){
+		super(jsObj);
+	}
+	
 	/**
 	 * Icon index. Optional, however either iconIndex or iconCls must be
 	 * configured. Field name of the field of the grid store record that
@@ -132,4 +225,23 @@ public class GridCellAction extends JsObject {
 		JavaScriptObjectHelper.setAttribute(jsObj, "style", style);
 	}
 
+	/**
+	 * True to hide this action while still have a space in the grid column allocated to it. 
+	 * IMO, it doesn't make too much sense, use hideIndex instead.
+	 * 
+	 * @param hide
+	 */
+	public void setHide(boolean hide){
+		JavaScriptObjectHelper.setAttribute(jsObj, "hide", hide);
+	}
+	
+	/**
+	 * Field name of the field of the grid store record that contains hide flag 
+	 * (false [null, '', 0, false, undefined] to show, anything else to hide).
+	 * 
+	 * @param hideIndex
+	 */
+	public void setHideIndex(String hideIndex){
+		JavaScriptObjectHelper.setAttribute(jsObj, "hideIndex", hideIndex);
+	}
 }

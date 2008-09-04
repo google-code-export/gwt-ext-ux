@@ -318,7 +318,7 @@ Ext.extend(Ext.ux.grid.CellActions, Ext.util.Observable, {
 
 			// call callback if any
 			if(this.callbacks && 'function' === typeof this.callbacks[action]) {
-				this.callbacks[action](this.grid, record, action, value, row.rowIndex, col);
+				this.callbacks[action](this.grid, record, action, value, dataIndex, row.rowIndex, col);
 			}
 
 			// fire events
