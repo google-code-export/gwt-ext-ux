@@ -55,7 +55,6 @@ public class IconMenu extends ComponentPlugin {
 	/**
 	 * @param component
 	 */
-	@Override
 	public void init(Component component) {
 	}
 }
