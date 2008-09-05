@@ -78,7 +78,7 @@ public class SwfUploadPanel extends GridPanel {
         super(jsObj);
     }
 
-    private static SwfUploadPanel instance(JavaScriptObject jsObj) {
+    public static SwfUploadPanel instance(JavaScriptObject jsObj) {
         return new SwfUploadPanel(jsObj);
     }
 
