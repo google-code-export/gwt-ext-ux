@@ -72,7 +72,7 @@ public class FileTreePanel extends TreePanel {
     private native JavaScriptObject setJsOpenAction(FileTreePanelOpenAction oaction) /*-{
         var fileTreePanelJ = this;
         return function(source, treenode, path, mode) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                return oaction.@com.gwtextux.client.widgets.tree.FileTreePanelOpenAction::onOpenNodePath(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;Ljava/lang/String;Ljava/lang/String;)(fileTreePanelJ, nodeJ, path, mode);
 	            };
     }-*/;
@@ -108,28 +108,28 @@ public class FileTreePanel extends TreePanel {
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('beforerename',
 	            function(source,treenode,newpath,oldpath) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                return listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onBeforeRename(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;Ljava/lang/String;Ljava/lang/String;)(fileTreePanelJ, nodeJ, newpath, oldpath);
 	            }
 	    );
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('rename',
 	            function(source,treenode,newpath,oldpath) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onRename(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;Ljava/lang/String;Ljava/lang/String;)(fileTreePanelJ, nodeJ, newpath, oldpath);
 	            }
 	    );
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('renamefailure',
 	            function(source,treenode,newpath,oldpath) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onRenameFailure(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;Ljava/lang/String;Ljava/lang/String;)(fileTreePanelJ, nodeJ, newpath, oldpath);
 	            }
 	    );
 	
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('beforedelete',
 	            function(source,treenode) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                return listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onBeforeDelete(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;)(fileTreePanelJ, nodeJ);
 	            }
 	    );	
@@ -142,21 +142,21 @@ public class FileTreePanel extends TreePanel {
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('deletefailure',
 	            function(source,treenode) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onDeleteFailure(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;)(fileTreePanelJ, nodeJ);
 	            }
 	    );	
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('beforenewdir',
 	            function(source,treenode) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                return listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onBeforeNewDir(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;)(fileTreePanelJ, nodeJ);
 	            }
 	    );	
 
 	    this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('newdir',
 	            function(source,treenode) {
-	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
+	                var nodeJ = @com.gwtext.client.widgets.tree.TreeNode::treeNodeInstance(Lcom/google/gwt/core/client/JavaScriptObject;)(treenode);
 	                listener.@com.gwtextux.client.widgets.tree.FileTreePanelListener::onNewDir(Lcom/gwtextux/client/widgets/tree/FileTreePanel;Lcom/gwtext/client/widgets/tree/TreeNode;)(fileTreePanelJ, nodeJ);
 	            }
 	    );	
