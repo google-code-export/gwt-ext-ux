@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class SampleGrid extends GridPanel {
 
-    private static final NumberFormat nf = NumberFormat.getFormat("#,##0.00", "$");
+    private static final NumberFormat nf = NumberFormat.getFormat("#,##0.00");
     private static final NumberFormat nfc = NumberFormat.getFormat("#,##0.00");
     private static final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");
 
