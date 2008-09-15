@@ -121,6 +121,15 @@ public class ColumnWithCellActionsConfig extends ColumnConfig {
 	}
 
 	/**
+	 * Disables menu for this column.
+	 * 
+	 * @param menuDisabled
+	 */
+	public void setMenuDisabled(boolean menuDisabled){
+		JavaScriptObjectHelper.setAttribute(jsObj, "menuDisabled", menuDisabled);
+	}
+	
+	/**
 	 * Sets the cell actions for a column.
 	 * @param actions
 	 */
