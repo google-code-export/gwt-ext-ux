@@ -95,13 +95,13 @@
 	</condition>
     
     <!--GWT jars location-->
-    <property name="gwt.version" value="1.4.60" />
+    <property name="gwt.version" value="1.5.2" />
 
     <property name="gwt.user.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-user.jar" />
 	<property name="gwt.servlet.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-servlet.jar" />
 	<property name="gwt.dev.jar" location="${gwtextux.tools.lib}/gwt/${gwt.version}/${build.host.platform}/gwt-dev-${build.host.platform}.jar" />
     
-    <property name="gwtext.version" value="2.0.4" />
+    <property name="gwtext.version" value="2.0.5" />
     <property name="gwtext.jar" location="${gwtextux.tools.lib}/gwt-ext/${gwtext.version}/gwtext.jar" />
 
     <!-- JUnit support -->
