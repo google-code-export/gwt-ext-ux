@@ -78,9 +78,6 @@ public class SwfUploadPanel extends GridPanel {
         super(jsObj);
     }
 
-    public static SwfUploadPanel instance(JavaScriptObject jsObj) {
-        return new SwfUploadPanel(jsObj);
-    }
 
     protected native JavaScriptObject create(JavaScriptObject config) /*-{
         return new $wnd.Ext.ux.SwfUploadPanel(config);
