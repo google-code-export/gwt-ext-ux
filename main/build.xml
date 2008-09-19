@@ -20,6 +20,7 @@
             <filelist dir="${jsdir}/gridsearch" files="ext-ux-grid-search.js"/>
             <filelist dir="${jsdir}/gridsummary" files="Ext.ux.grid.GridSummary.js"/>
             <filelist dir="${jsdir}/livegrid" files="BufferedGridDragZone.js,BufferedGridToolbar.js,BufferedGridView.js,BufferedJsonReader.js,BufferedRowSelectionModel.js,BufferedStore.js"/>
+            <filelist dir="${jsdir}/lovcombo/js" files="Ext.ux.form.LovCombo.js"/>
 			<filelist dir="${jsdir}/mif" files="ext-ux-miframe.js"/>
             <filelist dir="${jsdir}/msis" files="Multiselect.js,DDView.js"/>
             <filelist dir="${jsdir}/multicalendar" files="MultiMonthCalendar.js"/>
