@@ -1,0 +1,7 @@
+<module>
+    <inherits name="com.gwtextux.GwtExtUx"/>
+    
+	<script src="js/lovcombo/js/Ext.ux.form.LovCombo.js"/>
+	<stylesheet src="js/lovcombo/css/Ext.ux.form.LovCombo.css"/>
+    
+</module>
