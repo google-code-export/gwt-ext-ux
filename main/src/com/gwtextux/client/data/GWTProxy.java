@@ -84,7 +84,7 @@ public abstract class GWTProxy extends DataProxy{
         var o = store.baseParams;
         for(var key in o){
             var ov = o[key];
-            var param = @com.gwtext.client.core.UrlParam::instance(Ljava/lang/String;Ljava/lang/String;)(key, ov);
+            var param = @com.gwtext.client.core.UrlParam::instance(Ljava/lang/String;Ljava/lang/String;)(key, String(ov));
             params[i] = param.@com.gwtext.client.core.JsObject::getJsObj()();
             i++;
         }
