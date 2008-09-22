@@ -47,7 +47,7 @@ public class LovCombo extends ComboBox {
 
     //-- config options --
     protected native JavaScriptObject create(JavaScriptObject config) /*-{
-		return new $Ext.ux.form.LovCombo(config);
+		return new $wnd.Ext.ux.form.LovCombo(config);
     }-*/;
 
 
