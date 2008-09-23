@@ -21,31 +21,39 @@
  */
 package com.gwtextux.client.widgets.grid.plugins;
 
-import com.gwtext.client.data.Record;
-import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.ComponentPlugin;
 
 /**
- * This interface defines listener to cell actions in a {@code GridCellAction} plugin.
+ * This plugin is created from configured column with row actions. You need to first create the column and then 
+ * this plugin. This is specific plugin and some attributes don't work. For example you can set 'dataIndex' 
+ * attribute for {@code ColumnWithCellActionsConfig} but it will not work as the original JavaScript plugin is
+ * configured to work in a column without contents, only icons are there.
  * 
- * See http://rowactions.extjs.eu/
+ * See http://rowactions.extjs.eu/ Requires Ext.ux.grid.RowActions.js and Ext.ux.grid.RowActions.css.
  * @author Jozef Sakalos (Original Ext component author)
  * @author Krzysztof (Gwt-Ext-Ux wrapper author)
  */
-public interface GridCellActionListener {
+public class RowActionsPlugin extends ComponentPlugin {
 	
 	/**
-	 * The listener method for grid cell action
+	 * Constructor for {@code RowActionsPlugin} builds this row action from configured column.
 	 * 
-	 * @param grid the {@code GridPanel} that this action is defined for
-	 * @param record {@code Record} containing data of clicked cell
-	 * @param action Action clicked (equals iconCls);
-	 * @param value Value of the clicked cell
-	 * @param dataIndex as specified in column model
-	 * @param rowIndex Index of row clicked
-	 * @param colIndex Index of col clicked
-	 * @return this return value is only useful when you specify 'beforeaction' listener, In other cases it is ignored.
+	 * @param columnConfig the column with configured row actions.
 	 */
-	public boolean execute(GridPanel grid, Record record, String action, Object value, 
-			String dataIndex, int rowIndex, int colIndex);
+	public RowActionsPlugin(ColumnWithRowActionsConfig columnConfig) {
+		this.setColumnWithRowActions(columnConfig);
+	}
 
+	public void init(Component component) {
+	}
+
+	/**
+	 * Sets column with configured rows for this plugin.
+	 * 
+	 * @param columnConfig
+	 */
+	public void setColumnWithRowActions(ColumnWithRowActionsConfig columnConfig){
+		jsObj = columnConfig.getJsObj();
+	}
 }

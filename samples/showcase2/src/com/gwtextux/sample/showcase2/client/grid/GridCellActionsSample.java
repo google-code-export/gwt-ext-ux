@@ -2,9 +2,7 @@ package com.gwtextux.sample.showcase2.client.grid;
 
 import java.util.Date;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.gwtext.client.core.Function;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.DateFieldDef;
 import com.gwtext.client.data.FieldDef;
@@ -26,7 +24,6 @@ import com.gwtextux.client.widgets.grid.plugins.ColumnWithCellActionsConfig;
 import com.gwtextux.client.widgets.grid.plugins.GridCellAction;
 import com.gwtextux.client.widgets.grid.plugins.GridCellActionListener;
 import com.gwtextux.client.widgets.grid.plugins.GridCellActionsPlugin;
-import com.gwtextux.sample.showcase2.client.SampleData;
 import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 
 public class GridCellActionsSample extends ShowcasePanel {

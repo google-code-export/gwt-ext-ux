@@ -38,6 +38,7 @@ import com.gwtextux.sample.showcase2.client.grid.GridSearchSample;
 import com.gwtextux.sample.showcase2.client.grid.GridSummarySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
+import com.gwtextux.sample.showcase2.client.grid.RowActionsSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
 import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
@@ -395,6 +396,7 @@ public class ScreenManager {
 				new Object[]{"customReaderSample", "grids-category", "Grid with CustomReader", null, "images/thumbnails/grid/grid-with-customreader.gif", null, new CustomReaderSample()},
 				
 				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
+				new Object[]{"gridRowActionsSample", "grids-category", "Grid with RowActions", null, "images/thumbnails/grid/grid-row-actions.jpg", null, new RowActionsSample()},
 				new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},

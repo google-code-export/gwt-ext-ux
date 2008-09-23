@@ -25,27 +25,24 @@ import com.gwtext.client.data.Record;
 import com.gwtext.client.widgets.grid.GridPanel;
 
 /**
- * This interface defines listener to cell actions in a {@code GridCellAction} plugin.
+ * This interface defines listener for row actions in a {@code GridRowListener} plugin.
  * 
  * See http://rowactions.extjs.eu/
  * @author Jozef Sakalos (Original Ext component author)
  * @author Krzysztof (Gwt-Ext-Ux wrapper author)
+ *
  */
-public interface GridCellActionListener {
-	
+public interface RowActionListener {
+
 	/**
-	 * The listener method for grid cell action
+	 * The listener method for grid row action
 	 * 
-	 * @param grid the {@code GridPanel} that this action is defined for
-	 * @param record {@code Record} containing data of clicked cell
-	 * @param action Action clicked (equals iconCls);
-	 * @param value Value of the clicked cell
-	 * @param dataIndex as specified in column model
-	 * @param rowIndex Index of row clicked
-	 * @param colIndex Index of col clicked
+	 * @param grid the {@code GridPanel} this plugin is defined for
+	 * @param record Record corresponding to row clicked 
+	 * @param action action Identifies the action icon clicked. Equals to icon css class name.
+	 * @param rowIndex Index of clicked grid row 
+	 * @param colIndex Index of clicked grid column that contains all action icons
 	 * @return this return value is only useful when you specify 'beforeaction' listener, In other cases it is ignored.
 	 */
-	public boolean execute(GridPanel grid, Record record, String action, Object value, 
-			String dataIndex, int rowIndex, int colIndex);
-
+	public boolean execute(GridPanel grid, Record record, String action, int rowIndex, int colIndex);
 }

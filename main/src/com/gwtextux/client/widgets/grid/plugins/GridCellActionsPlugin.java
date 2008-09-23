@@ -68,6 +68,7 @@ public class GridCellActionsPlugin extends ComponentPlugin {
 		return jsObj;
 	}
 
+	
 	public native JavaScriptObject create(JavaScriptObject configJS) /*-{
 	   return new $wnd.Ext.ux.grid.CellActions(configJS);
 	}-*/;
@@ -119,7 +120,7 @@ public class GridCellActionsPlugin extends ComponentPlugin {
 	
 	/**
 	 * Adds global 'action' listener, meaning that whatever icon in the grid you click this listener along 
-	 * with the cell specific listener defined for the clicked clicked will be invoked. It is recommended 
+	 * with the cell specific listener defined for the clicked icon will be invoked. It is recommended 
 	 * to use this global listener instead of cell specific listener. 
 	 * 
 	 * @param listener
