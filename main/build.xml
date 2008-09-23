@@ -17,6 +17,7 @@
         <concat destfile="${gwtextux.root}/samples/showcase2/src/com/gwtextux/sample/showcase2/public/js/ext-ux-all.js" fixlastline="yes">
             <filelist dir="${jsdir}/filetree/js" files="Ext.ux.FileTreeMenu.js,Ext.ux.FileTreePanel.js,Ext.ux.FileUploader.js,Ext.ux.form.BrowseButton.js,Ext.ux.IconCombo.js,Ext.ux.LangSelectCombo.js,Ext.ux.ThemeCombo.js,Ext.ux.UploadPanel.js"/>
             <filelist dir="${jsdir}/gridcellactions" files="ext-ux-grid-cellactions.js"/>
+        	<filelist dir="${jsdir}/gridrowactions" files="Ext.ux.grid.RowActions.js"/>
             <filelist dir="${jsdir}/gridsearch" files="ext-ux-grid-search.js"/>
             <filelist dir="${jsdir}/gridsummary" files="Ext.ux.grid.GridSummary.js"/>
             <filelist dir="${jsdir}/livegrid" files="BufferedGridDragZone.js,BufferedGridToolbar.js,BufferedGridView.js,BufferedJsonReader.js,BufferedRowSelectionModel.js,BufferedStore.js"/>
