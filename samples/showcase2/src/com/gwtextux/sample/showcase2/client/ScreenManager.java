@@ -384,7 +384,7 @@ public class ScreenManager {
 
                 new Object[]{"combo-category", null, "Combobox", "combo-category-icon", null, null, null},
                 new Object[]{"pagingComboBox", "combo-category", "Paging ComboBox", null, "images/thumbnails/combo/combo-paging.gif", null, new ComboBoxPagingSample()},
-                new Object[]{"lovComboBox", "combo-category", "List of Values ComboBox", null, null, null, new LovComboSample()},
+                new Object[]{"lovComboBox", "combo-category", "List of Values ComboBox", null, "images/thumbnails/combo/lov.gif", null, new LovComboSample()},
 
 
                 new Object[]{"grids-category", null, "Grids", "grids-category-icon", null, null, null},
@@ -399,12 +399,12 @@ public class ScreenManager {
 				new Object[]{"customReaderSample", "grids-category", "Grid with CustomReader", null, "images/thumbnails/grid/grid-with-customreader.gif", null, new CustomReaderSample()},
 				
 				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
-				new Object[]{"gridRowActionsSample", "grids-category", "Grid with RowActions", null, "images/thumbnails/grid/grid-row-actions.jpg", null, new RowActionsSample()},
+				new Object[]{"gridRowActionsSample", "grids-category", "Grid with RowActions", null, "images/thumbnails/grid/grid-row-actions.gif", null, new RowActionsSample()},
 				new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
-                new Object[]{"spinner", "forms-category", "Spinner", null, null, null, new SpinnerSample()},
+                new Object[]{"spinner", "forms-category", "Spinner", null, "images/thumbnails/forms/spinner.gif", null, new SpinnerSample()},
 
                 new Object[]{"tree-category", null, "Trees", "tree-category-icon", null, null, null},
                 new Object[]{"filetreepanel", "tree-category", "File Tree Panel", null, "images/thumbnails/tree/filetreepanel.jpg", null, new FileTreePanelSample()},
