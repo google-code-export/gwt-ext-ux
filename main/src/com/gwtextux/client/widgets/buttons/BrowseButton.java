@@ -1,6 +1,7 @@
 package com.gwtextux.client.widgets.buttons;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.user.client.DOM;
 import com.gwtext.client.core.Ext;
 import com.gwtext.client.core.ExtElement;
 import com.gwtext.client.widgets.Button;
@@ -63,8 +64,10 @@ public class BrowseButton extends Button {
 	
 	private TextField getFileField(String name) {
 		JavaScriptObject inputFile = detachInputFile(false);
-		ExtElement e = new ExtElement(inputFile);
-		e.getDOM().setAttribute("name", name);
+		ExtElement e = new ExtElement(inputFile);		
+		//this is GWT 1.5 specific, lets check with users first before removing support for 1.4
+		//e.getDOM().setAttribute("name", name);
+		DOM.setElementAttribute(e.getDOM(), "name", name);
 		TextField tf = new TextField();
 		tf.setInputType("file");
 		tf.setEl(e.getDOM());
