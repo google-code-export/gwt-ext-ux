@@ -400,7 +400,8 @@ public class ScreenManager {
 				
 				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
 				new Object[]{"gridRowActionsSample", "grids-category", "Grid with RowActions", null, "images/thumbnails/grid/grid-row-actions.gif", null, new RowActionsSample()},
-				new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
+				//commenting out flot until sample is fixed
+				//new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
