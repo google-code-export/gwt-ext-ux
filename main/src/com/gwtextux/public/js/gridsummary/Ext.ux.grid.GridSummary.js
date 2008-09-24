@@ -134,7 +134,8 @@ Ext.extend(Ext.ux.grid.GridSummary, Ext.util.Observable, {
             p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
 
             if (cf.summaryType || cf.summaryRenderer) {
-                p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, o);
+                //p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, o);
+                p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, new Ext.data.Record(o.data), -1, i, this.grid.store);
             } else {
                 p.value = '';
             }
