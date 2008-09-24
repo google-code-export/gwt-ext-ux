@@ -27,6 +27,7 @@
             <filelist dir="${jsdir}/multicalendar" files="MultiMonthCalendar.js"/>
             <filelist dir="${jsdir}/swfuploadpanel" files="SwfUpload.js,SwfUploadPanel.js"/>			
 			<filelist dir="${jsdir}/UploadDialog" files="Ext.ux.UploadDialog.packed.js"/>
+			<filelist dir="${jsdir}/spinner" files="Spinner.js"/>
 		</concat>
 
         <java jar="${yui.compressor.jar}" fork="true">
