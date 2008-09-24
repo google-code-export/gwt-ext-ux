@@ -1,0 +1,8 @@
+<module>
+    <inherits name="com.gwtextux.GwtExtUx"/>
+    
+	<script src="js/spinner/Spinner.js"/>
+	<script src="js/spinner/SpinnerStrategy.js"/>
+	<stylesheet src="js/spinner/Spinner.css"/>
+    
+</module>
