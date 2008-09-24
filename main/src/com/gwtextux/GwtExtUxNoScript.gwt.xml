@@ -17,4 +17,5 @@
 	<stylesheet src="js/swfuploadpanel/SwfUploadPanel.css"/>
 	<stylesheet src="js/UploadDialog/css/Ext.ux.UploadDialog.css"/>	
 	<stylesheet src="js/lovcombo/css/Ext.ux.form.LovCombo.css"/>	
+	<stylesheet src="js/spinner/Spinner.css"/>	
 </module>
