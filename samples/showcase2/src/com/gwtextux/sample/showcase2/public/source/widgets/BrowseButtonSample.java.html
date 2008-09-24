@@ -1,0 +1,231 @@
+<html>
+<head>
+<link rel="stylesheet" href="../../js/sh/SyntaxHighlighter.css" type="text/css" />
+<script src="../../js/sh/shCore.js"></script>
+<script src="../../js/sh/shBrushJava.js"></script>
+<style>
+
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 700px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name="code" class="java:nogutter:nocontrols" rows="15" cols="120">
+/* 
+ * GWT-Ext Widget Library 
+ * Copyright(c) 2007-2008, GWT-Ext. 
+ * licensing@gwt-ext.com 
+ * 
+ * http://www.gwt-ext.com/license 
+ */
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.core.client.GWT;
+
+import com.gwtext.client.core.Connection;
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.Record;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
+import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.Toolbar;
+import com.gwtext.client.widgets.ToolbarButton;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.form.FormPanel;
+import com.gwtext.client.widgets.form.Hidden;
+import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.grid.ColumnConfig;
+import com.gwtext.client.widgets.grid.ColumnModel;
+import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.RowSelectionModel;
+import com.gwtextux.client.widgets.buttons.BrowseButton;
+import com.gwtextux.client.widgets.buttons.BrowseButtonListenerAdapter;
+
+
+
+public class BrowseButtonSample implements EntryPoint{
+
+    private Toolbar toolbar;
+    private Store fileStore;
+    private RecordDef recordDef;
+    private FormPanel fileForm;
+    private Map<String,TextField> fileMap;
+    private GridPanel fileGrid;
+    private Button uploadFiles;
+
+    public void onModuleLoad() {
+        Panel panel = new Panel();
+
+        panel.add(getFileForm());
+        panel.add(getFileUploadGrid());
+        panel.add(getUploadButton());
+
+        RootPanel.get().add(panel);
+    }
+
+    private Component getUploadButton() {
+        if (null == uploadFiles) {
+            uploadFiles = new Button("Upload Files");
+            uploadFiles.addListener(new ButtonListenerAdapter() {
+                public void onClick(Button button, EventObject e) {
+                    GWT.log("size: " + getFileMap().size(),null);
+                    getFileForm().removeAll();
+                    Iterator<TextField> files = getFileMap().values().iterator();
+                    while ( files.hasNext() ) {
+                        TextField tf = files.next();
+                        getFileForm().add(tf);
+                    }
+                    getFileForm().doLayout();
+                    getFileForm().getForm().submit();
+                }
+            });
+        }
+        return uploadFiles;
+    }
+
+    public GridPanel getFileUploadGrid() {
+        if (null == fileGrid) {
+            fileGrid = new GridPanel();
+            fileGrid.setTitle("File Upload");
+            ColumnConfig filenameCol = new ColumnConfig("Filename", "filename", 220, true, null, "filename");
+            filenameCol.setTooltip("File to upload");
+
+            ColumnConfig locationCol = new ColumnConfig("Location", "location", 130);  
+            locationCol.setTooltip("Full path to file");
+
+            ColumnConfig[] columnConfigs = {  
+                    filenameCol,  
+                    locationCol
+            };  
+
+            ColumnModel columnModel = new ColumnModel(columnConfigs);  
+            columnModel.setDefaultSortable(true);       
+
+            fileGrid.setAutoScroll(true);
+            fileGrid.setStore(getFileStore());  
+            fileGrid.setColumnModel(columnModel);  
+            //          setAutoExpandColumn("filename");
+            fileGrid.setSelectionModel(new RowSelectionModel());
+            fileGrid.setAutoHeight(true);
+            fileGrid.setFrame(true);  
+
+            fileGrid.setTopToolbar(getToolbar());  
+            fileGrid.setAutoWidth(true);
+            fileGrid.setStripeRows(true);
+        }
+        return fileGrid;
+    }
+
+    public Map<String,TextField> getFileMap() {
+        if (null == fileMap) {
+            fileMap = new HashMap<String,TextField>();
+        }
+        return fileMap;
+    }
+
+    public RecordDef getRecordDef() {
+        if (null == recordDef) {
+            this.recordDef = new RecordDef(  
+                    new FieldDef[]{  
+                            new StringFieldDef("filename"),  
+                            new StringFieldDef("location")
+                    }  
+            );      
+        }
+        return recordDef;
+    }
+
+    private Store getFileStore() {
+        if (null == fileStore) {
+            fileStore = new Store(getRecordDef());
+        }
+        return fileStore;
+    }
+
+    private Toolbar getToolbar() {
+        if (null == toolbar) {
+            toolbar = new Toolbar();
+            BrowseButton addFiles = new BrowseButton("Add File");
+            addFiles.setTooltip("Add Files");
+            addFiles.addListener(new BrowseButtonListenerAdapter() {
+                public void onInputFileChange(BrowseButton browseButton, String filename) {
+                    getFileMap().put(getBaseName(filename), browseButton.getFileInputField());
+                    Record record = recordDef.createRecord(new Object[] { getBaseName(filename), filename});
+                    getFileStore().insert(0, record);
+                    GWT.log("added file: " + getBaseName(filename),null);
+                }
+            });
+
+            ToolbarButton removeFiles = new ToolbarButton("Remove File(s)");
+            removeFiles.setTooltip("Remove Files");
+            removeFiles.addListener(new ButtonListenerAdapter() { 
+                public void onClick(Button button, EventObject e) {
+                    Iterator<Record> records = Arrays.asList(getFileUploadGrid().getSelectionModel().getSelections()).iterator();
+                    while(records.hasNext()) {
+                        Record record = records.next();
+                        String filename = record.getAsString("filename");
+                        getFileStore().remove(record);
+                        getFileMap().remove(filename);
+                        GWT.log("removed file: " + filename,null);
+                    }
+                    getFileUploadGrid().getSelectionModel().selectFirstRow();
+                }
+            });
+            toolbar.addElement(addFiles.getElement());
+            toolbar.addButton(removeFiles);
+        }
+        return toolbar;
+    }
+
+    // Depending on the browser, either the fullpath or just the basename is returned
+    // Since we can't use java.io.File, this is a quick hack to get the basename
+    private String getBaseName(String filePath) {
+        String[] parts = filePath.split("/");
+        if (parts.length < 2) {
+            parts = filePath.split("\\\\");
+        }
+        return parts[parts.length-1];
+    }
+
+    public FormPanel getFileForm() {
+        if (null == fileForm) {
+            fileForm = new FormPanel();
+            fileForm.setTitle("Files Form");
+            fileForm.setFileUpload(true);
+            fileForm.setVisible(false);
+            fileForm.setUrl("UploadSvc");
+            fileForm.setMethod(Connection.POST);
+            fileForm.add(new Hidden()); 
+        }
+        return fileForm;
+    }   
+}
+</textarea>
+<script class="javascript">
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>
