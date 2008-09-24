@@ -28,7 +28,9 @@ import com.gwtext.client.widgets.tree.TreeTraversalCallback;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 import com.gwtextux.sample.showcase2.client.chooser.ImageChooserSample;
 import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
+import com.gwtextux.sample.showcase2.client.combo.LovComboSample;
 import com.gwtextux.sample.showcase2.client.form.ItemSelectorSample;
+import com.gwtextux.sample.showcase2.client.form.SpinnerSample;
 import com.gwtextux.sample.showcase2.client.grid.CustomReaderSample;
 import com.gwtextux.sample.showcase2.client.grid.FlotPlotterSample;
 import com.gwtextux.sample.showcase2.client.grid.GWTProxySample;
@@ -382,6 +384,7 @@ public class ScreenManager {
 
                 new Object[]{"combo-category", null, "Combobox", "combo-category-icon", null, null, null},
                 new Object[]{"pagingComboBox", "combo-category", "Paging ComboBox", null, "images/thumbnails/combo/combo-paging.gif", null, new ComboBoxPagingSample()},
+                new Object[]{"lovComboBox", "combo-category", "List of Values ComboBox", null, null, null, new LovComboSample()},
 
 
                 new Object[]{"grids-category", null, "Grids", "grids-category-icon", null, null, null},
@@ -401,6 +404,7 @@ public class ScreenManager {
 				
                 new Object[]{"forms-category", null, "Forms", "forms-category-icon", null, null, null},
                 new Object[]{"itemSelectorForm", "forms-category", "Dual Item Selector", null, "images/thumbnails/forms/item-selector.gif", null, new ItemSelectorSample()},
+                new Object[]{"spinner", "forms-category", "Spinner", null, null, null, new SpinnerSample()},
 
                 new Object[]{"tree-category", null, "Trees", "tree-category-icon", null, null, null},
                 new Object[]{"filetreepanel", "tree-category", "File Tree Panel", null, "images/thumbnails/tree/filetreepanel.jpg", null, new FileTreePanelSample()},
