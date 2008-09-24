@@ -22,7 +22,7 @@ import com.gwtextux.sample.showcase2.client.ShowcasePanel;
 public class SpinnerSample extends ShowcasePanel {
 
 	public String getSourceUrl() {
-		return "source/form/ItemSelectorSample.java.html";
+		return "source/form/SpinnerSample.java.html";
 	}
 
 	public Panel getViewPanel() {
