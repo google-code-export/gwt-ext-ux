@@ -4885,201 +4885,224 @@ Ext.extend(Ext.ux.grid.Search, Ext.util.Observable, {
     // }}}
 
 }); // end of extend
-Ext.ns("Ext.ux.grid.GridSummary"); // namespace Ext.ux.grid.GridSummary
+Ext.ns('Ext.ux.grid');
 
 Ext.ux.grid.GridSummary = function(config) {
-    Ext.apply(this, config);
+        Ext.apply(this, config);
 };
 
 Ext.extend(Ext.ux.grid.GridSummary, Ext.util.Observable, {
-  init : function(grid) {
-    this.grid = grid;
-    this.cm = grid.getColumnModel();
-    this.view = grid.getView();
-    var v = this.view;
+    init : function(grid) {
+        this.grid = grid;
+        this.cm = grid.getColumnModel();
+        this.view = grid.getView();
 
-    v.onLayout = this.onLayout; // override GridView's onLayout() method
+        var v = this.view;
 
-    v.afterMethod('render', this.refreshSummary, this);
-    v.afterMethod('refresh', this.refreshSummary, this);
-    v.afterMethod('syncScroll', this.syncSummaryScroll, this);
-    v.afterMethod('onColumnWidthUpdated', this.doWidth, this);
-    v.afterMethod('onAllColumnWidthsUpdated', this.doAllWidths, this);
-    v.afterMethod('onColumnHiddenUpdated', this.doHidden, this);
-    v.afterMethod('onUpdate', this.refreshSummary, this);
-    v.afterMethod('onRemove', this.refreshSummary, this);
+        // override GridView's onLayout() method
+        v.onLayout = this.onLayout;
 
-    // update summary row on store's add / remove / clear events
-    grid.store.on('add', this.refreshSummary, this);
-    grid.store.on('remove', this.refreshSummary, this);
-    grid.store.on('clear', this.refreshSummary, this);
+        v.afterMethod('render', this.refreshSummary, this);
+        v.afterMethod('refresh', this.refreshSummary, this);
+        v.afterMethod('syncScroll', this.syncSummaryScroll, this);
+        v.afterMethod('onColumnWidthUpdated', this.doWidth, this);
+        v.afterMethod('onAllColumnWidthsUpdated', this.doAllWidths, this);
+        v.afterMethod('onColumnHiddenUpdated', this.doHidden, this);
 
-    if (!this.rowTpl) {
-      this.rowTpl = new Ext.Template(
-        '<div class="x-grid3-summary-row x-grid3-gridsummary-row-offset">',
-          '<table class="x-grid3-summary-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
-            '<tbody><tr>{cells}</tr></tbody>',
-          '</table>',
-        '</div>'
-      );
-      this.rowTpl.disableFormats = true;
-    }
-    this.rowTpl.compile();
+        // update summary row on store's add/remove/clear/update events
+        grid.store.on({
+            add: this.refreshSummary,
+            remove: this.refreshSummary,
+            clear: this.refreshSummary,
+            update: this.refreshSummary,
+            scope: this
+        });
 
-    if (!this.cellTpl) {
-      this.cellTpl = new Ext.Template(
-        '<td class="x-grid3-col x-grid3-cell x-grid3-td-{id} {css}" style="{style}">',
-          '<div class="x-grid3-cell-inner x-grid3-col-{id}" unselectable="on">{value}</div>',
-        "</td>"
-      );
-      this.cellTpl.disableFormats = true;
-    }
-    this.cellTpl.compile();
-  },
-
-  calculate : function(rs, cs) {
-    var data = {}, r, c, cfg = this.cm.config, cf;
-    for (var j = 0, jlen = rs.length; j < jlen; j++) {
-      r = rs[j];
-      for (var i = 0, len = cs.length; i < len; i++) {
-        c = cs[i];
-        cf = cfg[i];
-        if (cf && cf.summaryType) {
-          data[c.name] = Ext.ux.grid.GridSummary.Calculations[cf.summaryType](data[c.name] || 0, r, c.name, data);
+        if (!this.rowTpl) {
+            this.rowTpl = new Ext.Template(
+                '<div class="x-grid3-summary-row x-grid3-gridsummary-row-offset">',
+                    '<table class="x-grid3-summary-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
+                        '<tbody><tr>{cells}</tr></tbody>',
+                    '</table>',
+                '</div>'
+            );
+            this.rowTpl.disableFormats = true;
         }
-      }
+        this.rowTpl.compile();
+
+        if (!this.cellTpl) {
+            this.cellTpl = new Ext.Template(
+                '<td class="x-grid3-col x-grid3-cell x-grid3-td-{id} {css}" style="{style}">',
+                    '<div class="x-grid3-cell-inner x-grid3-col-{id}" unselectable="on" {attr}>{value}</div>',
+                "</td>"
+            );
+            this.cellTpl.disableFormats = true;
+        }
+        this.cellTpl.compile();
+    },
+
+    calculate : function(rs, cm) {
+        var data = {}, cfg = cm.config;
+        for (var i = 0, len = cfg.length; i < len; i++) { // loop through all columns in ColumnModel
+            var cf = cfg[i], // get column's configuration
+                cname = cf.dataIndex; // get column dataIndex
+
+            // initialise grid summary row data for
+            // the current column being worked on
+            data[cname] = 0;
+
+            if (cf.summaryType) {
+                for (var j = 0, jlen = rs.length; j < jlen; j++) {
+                    var r = rs[j]; // get a single Record
+                    data[cname] = Ext.ux.grid.GridSummary.Calculations[cf.summaryType](r.get(cname), r, cname, data, j);
+                }
+            }
+        }
+
+        return data;
+    },
+
+    onLayout : function(vw, vh) {
+        if (Ext.type(vh) != 'number') { // handles grid's height:'auto' config
+            return;
+        }
+        // note: this method is scoped to the GridView
+        if (!this.grid.getGridEl().hasClass('x-grid-hide-gridsummary')) {
+            // readjust gridview's height only if grid summary row is visible
+            this.scroller.setHeight(vh - this.summary.getHeight());
+        }
+    },
+
+    syncSummaryScroll : function() {
+        var mb = this.view.scroller.dom;
+
+        this.view.summaryWrap.dom.scrollLeft = mb.scrollLeft;
+        this.view.summaryWrap.dom.scrollLeft = mb.scrollLeft; // second time for IE (1/2 time first fails, other browsers ignore)
+    },
+
+    doWidth : function(col, w, tw) {
+        var s = this.view.summary.dom;
+
+        s.firstChild.style.width = tw;
+        s.firstChild.rows[0].childNodes[col].style.width = w;
+    },
+
+    doAllWidths : function(ws, tw) {
+        var s = this.view.summary.dom, wlen = ws.length;
+
+        s.firstChild.style.width = tw;
+
+        var cells = s.firstChild.rows[0].childNodes;
+
+        for (var j = 0; j < wlen; j++) {
+            cells[j].style.width = ws[j];
+        }
+    },
+
+    doHidden : function(col, hidden, tw) {
+        var s = this.view.summary.dom,
+            display = hidden ? 'none' : '';
+
+        s.firstChild.style.width = tw;
+        s.firstChild.rows[0].childNodes[col].style.display = display;
+    },
+
+    renderSummary : function(o, cs, cm) {
+        cs = cs || this.view.getColumnData();
+        var cfg = cm.config,
+            buf = [],
+            last = cs.length - 1;
+
+        for (var i = 0, len = cs.length; i < len; i++) {
+            var c = cs[i], cf = cfg[i], p = {};
+
+            p.id = c.id;
+            p.style = c.style;
+            p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
+
+            if (cf.summaryType || cf.summaryRenderer) {
+                //p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, o);
+                p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, new Ext.data.Record(o.data), -1, i, this.grid.store);
+            } else {
+                p.value = '';
+            }
+            if (p.value == undefined || p.value === "") p.value = "&#160;";
+            buf[buf.length] = this.cellTpl.apply(p);
+        }
+
+        return this.rowTpl.apply({
+            tstyle: 'width:' + this.view.getTotalWidth() + ';',
+            cells: buf.join('')
+        });
+    },
+
+    refreshSummary : function() {
+        var g = this.grid, ds = g.store,
+            cs = this.view.getColumnData(),
+            cm = this.cm,
+            rs = ds.getRange(),
+            data = this.calculate(rs, cm),
+            buf = this.renderSummary({data: data}, cs, cm);
+
+        if (!this.view.summaryWrap) {
+            this.view.summaryWrap = Ext.DomHelper.insertAfter(this.view.scroller, {
+                tag: 'div',
+                cls: 'x-grid3-gridsummary-row-inner'
+            }, true);
+        }
+        this.view.summary = this.view.summaryWrap.update(buf).first();
+    },
+
+    toggleSummary : function(visible) { // true to display summary row
+        var el = this.grid.getGridEl();
+
+        if (el) {
+            if (visible === undefined) {
+                visible = el.hasClass('x-grid-hide-gridsummary');
+            }
+            el[visible ? 'removeClass' : 'addClass']('x-grid-hide-gridsummary');
+
+            this.view.layout(); // readjust gridview height
+        }
+    },
+
+    getSummaryNode : function() {
+        return this.view.summary
     }
-
-    return data;
-  },
-
-  onLayout : function(vw, vh) {
-    // note: this method is scoped to the GridView
-    if (!this.grid.getGridEl().hasClass('x-grid-hide-gridsummary')) {
-      // readjust gridview's height only if grid summary row is visible
-      this.scroller.setHeight(vh - this.summary.getHeight());
-    }
-  },
-
-  syncSummaryScroll : function() {
-    var mb = this.view.scroller.dom;
-    this.view.summaryWrap.dom.scrollLeft = mb.scrollLeft;
-    this.view.summaryWrap.dom.scrollLeft = mb.scrollLeft; // second time for IE (1/2 time first fails, other browsers ignore)
-  },
-
-  doWidth : function(col, w, tw) {
-    var s = this.view.summary.dom;
-    s.firstChild.style.width = tw;
-    s.firstChild.rows[0].childNodes[col].style.width = w;
-  },
-
-  doAllWidths : function(ws, tw) {
-    var s = this.view.summary.dom, wlen = ws.length;
-    s.firstChild.style.width = tw;
-    cells = s.firstChild.rows[0].childNodes;
-    for (var j = 0; j < wlen; j++) {
-      cells[j].style.width = ws[j];
-    }
-  },
-
-  doHidden : function(col, hidden, tw) {
-    var s = this.view.summary.dom;
-    var display = hidden ? 'none' : '';
-    s.firstChild.style.width = tw;
-    s.firstChild.rows[0].childNodes[col].style.display = display;
-  },
-
-  renderSummary : function(o, cs) {
-    cs = cs || this.view.getColumnData();
-    var cfg = this.cm.config;
-    var buf = [], c, p = {}, cf, last = cs.length-1;
-
-    for (var i = 0, len = cs.length; i < len; i++) {
-      c = cs[i];
-      cf = cfg[i];
-      p.id = c.id;
-      p.style = c.style;
-      p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
-      if (cf.summaryType || cf.summaryRenderer) {
-        p.value = (cf.summaryRenderer || c.renderer)(o.data[c.name], p, new Ext.data.Record(o.data), -1, i, this.grid.store);
-      } else {
-        p.value = '';
-      }
-      if (p.value == undefined || p.value === "") p.value = "&#160;";
-      buf[buf.length] = this.cellTpl.apply(p);
-    }
-
-    return this.rowTpl.apply({
-      tstyle: 'width:' + this.view.getTotalWidth() + ';',
-      cells: buf.join('')
-    });
-  },
-
-  refreshSummary : function() {
-    if(!this.grid.rendered) {
-    	return;
-    }
-    
-    var g = this.grid, ds = g.store;
-    var cs = this.view.getColumnData();
-    var rs = ds.getRange();
-    var data = this.calculate(rs, cs);
-    var buf = this.renderSummary({data: data}, cs);
-
-    if (!this.view.summaryWrap) {
-      this.view.summaryWrap = Ext.DomHelper.insertAfter(this.view.scroller, {
-        tag: 'div',
-        cls: 'x-grid3-gridsummary-row-inner'
-      }, true);
-    } else {
-      this.view.summary.remove();
-    }
-    this.view.summary = this.view.summaryWrap.insertHtml('afterbegin', buf, true);
-  },
-
-  toggleSummary : function(visible) { // true to display summary row
-    var el = this.grid.getGridEl();
-    if (el) {
-      if (visible === undefined) {
-        visible = el.hasClass('x-grid-hide-gridsummary');
-      }
-      el[visible ? 'removeClass' : 'addClass']('x-grid-hide-gridsummary');
-
-      this.view.layout(); // readjust gridview height
-    }
-  },
-
-  getSummaryNode : function() {
-    return this.view.summary
-  }
 });
+Ext.reg('gridsummary', Ext.ux.grid.GridSummary);
 
+/*
+ * all Calculation methods are called on each Record in the Store
+ * with the following 5 parameters:
+ *
+ * v - cell value
+ * record - reference to the current Record
+ * colName - column name (i.e. the ColumnModel's dataIndex)
+ * data - the cumulative data for the current column + summaryType up to the current Record
+ * rowIdx - current row index
+ */
 Ext.ux.grid.GridSummary.Calculations = {
-  'sum' : function(v, record, field) {
-    return v + Ext.num(record.data[field], 0);
-  },
+    sum : function(v, record, colName, data, rowIdx) {
+        return data[colName] + Ext.num(v, 0);
+    },
 
-  'count' : function(v, record, field, data) {
-    return data[field+'count'] ? ++data[field+'count'] : (data[field+'count'] = 1);
-  },
+    count : function(v, record, colName, data, rowIdx) {
+        return rowIdx + 1;
+    },
 
-  'max' : function(v, record, field, data) {
-    var v = record.data[field];
-    var max = data[field+'max'] === undefined ? (data[field+'max'] = v) : data[field+'max'];
-    return v > max ? (data[field+'max'] = v) : max;
-  },
+    max : function(v, record, colName, data, rowIdx) {
+        return Math.max(Ext.num(v, 0), data[colName]);
+    },
 
-  'min' : function(v, record, field, data) {
-    var v = record.data[field];
-    var min = data[field+'min'] === undefined ? (data[field+'min'] = v) : data[field+'min'];
-    return v < min ? (data[field+'min'] = v) : min;
-  },
+    min : function(v, record, colName, data, rowIdx) {
+        return Math.min(Ext.num(v, 0), data[colName]);
+    },
 
-  'average' : function(v, record, field, data) {
-    var c = data[field+'count'] ? ++data[field+'count'] : (data[field+'count'] = 1);
-    var t = (data[field+'total'] = ((data[field+'total'] || 0) + (record.data[field] || 0)));
-    return t === 0 ? 0 : t / c;
-  }
+    average : function(v, record, colName, data, rowIdx) {
+        var t = data[colName] + Ext.num(v, 0), count = record.store.getCount();
+        return rowIdx == count - 1 ? (t / count) : t;
+    }
 }
 /*
  * Ext.ux.grid.BufferedGridDragZone V0.1
@@ -7818,6 +7841,292 @@ Ext.extend(Ext.ux.grid.BufferedStore, Ext.data.Store, {
     findBy : function(){}    
     
 });
+// vim: ts=4:sw=4:nu:fdc=4:nospell
+/**
+ * Ext.ux.form.LovCombo, List of Values Combo
+ *
+ * @author    Ing. Jozef Sakáloš
+ * @copyright (c) 2008, by Ing. Jozef Sakáloš
+ * @date      16. April 2008
+ * @version   $Id: Ext.ux.form.LovCombo.js 291 2008-07-03 07:46:49Z jozo $
+ *
+ * @license Ext.ux.form.LovCombo.js is licensed under the terms of the Open Source
+ * LGPL 3.0 license. Commercial use is permitted to the extent that the 
+ * code/component(s) do NOT become part of another Open Source or Commercially
+ * licensed development library or toolkit without explicit permission.
+ * 
+ * License details: http://www.gnu.org/licenses/lgpl.html
+ */
+ 
+/*global Ext */
+
+// add RegExp.escape if it has not been already added
+if('function' !== typeof RegExp.escape) {
+	RegExp.escape = function(s) {
+		if('string' !== typeof s) {
+			return s;
+		}
+		// Note: if pasting from forum, precede ]/\ with backslash manually
+		return s.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+	}; // eo function escape
+}
+
+// create namespace
+Ext.ns('Ext.ux.form');
+ 
+/**
+ *
+ * @class Ext.ux.form.LovCombo
+ * @extends Ext.form.ComboBox
+ */
+Ext.ux.form.LovCombo = Ext.extend(Ext.form.ComboBox, {
+
+	// {{{
+    // configuration options
+	/**
+	 * @cfg {String} checkField name of field used to store checked state.
+	 * It is automatically added to existing fields.
+	 * Change it only if it collides with your normal field.
+	 */
+	 checkField:'checked'
+
+	/**
+	 * @cfg {String} separator separator to use between values and texts
+	 */
+    ,separator:','
+
+	/**
+	 * @cfg {String/Array} tpl Template for items. 
+	 * Change it only if you know what you are doing.
+	 */
+	// }}}
+    // {{{
+    ,initComponent:function() {
+        
+		// template with checkbox
+		if(!this.tpl) {
+			this.tpl = 
+				 '<tpl for=".">'
+				+'<div class="x-combo-list-item">'
+				+'<img src="' + Ext.BLANK_IMAGE_URL + '" '
+				+'class="ux-lovcombo-icon ux-lovcombo-icon-'
+				+'{[values.' + this.checkField + '?"checked":"unchecked"' + ']}">'
+				+'<div class="ux-lovcombo-item-text">{' + (this.displayField || 'text' )+ '}</div>'
+				+'</div>'
+				+'</tpl>'
+			;
+		}
+ 
+        // call parent
+        Ext.ux.form.LovCombo.superclass.initComponent.apply(this, arguments);
+
+		// install internal event handlers
+		this.on({
+			 scope:this
+			,beforequery:this.onBeforeQuery
+			,blur:this.onRealBlur
+		});
+
+		// remove selection from input field
+		this.onLoad = this.onLoad.createSequence(function() {
+			if(this.el) {
+				var v = this.el.dom.value;
+				this.el.dom.value = '';
+				this.el.dom.value = v;
+			}
+		});
+ 
+    } // e/o function initComponent
+    // }}}
+	// {{{
+	/**
+	 * Disables default tab key bahavior
+	 * @private
+	 */
+	,initEvents:function() {
+		Ext.ux.form.LovCombo.superclass.initEvents.apply(this, arguments);
+
+		// disable default tab handling - does no good
+		this.keyNav.tab = false;
+
+	} // eo function initEvents
+	// }}}
+	// {{{
+	/**
+	 * clears value
+	 */
+	,clearValue:function() {
+		this.value = '';
+		this.setRawValue(this.value);
+		this.store.clearFilter();
+		this.store.each(function(r) {
+			r.set(this.checkField, false);
+		}, this);
+		if(this.hiddenField) {
+			this.hiddenField.value = '';
+		}
+		this.applyEmptyText();
+	} // eo function clearValue
+	// }}}
+	// {{{
+	/**
+	 * @return {String} separator (plus space) separated list of selected displayFields
+	 * @private
+	 */
+	,getCheckedDisplay:function() {
+		var re = new RegExp(this.separator, "g");
+		return this.getCheckedValue(this.displayField).replace(re, this.separator + ' ');
+	} // eo function getCheckedDisplay
+	// }}}
+	// {{{
+	/**
+	 * @return {String} separator separated list of selected valueFields
+	 * @private
+	 */
+	,getCheckedValue:function(field) {
+		field = field || this.valueField;
+		var c = [];
+
+		// store may be filtered so get all records
+		var snapshot = this.store.snapshot || this.store.data;
+
+		snapshot.each(function(r) {
+			if(r.get(this.checkField)) {
+				c.push(r.get(field));
+			}
+		}, this);
+
+		return c.join(this.separator);
+	} // eo function getCheckedValue
+	// }}}
+	// {{{
+	/**
+	 * beforequery event handler - handles multiple selections
+	 * @param {Object} qe query event
+	 * @private
+	 */
+	,onBeforeQuery:function(qe) {
+		qe.query = qe.query.replace(new RegExp(RegExp.escape(this.getCheckedDisplay()) + '[ ' + this.separator + ']*'), '');
+	} // eo function onBeforeQuery
+	// }}}
+	// {{{
+	/**
+	 * blur event handler - runs only when real blur event is fired
+	 */
+	,onRealBlur:function() {
+		this.list.hide();
+		var rv = this.getRawValue();
+		var rva = rv.split(new RegExp(RegExp.escape(this.separator) + ' *'));
+		var va = [];
+		var snapshot = this.store.snapshot || this.store.data;
+
+		// iterate through raw values and records and check/uncheck items
+		Ext.each(rva, function(v) {
+			snapshot.each(function(r) {
+				if(v === r.get(this.displayField)) {
+					va.push(r.get(this.valueField));
+				}
+			}, this);
+		}, this);
+		this.setValue(va.join(this.separator));
+		this.store.clearFilter();
+	} // eo function onRealBlur
+	// }}}
+	// {{{
+	/**
+	 * Combo's onSelect override
+	 * @private
+	 * @param {Ext.data.Record} record record that has been selected in the list
+	 * @param {Number} index index of selected (clicked) record
+	 */
+	,onSelect:function(record, index) {
+        if(this.fireEvent('beforeselect', this, record, index) !== false){
+
+			// toggle checked field
+			record.set(this.checkField, !record.get(this.checkField));
+
+			// display full list
+			if(this.store.isFiltered()) {
+				this.doQuery(this.allQuery);
+			}
+
+			// set (update) value and fire event
+			this.setValue(this.getCheckedValue());
+            this.fireEvent('select', this, record, index);
+        }
+	} // eo function onSelect
+	// }}}
+	// {{{
+	/**
+	 * Sets the value of the LovCombo
+	 * @param {Mixed} v value
+	 */
+	,setValue:function(v) {
+		if(v) {
+			v = '' + v;
+			if(this.valueField) {
+				this.store.clearFilter();
+				this.store.each(function(r) {
+					var checked = !(!v.match(
+						 '(^|' + this.separator + ')' + RegExp.escape(r.get(this.valueField))
+						+'(' + this.separator + '|$)'))
+					;
+
+					r.set(this.checkField, checked);
+				}, this);
+				this.value = this.getCheckedValue();
+				this.setRawValue(this.getCheckedDisplay());
+				if(this.hiddenField) {
+					this.hiddenField.value = this.value;
+				}
+			}
+			else {
+				this.value = v;
+				this.setRawValue(v);
+				if(this.hiddenField) {
+					this.hiddenField.value = v;
+				}
+			}
+			if(this.el) {
+				this.el.removeClass(this.emptyClass);
+			}
+		}
+		else {
+			this.clearValue();
+		}
+	} // eo function setValue
+	// }}}
+	// {{{
+	/**
+	 * Selects all items
+	 */
+	,selectAll:function() {
+        this.store.each(function(record){
+            // toggle checked field
+            record.set(this.checkField, true);
+        }, this);
+
+        //display full list
+        this.doQuery(this.allQuery);
+        this.setValue(this.getCheckedValue());
+    } // eo full selectAll
+	// }}}
+	// {{{
+	/**
+	 * Deselects all items. Synonym for clearValue
+	 */
+    ,deselectAll:function() {
+		this.clearValue();
+    } // eo full deselectAll 
+	// }}}
+
+}); // eo extend
+ 
+// register xtype
+Ext.reg('lovcombo', Ext.ux.form.LovCombo); 
+ 
+// eof
+
 /*
  * @class Ext.ux.ManagedIFrame
  * Version:  RC1 (Release Candidate 1)
@@ -11355,3 +11664,760 @@ Ext.extend(Ext.ux.SwfUploadPanel, Ext.grid.GridPanel, {
 		
 });
 Ext.namespace("Ext.ux.Utils");Ext.ux.Utils.EventQueue=function(handler,scope){if(!handler){throw"Handler is required."}this.handler=handler;this.scope=scope||window;this.queue=[];this.is_processing=false;this.postEvent=function(event,data){data=data||null;this.queue.push({event:event,data:data});if(!this.is_processing){this.process()}};this.flushEventQueue=function(){this.queue=[]},this.process=function(){while(this.queue.length>0){this.is_processing=true;var event_data=this.queue.shift();this.handler.call(this.scope,event_data.event,event_data.data)}this.is_processing=false}};Ext.ux.Utils.FSA=function(initial_state,trans_table,trans_table_scope){this.current_state=initial_state;this.trans_table=trans_table||{};this.trans_table_scope=trans_table_scope||window;Ext.ux.Utils.FSA.superclass.constructor.call(this,this.processEvent,this)};Ext.extend(Ext.ux.Utils.FSA,Ext.ux.Utils.EventQueue,{current_state:null,trans_table:null,trans_table_scope:null,state:function(){return this.current_state},processEvent:function(event,data){var transitions=this.currentStateEventTransitions(event);if(!transitions){throw"State '"+this.current_state+"' has no transition for event '"+event+"'."}for(var i=0,len=transitions.length;i<len;i++){var transition=transitions[i];var predicate=transition.predicate||transition.p||true;var action=transition.action||transition.a||Ext.emptyFn;var new_state=transition.state||transition.s||this.current_state;var scope=transition.scope||this.trans_table_scope;if(this.computePredicate(predicate,scope,data,event)){this.callAction(action,scope,data,event);this.current_state=new_state;return }}throw"State '"+this.current_state+"' has no transition for event '"+event+"' in current context"},currentStateEventTransitions:function(event){return this.trans_table[this.current_state]?this.trans_table[this.current_state][event]||false:false},computePredicate:function(predicate,scope,data,event){var result=false;switch(Ext.type(predicate)){case"function":result=predicate.call(scope,data,event,this);break;case"array":result=true;for(var i=0,len=predicate.length;result&&(i<len);i++){if(Ext.type(predicate[i])=="function"){result=predicate[i].call(scope,data,event,this)}else{throw ["Predicate: ",predicate[i],' is not callable in "',this.current_state,'" state for event "',event].join("")}}break;case"boolean":result=predicate;break;default:throw ["Predicate: ",predicate,' is not callable in "',this.current_state,'" state for event "',event].join("")}return result},callAction:function(action,scope,data,event){switch(Ext.type(action)){case"array":for(var i=0,len=action.length;i<len;i++){if(Ext.type(action[i])=="function"){action[i].call(scope,data,event,this)}else{throw ["Action: ",action[i],' is not callable in "',this.current_state,'" state for event "',event].join("")}}break;case"function":action.call(scope,data,event,this);break;default:throw ["Action: ",action,' is not callable in "',this.current_state,'" state for event "',event].join("")}}});Ext.namespace("Ext.ux.UploadDialog");Ext.ux.UploadDialog.BrowseButton=Ext.extend(Ext.Button,{input_name:"file",input_file:null,original_handler:null,original_scope:null,initComponent:function(){Ext.ux.UploadDialog.BrowseButton.superclass.initComponent.call(this);this.original_handler=this.handler||null;this.original_scope=this.scope||window;this.handler=null;this.scope=null},onRender:function(ct,position){Ext.ux.UploadDialog.BrowseButton.superclass.onRender.call(this,ct,position);this.createInputFile()},createInputFile:function(){var button_container=this.el.child(".x-btn-center");button_container.position("relative");this.input_file=Ext.DomHelper.append(button_container,{tag:"input",type:"file",size:1,name:this.input_name||Ext.id(this.el),style:"position: absolute; display: block; border: none; cursor: pointer"},true);var button_box=button_container.getBox();this.input_file.setStyle("font-size",(button_box.width*0.5)+"px");var input_box=this.input_file.getBox();var adj={x:3,y:3};if(Ext.isIE){adj={x:0,y:3}}this.input_file.setLeft(button_box.width-input_box.width+adj.x+"px");this.input_file.setTop(button_box.height-input_box.height+adj.y+"px");this.input_file.setOpacity(0);if(this.handleMouseEvents){this.input_file.on("mouseover",this.onMouseOver,this);this.input_file.on("mousedown",this.onMouseDown,this)}if(this.tooltip){if(typeof this.tooltip=="object"){Ext.QuickTips.register(Ext.apply({target:this.input_file},this.tooltip))}else{this.input_file.dom[this.tooltipType]=this.tooltip}}this.input_file.on("change",this.onInputFileChange,this);this.input_file.on("click",function(e){e.stopPropagation()})},detachInputFile:function(no_create){var result=this.input_file;no_create=no_create||false;if(typeof this.tooltip=="object"){Ext.QuickTips.unregister(this.input_file)}else{this.input_file.dom[this.tooltipType]=null}this.input_file.removeAllListeners();this.input_file=null;if(!no_create){this.createInputFile()}return result},getInputFile:function(){return this.input_file},disable:function(){Ext.ux.UploadDialog.BrowseButton.superclass.disable.call(this);this.input_file.dom.disabled=true},enable:function(){Ext.ux.UploadDialog.BrowseButton.superclass.enable.call(this);this.input_file.dom.disabled=false},destroy:function(){var input_file=this.detachInputFile(true);input_file.remove();input_file=null;Ext.ux.UploadDialog.BrowseButton.superclass.destroy.call(this)},onInputFileChange:function(){if(this.original_handler){this.original_handler.call(this.original_scope,this)}}});Ext.ux.UploadDialog.TBBrowseButton=Ext.extend(Ext.ux.UploadDialog.BrowseButton,{hideParent:true,onDestroy:function(){Ext.ux.UploadDialog.TBBrowseButton.superclass.onDestroy.call(this);if(this.container){this.container.remove()}}});Ext.ux.UploadDialog.FileRecord=Ext.data.Record.create([{name:"filename"},{name:"state",type:"int"},{name:"note"},{name:"input_element"}]);Ext.ux.UploadDialog.FileRecord.STATE_QUEUE=0;Ext.ux.UploadDialog.FileRecord.STATE_FINISHED=1;Ext.ux.UploadDialog.FileRecord.STATE_FAILED=2;Ext.ux.UploadDialog.FileRecord.STATE_PROCESSING=3;Ext.ux.UploadDialog.Dialog=function(config){var default_config={border:false,width:450,height:300,minWidth:450,minHeight:300,plain:true,constrainHeader:true,draggable:true,closable:true,maximizable:false,minimizable:false,resizable:true,autoDestroy:true,closeAction:"hide",title:this.i18n.title,cls:"ext-ux-uploaddialog-dialog",url:"",base_params:{},permitted_extensions:[],reset_on_hide:true,allow_close_on_upload:false,upload_autostart:false,post_var_name:"file"};config=Ext.applyIf(config||{},default_config);config.layout="absolute";Ext.ux.UploadDialog.Dialog.superclass.constructor.call(this,config)};Ext.extend(Ext.ux.UploadDialog.Dialog,Ext.Window,{fsa:null,state_tpl:null,form:null,grid_panel:null,progress_bar:null,is_uploading:false,initial_queued_count:0,upload_frame:null,initComponent:function(){Ext.ux.UploadDialog.Dialog.superclass.initComponent.call(this);var tt={created:{"window-render":[{action:[this.createForm,this.createProgressBar,this.createGrid],state:"rendering"}],destroy:[{action:this.flushEventQueue,state:"destroyed"}]},rendering:{"grid-render":[{action:[this.fillToolbar,this.updateToolbar],state:"ready"}],destroy:[{action:this.flushEventQueue,state:"destroyed"}]},ready:{"file-selected":[{predicate:[this.fireFileTestEvent,this.isPermittedFile],action:this.addFileToUploadQueue,state:"adding-file"},{}],"grid-selection-change":[{action:this.updateToolbar}],"remove-files":[{action:[this.removeFiles,this.fireFileRemoveEvent]}],"reset-queue":[{action:[this.resetQueue,this.fireResetQueueEvent]}],"start-upload":[{predicate:this.hasUnuploadedFiles,action:[this.setUploadingFlag,this.saveInitialQueuedCount,this.updateToolbar,this.updateProgressBar,this.prepareNextUploadTask,this.fireUploadStartEvent],state:"uploading"},{}],"stop-upload":[{}],hide:[{predicate:[this.isNotEmptyQueue,this.getResetOnHide],action:[this.resetQueue,this.fireResetQueueEvent]},{}],destroy:[{action:this.flushEventQueue,state:"destroyed"}]},"adding-file":{"file-added":[{predicate:this.isUploading,action:[this.incInitialQueuedCount,this.updateProgressBar,this.fireFileAddEvent],state:"uploading"},{predicate:this.getUploadAutostart,action:[this.startUpload,this.fireFileAddEvent],state:"ready"},{action:[this.updateToolbar,this.fireFileAddEvent],state:"ready"}]},uploading:{"file-selected":[{predicate:[this.fireFileTestEvent,this.isPermittedFile],action:this.addFileToUploadQueue,state:"adding-file"},{}],"grid-selection-change":[{}],"start-upload":[{}],"stop-upload":[{predicate:this.hasUnuploadedFiles,action:[this.resetUploadingFlag,this.abortUpload,this.updateToolbar,this.updateProgressBar,this.fireUploadStopEvent],state:"ready"},{action:[this.resetUploadingFlag,this.abortUpload,this.updateToolbar,this.updateProgressBar,this.fireUploadStopEvent,this.fireUploadCompleteEvent],state:"ready"}],"file-upload-start":[{action:[this.uploadFile,this.findUploadFrame,this.fireFileUploadStartEvent]}],"file-upload-success":[{predicate:this.hasUnuploadedFiles,action:[this.resetUploadFrame,this.updateRecordState,this.updateProgressBar,this.prepareNextUploadTask,this.fireUploadSuccessEvent]},{action:[this.resetUploadFrame,this.resetUploadingFlag,this.updateRecordState,this.updateToolbar,this.updateProgressBar,this.fireUploadSuccessEvent,this.fireUploadCompleteEvent],state:"ready"}],"file-upload-error":[{predicate:this.hasUnuploadedFiles,action:[this.resetUploadFrame,this.updateRecordState,this.updateProgressBar,this.prepareNextUploadTask,this.fireUploadErrorEvent]},{action:[this.resetUploadFrame,this.resetUploadingFlag,this.updateRecordState,this.updateToolbar,this.updateProgressBar,this.fireUploadErrorEvent,this.fireUploadCompleteEvent],state:"ready"}],"file-upload-failed":[{predicate:this.hasUnuploadedFiles,action:[this.resetUploadFrame,this.updateRecordState,this.updateProgressBar,this.prepareNextUploadTask,this.fireUploadFailedEvent]},{action:[this.resetUploadFrame,this.resetUploadingFlag,this.updateRecordState,this.updateToolbar,this.updateProgressBar,this.fireUploadFailedEvent,this.fireUploadCompleteEvent],state:"ready"}],hide:[{predicate:this.getResetOnHide,action:[this.stopUpload,this.repostHide]},{}],destroy:[{predicate:this.hasUnuploadedFiles,action:[this.resetUploadingFlag,this.abortUpload,this.fireUploadStopEvent,this.flushEventQueue],state:"destroyed"},{action:[this.resetUploadingFlag,this.abortUpload,this.fireUploadStopEvent,this.fireUploadCompleteEvent,this.flushEventQueue],state:"destroyed"}]},destroyed:{}};this.fsa=new Ext.ux.Utils.FSA("created",tt,this);this.addEvents({filetest:true,fileadd:true,fileremove:true,resetqueue:true,uploadsuccess:true,uploaderror:true,uploadfailed:true,uploadstart:true,uploadstop:true,uploadcomplete:true,fileuploadstart:true});this.on("render",this.onWindowRender,this);this.on("beforehide",this.onWindowBeforeHide,this);this.on("hide",this.onWindowHide,this);this.on("destroy",this.onWindowDestroy,this);this.state_tpl=new Ext.Template("<div class='ext-ux-uploaddialog-state ext-ux-uploaddialog-state-{state}'>&#160;</div>").compile()},createForm:function(){this.form=Ext.DomHelper.append(this.body,{tag:"form",method:"post",action:this.url,style:"position: absolute; left: -100px; top: -100px; width: 100px; height: 100px"})},createProgressBar:function(){this.progress_bar=this.add(new Ext.ProgressBar({x:0,y:0,anchor:"0",value:0,text:this.i18n.progress_waiting_text}))},createGrid:function(){var store=new Ext.data.Store({proxy:new Ext.data.MemoryProxy([]),reader:new Ext.data.JsonReader({},Ext.ux.UploadDialog.FileRecord),sortInfo:{field:"state",direction:"DESC"},pruneModifiedRecords:true});var cm=new Ext.grid.ColumnModel([{header:this.i18n.state_col_title,width:this.i18n.state_col_width,resizable:false,dataIndex:"state",sortable:true,renderer:this.renderStateCell.createDelegate(this)},{header:this.i18n.filename_col_title,width:this.i18n.filename_col_width,dataIndex:"filename",sortable:true,renderer:this.renderFilenameCell.createDelegate(this)},{header:this.i18n.note_col_title,width:this.i18n.note_col_width,dataIndex:"note",sortable:true,renderer:this.renderNoteCell.createDelegate(this)}]);this.grid_panel=new Ext.grid.GridPanel({ds:store,cm:cm,x:0,y:22,anchor:"0 -22",border:true,viewConfig:{autoFill:true,forceFit:true},bbar:new Ext.Toolbar()});this.grid_panel.on("render",this.onGridRender,this);this.add(this.grid_panel);this.grid_panel.getSelectionModel().on("selectionchange",this.onGridSelectionChange,this)},fillToolbar:function(){var tb=this.grid_panel.getBottomToolbar();tb.x_buttons={};tb.x_buttons.add=tb.addItem(new Ext.ux.UploadDialog.TBBrowseButton({input_name:this.post_var_name,text:this.i18n.add_btn_text,tooltip:this.i18n.add_btn_tip,iconCls:"ext-ux-uploaddialog-addbtn",handler:this.onAddButtonFileSelected,scope:this}));tb.x_buttons.remove=tb.addButton({text:this.i18n.remove_btn_text,tooltip:this.i18n.remove_btn_tip,iconCls:"ext-ux-uploaddialog-removebtn",handler:this.onRemoveButtonClick,scope:this});tb.x_buttons.reset=tb.addButton({text:this.i18n.reset_btn_text,tooltip:this.i18n.reset_btn_tip,iconCls:"ext-ux-uploaddialog-resetbtn",handler:this.onResetButtonClick,scope:this});tb.add("-");tb.x_buttons.upload=tb.addButton({text:this.i18n.upload_btn_start_text,tooltip:this.i18n.upload_btn_start_tip,iconCls:"ext-ux-uploaddialog-uploadstartbtn",handler:this.onUploadButtonClick,scope:this});tb.add("-");tb.x_buttons.indicator=tb.addItem(new Ext.Toolbar.Item(Ext.DomHelper.append(tb.getEl(),{tag:"div",cls:"ext-ux-uploaddialog-indicator-stoped",html:"&#160"})));tb.add("->");tb.x_buttons.close=tb.addButton({text:this.i18n.close_btn_text,tooltip:this.i18n.close_btn_tip,handler:this.onCloseButtonClick,scope:this})},renderStateCell:function(data,cell,record,row_index,column_index,store){return this.state_tpl.apply({state:data})},renderFilenameCell:function(data,cell,record,row_index,column_index,store){var view=this.grid_panel.getView();var f=function(){try{Ext.fly(view.getCell(row_index,column_index)).child(".x-grid3-cell-inner").dom.qtip=data}catch(e){}};f.defer(1000);return data},renderNoteCell:function(data,cell,record,row_index,column_index,store){var view=this.grid_panel.getView();var f=function(){try{Ext.fly(view.getCell(row_index,column_index)).child(".x-grid3-cell-inner").dom.qtip=data}catch(e){}};f.defer(1000);return data},getFileExtension:function(filename){var result=null;var parts=filename.split(".");if(parts.length>1){result=parts.pop()}return result},isPermittedFileType:function(filename){var result=true;if(this.permitted_extensions.length>0){result=this.permitted_extensions.indexOf(this.getFileExtension(filename))!=-1}return result},isPermittedFile:function(browse_btn){var result=false;var filename=browse_btn.getInputFile().dom.value;if(this.isPermittedFileType(filename)){result=true}else{Ext.Msg.alert(this.i18n.error_msgbox_title,String.format(this.i18n.err_file_type_not_permitted,filename,this.permitted_extensions.join(this.i18n.permitted_extensions_join_str)));result=false}return result},fireFileTestEvent:function(browse_btn){return this.fireEvent("filetest",this,browse_btn.getInputFile().dom.value)!==false},addFileToUploadQueue:function(browse_btn){var input_file=browse_btn.detachInputFile();input_file.appendTo(this.form);input_file.setStyle("width","100px");input_file.dom.disabled=true;var store=this.grid_panel.getStore();store.add(new Ext.ux.UploadDialog.FileRecord({state:Ext.ux.UploadDialog.FileRecord.STATE_QUEUE,filename:input_file.dom.value,note:this.i18n.note_queued_to_upload,input_element:input_file}));this.fsa.postEvent("file-added",input_file.dom.value)},fireFileAddEvent:function(filename){this.fireEvent("fileadd",this,filename)},updateProgressBar:function(){if(this.is_uploading){var queued=this.getQueuedCount(true);var value=1-queued/this.initial_queued_count;this.progress_bar.updateProgress(value,String.format(this.i18n.progress_uploading_text,this.initial_queued_count-queued,this.initial_queued_count))}else{this.progress_bar.updateProgress(0,this.i18n.progress_waiting_text)}},updateToolbar:function(){var tb=this.grid_panel.getBottomToolbar();if(this.is_uploading){tb.x_buttons.remove.disable();tb.x_buttons.reset.disable();tb.x_buttons.upload.enable();if(!this.getAllowCloseOnUpload()){tb.x_buttons.close.disable()}Ext.fly(tb.x_buttons.indicator.getEl()).replaceClass("ext-ux-uploaddialog-indicator-stoped","ext-ux-uploaddialog-indicator-processing");tb.x_buttons.upload.setIconClass("ext-ux-uploaddialog-uploadstopbtn");tb.x_buttons.upload.setText(this.i18n.upload_btn_stop_text);tb.x_buttons.upload.getEl().child(tb.x_buttons.upload.buttonSelector).dom[tb.x_buttons.upload.tooltipType]=this.i18n.upload_btn_stop_tip}else{tb.x_buttons.remove.enable();tb.x_buttons.reset.enable();tb.x_buttons.close.enable();Ext.fly(tb.x_buttons.indicator.getEl()).replaceClass("ext-ux-uploaddialog-indicator-processing","ext-ux-uploaddialog-indicator-stoped");tb.x_buttons.upload.setIconClass("ext-ux-uploaddialog-uploadstartbtn");tb.x_buttons.upload.setText(this.i18n.upload_btn_start_text);tb.x_buttons.upload.getEl().child(tb.x_buttons.upload.buttonSelector).dom[tb.x_buttons.upload.tooltipType]=this.i18n.upload_btn_start_tip;if(this.getQueuedCount()>0){tb.x_buttons.upload.enable()}else{tb.x_buttons.upload.disable()}if(this.grid_panel.getSelectionModel().hasSelection()){tb.x_buttons.remove.enable()}else{tb.x_buttons.remove.disable()}if(this.grid_panel.getStore().getCount()>0){tb.x_buttons.reset.enable()}else{tb.x_buttons.reset.disable()}}},saveInitialQueuedCount:function(){this.initial_queued_count=this.getQueuedCount()},incInitialQueuedCount:function(){this.initial_queued_count++},setUploadingFlag:function(){this.is_uploading=true},resetUploadingFlag:function(){this.is_uploading=false},prepareNextUploadTask:function(){var store=this.grid_panel.getStore();var record=null;store.each(function(r){if(!record&&r.get("state")==Ext.ux.UploadDialog.FileRecord.STATE_QUEUE){record=r}else{r.get("input_element").dom.disabled=true}});record.get("input_element").dom.disabled=false;record.set("state",Ext.ux.UploadDialog.FileRecord.STATE_PROCESSING);record.set("note",this.i18n.note_processing);record.commit();this.fsa.postEvent("file-upload-start",record)},fireUploadStartEvent:function(){this.fireEvent("uploadstart",this)},removeFiles:function(file_records){var store=this.grid_panel.getStore();for(var i=0,len=file_records.length;i<len;i++){var r=file_records[i];r.get("input_element").remove();store.remove(r)}},fireFileRemoveEvent:function(file_records){for(var i=0,len=file_records.length;i<len;i++){this.fireEvent("fileremove",this,file_records[i].get("filename"))}},resetQueue:function(){var store=this.grid_panel.getStore();store.each(function(r){r.get("input_element").remove()});store.removeAll()},fireResetQueueEvent:function(){this.fireEvent("resetqueue",this)},uploadFile:function(record){Ext.Ajax.request({url:this.url,params:this.base_params||this.baseParams||this.params,method:"POST",form:this.form,isUpload:true,success:this.onAjaxSuccess,failure:this.onAjaxFailure,scope:this,record:record})},fireFileUploadStartEvent:function(record){this.fireEvent("fileuploadstart",this,record.get("filename"))},updateRecordState:function(data){if("success" in data.response&&data.response.success){data.record.set("state",Ext.ux.UploadDialog.FileRecord.STATE_FINISHED);data.record.set("note",data.response.message||data.response.error||this.i18n.note_upload_success)}else{data.record.set("state",Ext.ux.UploadDialog.FileRecord.STATE_FAILED);data.record.set("note",data.response.message||data.response.error||this.i18n.note_upload_error)}data.record.commit()},fireUploadSuccessEvent:function(data){this.fireEvent("uploadsuccess",this,data.record.get("filename"),data.response)},fireUploadErrorEvent:function(data){this.fireEvent("uploaderror",this,data.record.get("filename"),data.response)},fireUploadFailedEvent:function(data){this.fireEvent("uploadfailed",this,data.record.get("filename"))},fireUploadCompleteEvent:function(){this.fireEvent("uploadcomplete",this)},findUploadFrame:function(){this.upload_frame=Ext.getBody().child("iframe.x-hidden:last")},resetUploadFrame:function(){this.upload_frame=null},removeUploadFrame:function(){if(this.upload_frame){this.upload_frame.removeAllListeners();this.upload_frame.dom.src="about:blank";this.upload_frame.remove()}this.upload_frame=null},abortUpload:function(){this.removeUploadFrame();var store=this.grid_panel.getStore();var record=null;store.each(function(r){if(r.get("state")==Ext.ux.UploadDialog.FileRecord.STATE_PROCESSING){record=r;return false}});record.set("state",Ext.ux.UploadDialog.FileRecord.STATE_FAILED);record.set("note",this.i18n.note_aborted);record.commit()},fireUploadStopEvent:function(){this.fireEvent("uploadstop",this)},repostHide:function(){this.fsa.postEvent("hide")},flushEventQueue:function(){this.fsa.flushEventQueue()},onWindowRender:function(){this.fsa.postEvent("window-render")},onWindowBeforeHide:function(){return this.isUploading()?this.getAllowCloseOnUpload():true},onWindowHide:function(){this.fsa.postEvent("hide")},onWindowDestroy:function(){this.fsa.postEvent("destroy")},onGridRender:function(){this.fsa.postEvent("grid-render")},onGridSelectionChange:function(){this.fsa.postEvent("grid-selection-change")},onAddButtonFileSelected:function(btn){this.fsa.postEvent("file-selected",btn)},onUploadButtonClick:function(){if(this.is_uploading){this.fsa.postEvent("stop-upload")}else{this.fsa.postEvent("start-upload")}},onRemoveButtonClick:function(){var selections=this.grid_panel.getSelectionModel().getSelections();this.fsa.postEvent("remove-files",selections)},onResetButtonClick:function(){this.fsa.postEvent("reset-queue")},onCloseButtonClick:function(){this[this.closeAction].call(this)},onAjaxSuccess:function(response,options){var json_response={success:false,error:this.i18n.note_upload_error};try{var rt=response.responseText;var filter=rt.match(/^<[^>]+>((?:.|\n)*)<\/[^>]+>$/);if(filter){rt=filter[1]}json_response=Ext.util.JSON.decode(rt)}catch(e){}var data={record:options.record,response:json_response};if("success" in json_response&&json_response.success){this.fsa.postEvent("file-upload-success",data)}else{this.fsa.postEvent("file-upload-error",data)}},onAjaxFailure:function(response,options){var data={record:options.record,response:{success:false,error:this.i18n.note_upload_failed}};this.fsa.postEvent("file-upload-failed",data)},startUpload:function(){this.fsa.postEvent("start-upload")},stopUpload:function(){this.fsa.postEvent("stop-upload")},getUrl:function(){return this.url},setUrl:function(url){this.url=url},getBaseParams:function(){return this.base_params},setBaseParams:function(params){this.base_params=params},getUploadAutostart:function(){return this.upload_autostart},setUploadAutostart:function(value){this.upload_autostart=value},getAllowCloseOnUpload:function(){return this.allow_close_on_upload},setAllowCloseOnUpload:function(value){this.allow_close_on_upload},getResetOnHide:function(){return this.reset_on_hide},setResetOnHide:function(value){this.reset_on_hide=value},getPermittedExtensions:function(){return this.permitted_extensions},setPermittedExtensions:function(value){this.permitted_extensions=value},isUploading:function(){return this.is_uploading},isNotEmptyQueue:function(){return this.grid_panel.getStore().getCount()>0},getQueuedCount:function(count_processing){var count=0;var store=this.grid_panel.getStore();store.each(function(r){if(r.get("state")==Ext.ux.UploadDialog.FileRecord.STATE_QUEUE){count++}if(count_processing&&r.get("state")==Ext.ux.UploadDialog.FileRecord.STATE_PROCESSING){count++}});return count},hasUnuploadedFiles:function(){return this.getQueuedCount()>0}});var p=Ext.ux.UploadDialog.Dialog.prototype;p.i18n={title:"File upload dialog",state_col_title:"State",state_col_width:70,filename_col_title:"Filename",filename_col_width:230,note_col_title:"Note",note_col_width:150,add_btn_text:"Add",add_btn_tip:"Add file into upload queue.",remove_btn_text:"Remove",remove_btn_tip:"Remove file from upload queue.",reset_btn_text:"Reset",reset_btn_tip:"Reset queue.",upload_btn_start_text:"Upload",upload_btn_stop_text:"Abort",upload_btn_start_tip:"Upload queued files to the server.",upload_btn_stop_tip:"Stop upload.",close_btn_text:"Close",close_btn_tip:"Close the dialog.",progress_waiting_text:"Waiting...",progress_uploading_text:"Uploading: {0} of {1} files complete.",error_msgbox_title:"Error",permitted_extensions_join_str:",",err_file_type_not_permitted:"Selected file extension isn't permitted.<br/>Please select files with following extensions: {1}",note_queued_to_upload:"Queued for upload.",note_processing:"Uploading...",note_upload_failed:"Server is unavailable or internal server error occured.",note_upload_success:"OK.",note_upload_error:"Upload error.",note_aborted:"Aborted by user."};
+/**
+ * Copyright (c) 2008, Steven Chim
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * 
+ *     * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ *     * The names of its contributors may not be used to endorse or promote products derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+  * Ext.ux.form.Spinner Class
+	*
+	* @author  Steven Chim
+	* @version Spinner.js 2008-08-27 v0.35
+  *
+  * @class Ext.ux.form.Spinner
+  * @extends Ext.form.TriggerField
+  */
+
+Ext.namespace("Ext.ux.form");
+
+Ext.ux.form.Spinner = function(config){
+	Ext.ux.form.Spinner.superclass.constructor.call(this, config);
+	this.addEvents({
+		'spin' : true,
+		'spinup' : true,
+		'spindown' : true
+	});
+}
+
+Ext.extend(Ext.ux.form.Spinner, Ext.form.TriggerField, {
+	triggerClass : 'x-form-spinner-trigger',
+	splitterClass : 'x-form-spinner-splitter',
+
+	alternateKey : Ext.EventObject.shiftKey,
+	strategy : undefined,
+
+	//private
+	onRender : function(ct, position){
+		Ext.ux.form.Spinner.superclass.onRender.call(this, ct, position);
+
+		this.splitter = this.wrap.createChild({tag:'div', cls:this.splitterClass, style:'width:13px; height:2px;'});
+		this.splitter.show().setRight( (Ext.isIE) ? 1 : 2 );
+		this.splitter.show().setTop(10);
+
+		this.proxy = this.trigger.createProxy('', this.splitter, true);
+		this.proxy.addClass("x-form-spinner-proxy");
+		this.proxy.setStyle('left','0px');  
+		this.proxy.setSize(14, 1);
+		this.proxy.hide();
+		this.dd = new Ext.dd.DDProxy(this.splitter.dom.id, "SpinnerDrag", {dragElId: this.proxy.id});
+
+		this.initSpinner();
+	},
+
+	//private
+	initTrigger : function(){
+		this.trigger.addClassOnOver('x-form-trigger-over');
+		this.trigger.addClassOnClick('x-form-trigger-click');
+	},
+
+	//private
+	initSpinner : function(){
+		this.keyNav = new Ext.KeyNav(this.el, {
+			"up" : function(e){
+				e.preventDefault();
+				this.onSpinUp();
+			},
+
+			"down" : function(e){
+				e.preventDefault();
+				this.onSpinDown();
+			},
+
+			"pageUp" : function(e){
+				e.preventDefault();
+				this.onSpinUpAlternate();
+			},
+
+			"pageDown" : function(e){
+				e.preventDefault();
+				this.onSpinDownAlternate();
+			},
+
+			scope : this
+		});
+
+		this.repeater = new Ext.util.ClickRepeater(this.trigger);
+		this.repeater.on("click", this.onTriggerClick, this, {preventDefault:true});
+		this.trigger.on("mouseover", this.onMouseOver, this, {preventDefault:true});
+		this.trigger.on("mouseout",  this.onMouseOut,  this, {preventDefault:true});
+		this.trigger.on("mousemove", this.onMouseMove, this, {preventDefault:true});
+		this.trigger.on("mousedown", this.onMouseDown, this, {preventDefault:true});
+		this.trigger.on("mouseup",   this.onMouseUp,   this, {preventDefault:true});
+		this.wrap.on("mousewheel",   this.handleMouseWheel, this);
+
+		this.dd.setXConstraint(0, 0, 10)
+		this.dd.setYConstraint(1500, 1500, 10);
+		this.dd.endDrag = this.endDrag.createDelegate(this);
+		this.dd.startDrag = this.startDrag.createDelegate(this);
+		this.dd.onDrag = this.onDrag.createDelegate(this);
+
+        /*
+        jsakalos suggestion
+        http://extjs.com/forum/showthread.php?p=121850#post121850 */
+        if('object' == typeof this.strategy && this.strategy.xtype) {
+            switch(this.strategy.xtype) {
+                case 'number':
+                    this.strategy = new Ext.ux.form.Spinner.NumberStrategy(this.strategy);
+	                break;
+
+                case 'date':
+                    this.strategy = new Ext.ux.form.Spinner.DateStrategy(this.strategy);
+	                break;
+
+                case 'time':
+                    this.strategy = new Ext.ux.form.Spinner.TimeStrategy(this.strategy);
+                	break;
+
+                default:
+                    delete(this.strategy);
+                	break;
+            }
+            delete(this.strategy.xtype);
+        }
+
+		if(this.strategy == undefined){
+			this.strategy = new Ext.ux.form.Spinner.NumberStrategy();
+		}
+	},
+
+	//private
+	onMouseOver : function(){
+		if(this.disabled){
+			return;
+		}
+		var middle = this.getMiddle();
+		this.__tmphcls = (Ext.EventObject.getPageY() < middle) ? 'x-form-spinner-overup' : 'x-form-spinner-overdown';
+		this.trigger.addClass(this.__tmphcls);
+	},
+
+	//private
+	onMouseOut : function(){
+		this.trigger.removeClass(this.__tmphcls);
+	},
+
+	//private
+	onMouseMove : function(){
+		if(this.disabled){
+			return;
+		}
+		var middle = this.getMiddle();
+		if( ((Ext.EventObject.getPageY() > middle) && this.__tmphcls == "x-form-spinner-overup") ||
+			((Ext.EventObject.getPageY() < middle) && this.__tmphcls == "x-form-spinner-overdown")){
+		}
+	},
+
+	//private
+	onMouseDown : function(){
+		if(this.disabled){
+			return;
+		}
+		var middle = this.getMiddle();
+		this.__tmpccls = (Ext.EventObject.getPageY() < middle) ? 'x-form-spinner-clickup' : 'x-form-spinner-clickdown';
+		this.trigger.addClass(this.__tmpccls);
+	},
+
+	//private
+	onMouseUp : function(){
+		this.trigger.removeClass(this.__tmpccls);
+	},
+
+	//private
+	onTriggerClick : function(){
+		if(this.disabled || this.getEl().dom.readOnly){
+			return;
+		}
+		var middle = this.getMiddle();
+		var ud = (Ext.EventObject.getPageY() < middle) ? 'Up' : 'Down';
+		this['onSpin'+ud]();
+	},
+
+	//private
+	getMiddle : function(){
+		var t = this.trigger.getTop();
+		var h = this.trigger.getHeight();
+		var middle = t + (h/2);
+		return middle;
+	},
+	
+	//private
+	//checks if control is allowed to spin
+	isSpinnable : function(){
+		if(this.disabled || this.getEl().dom.readOnly){
+			Ext.EventObject.preventDefault();	//prevent scrolling when disabled/readonly
+			return false;
+		}
+		return true;
+	},
+
+	handleMouseWheel : function(e){
+		//disable scrolling when not focused
+		if(this.wrap.hasClass('x-trigger-wrap-focus') == false){
+			return;
+		}
+
+		var delta = e.getWheelDelta();
+		if(delta > 0){
+			this.onSpinUp();
+			e.stopEvent();
+		} else if(delta < 0){
+			this.onSpinDown();
+			e.stopEvent();
+		}
+	},
+
+	//private
+	startDrag : function(){
+		this.proxy.show();
+		this._previousY = Ext.fly(this.dd.getDragEl()).getTop();
+	},
+
+	//private
+	endDrag : function(){
+		this.proxy.hide();
+	},
+
+	//private
+	onDrag : function(){
+		if(this.disabled){
+			return;
+		}
+		var y = Ext.fly(this.dd.getDragEl()).getTop();
+		var ud = '';
+
+		if(this._previousY > y){ud = 'Up';}         //up
+		if(this._previousY < y){ud = 'Down';}       //down
+
+		if(ud != ''){
+			this['onSpin'+ud]();
+		}
+
+		this._previousY = y;
+	},
+
+	//private
+	onSpinUp : function(){
+		if(this.isSpinnable() == false) {
+			return;
+		}
+		if(Ext.EventObject.shiftKey == true){
+			this.onSpinUpAlternate();
+			return;
+		}else{
+			this.strategy.onSpinUp(this);
+		}
+		this.fireEvent("spin", this);
+		this.fireEvent("spinup", this);
+	},
+
+	//private
+	onSpinDown : function(){
+		if(this.isSpinnable() == false) {
+			return;
+		}
+		if(Ext.EventObject.shiftKey == true){
+			this.onSpinDownAlternate();
+			return;
+		}else{
+			this.strategy.onSpinDown(this);
+		}
+		this.fireEvent("spin", this);
+		this.fireEvent("spindown", this);
+	},
+
+	//private
+	onSpinUpAlternate : function(){
+		if(this.isSpinnable() == false) {
+			return;
+		}
+		this.strategy.onSpinUpAlternate(this);
+		this.fireEvent("spin", this);
+		this.fireEvent("spinup", this);
+	},
+
+	//private
+	onSpinDownAlternate : function(){
+		if(this.isSpinnable() == false) {
+			return;
+		}
+		this.strategy.onSpinDownAlternate(this);
+		this.fireEvent("spin", this);
+		this.fireEvent("spindown", this);
+	}
+
+});
+
+Ext.reg('uxspinner', Ext.ux.form.Spinner);
+
+Ext.namespace('Ext.ux.form');
+
+/**
+ * @class Ext.ux.form.BrowseButton
+ * @extends Ext.Button
+ * Ext.Button that provides a customizable file browse button.
+ * Clicking this button, pops up a file dialog box for a user to select the file to upload.
+ * This is accomplished by having a transparent <input type="file"> box above the Ext.Button.
+ * When a user thinks he or she is clicking the Ext.Button, they're actually clicking the hidden input "Browse..." box.
+ * Note: this class can be instantiated explicitly or with xtypes anywhere a regular Ext.Button can be except in 2 scenarios:
+ * - Panel.addButton method both as an instantiated object or as an xtype config object.
+ * - Panel.buttons config object as an xtype config object.
+ * These scenarios fail because Ext explicitly creates an Ext.Button in these cases.
+ * Browser compatibility:
+ * Internet Explorer 6:
+ * - no issues
+ * Internet Explorer 7:
+ * - no issues
+ * Firefox 2 - Windows:
+ * - pointer cursor doesn't display when hovering over the button.
+ * Safari 3 - Windows:
+ * - no issues.
+ * @author loeppky - based on the work done by MaximGB in Ext.ux.UploadDialog (http://extjs.com/forum/showthread.php?t=21558)
+ * The follow the curosr float div idea also came from MaximGB.
+ * @see http://extjs.com/forum/showthread.php?t=29032
+ * @constructor
+ * Create a new BrowseButton.
+ * @param {Object} config Configuration options
+ */
+Ext.ux.form.BrowseButton = Ext.extend(Ext.Button, {
+        /*
+         * Config options:
+         */
+        /**
+         * @cfg {String} inputFileName
+         * Name to use for the hidden input file DOM element.  Defaults to "file".
+         */
+        inputFileName: 'file',
+        /**
+         * @cfg {Boolean} debug
+         * Toggle for turning on debug mode.
+         * Debug mode doesn't make clipEl transparent so that one can see how effectively it covers the Ext.Button.
+         * In addition, clipEl is given a green background and floatEl a red background to see how well they are positioned.
+         */
+        debug: false,
+        
+        
+        /*
+         * Private constants:
+         */
+        /**
+         * @property FLOAT_EL_WIDTH
+         * @type Number
+         * The width (in pixels) of floatEl.
+         * It should be less than the width of the IE "Browse" button's width (65 pixels), since IE doesn't let you resize it.
+         * We define this width so we can quickly center floatEl at the mouse cursor without having to make any function calls.
+         * @private
+         */
+        FLOAT_EL_WIDTH: 60,
+        
+        /**
+         * @property FLOAT_EL_HEIGHT
+         * @type Number
+         * The heigh (in pixels) of floatEl.
+         * It should be less than the height of the "Browse" button's height.
+         * We define this height so we can quickly center floatEl at the mouse cursor without having to make any function calls.
+         * @private
+         */
+        FLOAT_EL_HEIGHT: 18,
+        
+        
+        /*
+         * Private properties:
+         */
+        /**
+         * @property buttonCt
+         * @type Ext.Element
+         * Element that contains the actual Button DOM element.
+         * We store a reference to it, so we can easily grab its size for sizing the clipEl.
+         * @private
+         */
+        buttonCt: null,
+        /**
+         * @property clipEl
+         * @type Ext.Element
+         * Element that contains the floatEl.
+         * This element is positioned to fill the area of Ext.Button and has overflow turned off.
+         * This keeps floadEl tight to the Ext.Button, and prevents it from masking surrounding elements.
+         * @private
+         */
+        clipEl: null,
+        /**
+         * @property floatEl
+         * @type Ext.Element
+         * Element that contains the inputFileEl.
+         * This element is size to be less than or equal to the size of the input file "Browse" button.
+         * It is then positioned wherever the user moves the cursor, so that their click always clicks the input file "Browse" button.
+         * Overflow is turned off to prevent inputFileEl from masking surrounding elements.
+         * @private
+         */
+        floatEl: null,
+        /**
+         * @property inputFileEl
+         * @type Ext.Element
+         * Element for the hiden file input.
+         * @private
+         */
+        inputFileEl: null,
+        /**
+         * @property originalHandler
+         * @type Function
+         * The handler originally defined for the Ext.Button during construction using the "handler" config option.
+         * We need to null out the "handler" property so that it is only called when a file is selected.
+         * @private
+         */
+        originalHandler: null,
+        /**
+         * @property originalScope
+         * @type Object
+         * The scope originally defined for the Ext.Button during construction using the "scope" config option.
+         * While the "scope" property doesn't need to be nulled, to be consistent with originalHandler, we do.
+         * @private
+         */
+        originalScope: null,
+        
+        
+        /*
+         * Protected Ext.Button overrides
+         */
+        /**
+         * @see Ext.Button.initComponent
+         */
+        initComponent: function(){
+				//alert("INIT");
+                Ext.ux.form.BrowseButton.superclass.initComponent.call(this);
+                // Store references to the original handler and scope before nulling them.
+                // This is done so that this class can control when the handler is called.
+                // There are some cases where the hidden file input browse button doesn't completely cover the Ext.Button.
+                // The handler shouldn't be called in these cases.  It should only be called if a new file is selected on the file system.  
+                this.originalHandler = this.handler;
+                this.originalScope = this.scope;
+                this.handler = null;
+                this.scope = null;
+                
+                // added this event so that it'd be easier to implement listeners in gwt-ext
+                this.addEvents({
+                    'inputfilechange' : true
+                });
+        },
+
+        /**
+         * @see Ext.Button.onRender
+         */
+        onRender: function(ct, position){
+        		//alert("ON RENDER CALLED");
+                Ext.ux.form.BrowseButton.superclass.onRender.call(this, ct, position); // render the Ext.Button
+                this.buttonCt = this.el.child('.x-btn-center em');
+                this.buttonCt.position('relative'); // this is important!
+                var styleCfg = {
+                        position: 'absolute',
+                        overflow: 'hidden',
+                        top: '0px', // default
+                        left: '0px' // default
+                };
+                // browser specifics for better overlay tightness
+                if (Ext.isIE) {
+                        Ext.apply(styleCfg, {
+                                left: '-3px',
+                                top: '-3px'
+                        });
+                } else if (Ext.isGecko) {
+                        Ext.apply(styleCfg, {
+                                left: '-3px',
+                                top: '-3px'
+                        });
+                } else if (Ext.isSafari) {
+                        Ext.apply(styleCfg, {
+                                left: '-4px',
+                                top: '-2px'
+                        });
+                }
+                this.clipEl = this.buttonCt.createChild({
+                        tag: 'div',
+                        style: styleCfg
+                });
+                this.setClipSize();
+                this.clipEl.on({
+                        'mousemove': this.onButtonMouseMove,
+                        'mouseover': this.onButtonMouseMove,
+                        scope: this
+                });
+                
+                this.floatEl = this.clipEl.createChild({
+                        tag: 'div',
+                        style: {
+                                position: 'absolute',
+                                width: this.FLOAT_EL_WIDTH + 'px',
+                                height: this.FLOAT_EL_HEIGHT + 'px',
+                                overflow: 'hidden'
+                        }
+                });
+                
+                
+                if (this.debug) {
+                        this.clipEl.applyStyles({
+                                'background-color': 'green'
+                        });
+                        this.floatEl.applyStyles({
+                                'background-color': 'red'
+                        });
+                } else {
+                        // We don't set the clipEl to be transparent, because IE 6/7 occassionaly looses mouse events for transparent elements.
+                        // We have listeners on the clipEl that can't be lost as they're needed for realligning the input file element.
+                        this.floatEl.setOpacity(0.0);
+                }
+                
+                // Cover cases where someone tabs to the button:
+                // Listen to focus of the button so we can translate the focus to the input file el.
+                var buttonEl = this.el.child(this.buttonSelector);
+                buttonEl.on('focus', this.onButtonFocus, this);
+                // In IE, it's possible to tab to the text portion of the input file el.  
+                // We want to listen to keyevents so that if a space is pressed, we "click" the input file el.
+                if (Ext.isIE) {
+                        this.el.on('keydown', this.onButtonKeyDown, this);
+                }
+                
+                this.createInputFile();
+        },
+        
+        
+        /*
+         * Private helper methods:
+         */
+        /**
+         * Sets the size of clipEl so that is covering as much of the button as possible.
+         * @private
+         */
+        setClipSize: function(){
+                if (this.clipEl) {
+                        var width = this.buttonCt.getWidth();
+                        var height = this.buttonCt.getHeight();
+                        // The button container can have a width and height of zero when it's rendered in a hidden panel.
+                        // This is most noticable when using a card layout, as the items are all rendered but hidden,
+                        // (unless deferredRender is set to true). 
+                        // In this case, the clip size can't be determined, so we attempt to set it later.
+                        // This check repeats until the button container has a size. 
+                        if (width === 0 || height === 0) {
+                                this.setClipSize.defer(100, this);
+                        } else {
+                                if (Ext.isIE) {
+                                        width = width + 5;
+                                        height = height + 5;
+                                } else if (Ext.isGecko) {
+                                        width = width + 6;
+                                        height = height + 6;
+                                } else if (Ext.isSafari) {
+                                        width = width + 6;
+                                        height = height + 6;
+                                }
+                                this.clipEl.setSize(width, height);
+                        }
+                }
+        },
+        
+        /**
+         * Creates the input file element and adds it to inputFileCt.
+         * The created input file elementis sized, positioned, and styled appropriately.
+         * Event handlers for the element are set up, and a tooltip is applied if defined in the original config.
+         * @private
+         */
+        createInputFile: function(){
+        		//alert("CREATE INPUT FILE");
+                // When an input file gets detached and set as the child of a different DOM element,
+                // straggling <em> elements get left behind.  
+                // I don't know why this happens but we delete any <em> elements we can find under the floatEl to prevent a memory leak.
+                this.floatEl.select('em').each(function(el){
+                        el.remove();
+                });
+                this.inputFileEl = this.floatEl.createChild({
+                        tag: 'input',
+                        type: 'file',
+                        size: 1, // must be > 0. It's value doesn't really matter due to our masking div (inputFileCt).  
+                        name: this.inputFileName || Ext.id(this.el),
+                        tabindex: this.tabIndex,
+                        // Use the same pointer as an Ext.Button would use.  This doesn't work in Firefox.
+                        // This positioning right-aligns the input file to ensure that the "Browse" button is visible.
+                        style: {
+                                position: 'absolute',
+                                cursor: 'pointer',
+                                right: '0px',
+                                top: '0px'
+                        }
+                });
+                this.inputFileEl = this.inputFileEl.child('input') || this.inputFileEl;
+                
+                // setup events
+                this.inputFileEl.on({
+                        'click': this.onInputFileClick,
+                        'change': this.onInputFileChange,
+                        'focus': this.onInputFileFocus,
+                        'select': this.onInputFileFocus,
+                        'blur': this.onInputFileBlur,
+                        scope: this
+                });
+                
+                // add a tooltip
+                if (this.tooltip) {
+                        if (typeof this.tooltip == 'object') {
+                                Ext.QuickTips.register(Ext.apply({
+                                        target: this.inputFileEl
+                                }, this.tooltip));
+                        } else {
+                                this.inputFileEl.dom[this.tooltipType] = this.tooltip;
+                        }
+                }
+        },
+        
+        /**
+         * Redirecting focus to the input file element so the user can press space and select files.
+         * @param {Event} e focus event.
+         * @private
+         */
+        onButtonFocus: function(e){
+                if (this.inputFileEl) {
+                        this.inputFileEl.focus();
+                        e.stopEvent();
+                }
+        },
+        
+        /**
+         * Handler for the IE case where once can tab to the text box of an input file el.
+         * If the key is a space, we simply "click" the inputFileEl.
+         * @param {Event} e key event.
+         * @private
+         */
+        onButtonKeyDown: function(e){
+                if (this.inputFileEl && e.getKey() == Ext.EventObject.SPACE) {
+                        this.inputFileEl.dom.click();
+                        e.stopEvent();
+                }
+        },
+        
+        /**
+         * Handler when the cursor moves over the clipEl.
+         * The floatEl gets centered to the cursor location.
+         * @param {Event} e mouse event.
+         * @private
+         */
+        onButtonMouseMove: function(e){
+                var xy = e.getXY();
+                xy[0] -= this.FLOAT_EL_WIDTH / 2;
+                xy[1] -= this.FLOAT_EL_HEIGHT / 2;
+                this.floatEl.setXY(xy);
+        },
+        
+        /**
+         * Add the visual enhancement to the button when the input file recieves focus. 
+         * This is the tip for the user that now he/she can press space to select the file.
+         * @private
+         */
+        onInputFileFocus: function(e){
+                if (!this.isDisabled) {
+                        this.el.addClass("x-btn-over");
+                }
+        },
+        
+        /**
+         * Removes the visual enhancement from the button.
+         * @private
+         */
+        onInputFileBlur: function(e){
+                this.el.removeClass("x-btn-over");
+        },
+        
+        /**
+         * Handler when inputFileEl's "Browse..." button is clicked.
+         * @param {Event} e click event.
+         * @private
+         */
+        onInputFileClick: function(e){
+        		//alert("onInputFileClick");
+                e.stopPropagation();
+        },
+        
+        /**
+         * Handler when inputFileEl changes value (i.e. a new file is selected).
+         * @private
+         */
+        onInputFileChange: function(){
+        		//alert("onInputFileChange: firing!");
+                return this.fireEvent('inputfilechange', this, this.inputFileEl.dom.value) !== false;
+                //original code below:
+                //if (this.originalHandler) {
+                //        this.originalHandler.call(this.originalScope, this);
+                //}
+        },
+        
+        
+        /*
+         * Public methods:
+         */
+        /**
+         * Detaches the input file associated with this BrowseButton so that it can be used for other purposed (e.g. uploading).
+         * The returned input file has all listeners and tooltips applied to it by this class removed.
+         * @param {Boolean} whether to create a new input file element for this BrowseButton after detaching.
+         * True will prevent creation.  Defaults to false.
+         * @return {Ext.Element} the detached input file element.
+         */
+        detachInputFile: function(noCreate){
+                var result = this.inputFileEl;
+                
+                if (typeof this.tooltip == 'object') {
+                        Ext.QuickTips.unregister(this.inputFileEl);
+                } else {
+                        this.inputFileEl.dom[this.tooltipType] = null;
+                }
+                this.inputFileEl.removeAllListeners();
+                this.inputFileEl = null;
+                
+                if (!noCreate) {
+//                		alert("creating new input file");
+                		this.createInputFile();
+                }
+                // result.dom['name'] needs to be unique for each input file field added to a form
+//              alert(result.dom['name']);
+                return result;
+        },
+        
+        /**
+         * @return {Ext.Element} the input file element attached to this BrowseButton.
+         */
+        getInputFile: function(){
+                return this.inputFileEl;
+        },
+        
+        /**
+         * @see Ext.Button.disable
+         */
+        disable: function(){
+                Ext.ux.form.BrowseButton.superclass.disable.call(this);
+                this.inputFileEl.dom.disabled = true;
+        },
+        
+        /**
+         * @see Ext.Button.enable
+         */
+        enable: function(){
+                Ext.ux.form.BrowseButton.superclass.enable.call(this);
+                this.inputFileEl.dom.disabled = false;
+        }
+});
+
+Ext.reg('browsebutton', Ext.ux.form.BrowseButton);
+
