@@ -45,7 +45,9 @@ public class BrowseButtonSample extends ShowcasePanel {
 	}
 
 	public String getIntro() {
-		return "<p>This example demonstrates the BrowseButton widget. The component allows..." +
+		return "<p>This example demonstrates the BrowseButton widget. The BrowseButton provides a file dialog at the click of a button." +
+		"It allows creating custom file upload widgets such as the file upload grid in this example.  "+
+		"The file upload grid uses BrowseButton to get file upload fields and adds them to a hidden form.  View the source for more details" + 
 		"<p>This sample and wrapper was added by <b>Justin Riley</b></p>";
 	}
 
