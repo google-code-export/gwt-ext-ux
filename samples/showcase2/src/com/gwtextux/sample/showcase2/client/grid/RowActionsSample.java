@@ -160,7 +160,8 @@ public class RowActionsSample extends ShowcasePanel {
 	}
 	
 	public String getIntro() {
-		return "This example demonstrates the Row Actions plugin";
+		return "This example demonstrates the Row Actions plugin <br/>" +
+				"<p>This sample and wrapper was added by <b>Krzysztof</b></p>";
 	}
 
 	private Object[][] getGridCellActionData(){

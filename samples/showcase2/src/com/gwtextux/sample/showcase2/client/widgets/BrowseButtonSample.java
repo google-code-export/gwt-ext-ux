@@ -55,7 +55,6 @@ public class BrowseButtonSample extends ShowcasePanel {
 		return true;
 	}
 
-	@Override
 	public Panel getViewPanel() {
 		if (null == panel) {
 			panel = new Panel();
