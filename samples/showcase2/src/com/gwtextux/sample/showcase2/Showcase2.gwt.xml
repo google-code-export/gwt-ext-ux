@@ -25,6 +25,7 @@
 	<inherits name="com.gwtextux.FlotPlotter"/>
 	<inherits name="com.gwtextux.LovCombo"/>
 	<inherits name="com.gwtextux.Spinner"/>
+	<inherits name="com.gwtextux.BrowseButton"/>
 
 	<!--
 	use to inject only css. the user can then add the ux js themselves to thier host html file

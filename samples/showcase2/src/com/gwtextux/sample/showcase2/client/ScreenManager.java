@@ -45,6 +45,7 @@ import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
 import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
 import com.gwtextux.sample.showcase2.client.tree.FileTreePanelSample;
+import com.gwtextux.sample.showcase2.client.widgets.BrowseButtonSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 import com.gwtextux.sample.showcase2.client.widgets.SwfUploadPanelSample;
@@ -421,13 +422,17 @@ public class ScreenManager {
                 // sjivan -- please uncomment next line 
                 // TODO: proper thumbnail for TimePlot Sample
                 //new Object[]{"timeplotWidget", "widgets-category", "TimePlot Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new TimePlotTest()},
-                // TODO: proper thumbnail for Timeline Sampleh
+                // TODO: proper thumbnail for Timeline Sample
                 //new Object[]{"timelinePanel", "widgets-category", "Timeline Sample", null, null, null, new TimeLineTest()},
 
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
                 new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
                 new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},
+                
+                // jtriley -- uncomment for BrowseButton demo 
+                // TODO: waiting on GWTExt issue 423 before adding the BrowseButton sample. (http://code.google.com/p/gwt-ext/issues/detail?id=423&can=6&sort=-id%20-status)
+                //new Object[]{"BrowseButton", "widgets-category", "BrowseButton Sample", null,"images/thumbnails/widgets/browsebutton.jpg", null, new BrowseButtonSample()},
                 
                 new Object[]{"windows-category", null, "Windows", "windows-category-icon", null, "Windows", null},
                 new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/window/toast-window.gif", null, new ToastWindowSample()},
