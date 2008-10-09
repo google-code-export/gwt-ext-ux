@@ -26,7 +26,7 @@
 	<inherits name="com.gwtextux.LovCombo"/>
 	<inherits name="com.gwtextux.Spinner"/>
 	<inherits name="com.gwtextux.BrowseButton"/>
-
+	<inherits name="com.gwtextux.SlideZone"/>
 	<!--
 	use to inject only css. the user can then add the ux js themselves to thier host html file
 	<inherits name="com.gwtextux.GwtExtUxNoScript"/>
