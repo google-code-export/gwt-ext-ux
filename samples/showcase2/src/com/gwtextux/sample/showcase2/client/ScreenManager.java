@@ -48,6 +48,7 @@ import com.gwtextux.sample.showcase2.client.tree.FileTreePanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.BrowseButtonSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
+import com.gwtextux.sample.showcase2.client.widgets.SlideZoneSample;
 import com.gwtextux.sample.showcase2.client.widgets.SwfUploadPanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.UploadSample;
 import com.gwtextux.sample.showcase2.client.timeplot.TimePlotTest;
@@ -428,12 +429,10 @@ public class ScreenManager {
                 new Object[]{"misc-category", null, "Miscellaneous", "misc-category-icon", null, "Miscellaneous", null},
                 new Object[]{"managedIFramePanel", "misc-category", "Managed IFrame Panel", null, "images/thumbnails/misc/managed-iframe-panel.gif", null, new ManagedIFramePanelSample()},
                 new Object[]{"UploadSample", "widgets-category", "Upload Dialog Sample", null,"images/thumbnails/widgets/uploaddialog.jpg", null, new UploadSample()},
-                new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},
-                
-                // jtriley -- uncomment for BrowseButton demo 
-                // TODO: waiting on GWTExt issue 423 before adding the BrowseButton sample. (http://code.google.com/p/gwt-ext/issues/detail?id=423&can=6&sort=-id%20-status)
-                //new Object[]{"BrowseButton", "widgets-category", "BrowseButton Sample", null,"images/thumbnails/widgets/browsebutton.jpg", null, new BrowseButtonSample()},
-                
+                new Object[]{"SwfUploadPanel", "widgets-category", "SwfUploadPanel Sample", null,"images/thumbnails/widgets/swfuploadpanel.jpg", null, new SwfUploadPanelSample()},  
+                new Object[]{"BrowseButton", "widgets-category", "BrowseButton Sample", null,"images/thumbnails/widgets/browsebutton.jpg", null, new BrowseButtonSample()},
+                // SlideZone still under heavy development. Not quite ready for showcase demo...uncomment to test development code
+                //new Object[]{"SlideZone", "widgets-category", "SlideZone Sample", null,"images/thumbnails/widgets/slidezone.jpg", null, new SlideZoneSample()},
                 new Object[]{"windows-category", null, "Windows", "windows-category-icon", null, "Windows", null},
                 new Object[]{"ToastWindow", "windows-category", "ToastWindow Sample", null,"images/thumbnails/window/toast-window.gif", null, new ToastWindowSample()},
                 new Object[]{"IconMenu", "windows-category", "IconMenu Sample", null,"images/thumbnails/window/icon-menu.gif", null, new IconMenuSample()}
