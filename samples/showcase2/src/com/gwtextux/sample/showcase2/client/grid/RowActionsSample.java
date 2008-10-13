@@ -147,7 +147,7 @@ public class RowActionsSample extends ShowcasePanel {
 
 			grid.setHeight(350);
 			grid.setWidth(500);
-			grid.setTitle("Grid with CellActions");
+			grid.setTitle("Grid with RowActions");
 
 			RowActionsPlugin rowActionsPlugin = new RowActionsPlugin(actionsColumn);
 			
