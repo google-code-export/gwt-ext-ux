@@ -75,7 +75,7 @@ public class RowExpanderSample extends ShowcasePanel {
 			final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");
 			
 			ColumnWithRowExpander columnWithRowExpander = new ColumnWithRowExpander(new RowExpanderListener(){
-				public Component onExpand(GridPanel grid, Record record, int rowIndex) {
+				public Component onExpand(GridPanel grid, Store underlyingStore, Record record, int rowIndex) {
 					 final GridPanel panel = new GridPanel();
 					 
 					 Object[][] data = new Object[][]{

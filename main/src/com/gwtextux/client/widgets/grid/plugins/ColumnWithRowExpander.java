@@ -137,13 +137,18 @@ public class ColumnWithRowExpander extends ColumnConfig {
 	 * @param listener
 	 */
 	protected native void addRowExpanderListener(JavaScriptObject config, RowExpanderListener listener)/*-{
-		config['createExpandingRowPanelItems'] = function(grid, record, rowIndex){
+		config['createExpandingRowPanelItems'] = function(grid, store, record, rowIndex){
 			var g = @com.gwtext.client.widgets.grid.GridPanel::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(grid);
 			var r = @com.gwtext.client.data.Record::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(record);
+			var s = @com.gwtextux.client.widgets.grid.plugins.ColumnWithRowExpander::createStore(Lcom/google/gwt/core/client/JavaScriptObject;)(store);
 			
-			var component = listener.@com.gwtextux.client.widgets.grid.plugins.RowExpanderListener::onExpand(Lcom/gwtext/client/widgets/grid/GridPanel;Lcom/gwtext/client/data/Record;I)(g,r,rowIndex); 
+			var component = listener.@com.gwtextux.client.widgets.grid.plugins.RowExpanderListener::onExpand(Lcom/gwtext/client/widgets/grid/GridPanel;Lcom/gwtext/client/data/Store;Lcom/gwtext/client/data/Record;I)(g,s,r,rowIndex); 
 			
 			return component.@com.gwtext.client.widgets.Component::getOrCreateJsObj()(); 
 		}
 	}-*/;
+	
+	protected static Store createStore(JavaScriptObject jsObj){
+		return new Store(jsObj);
+	}
 }

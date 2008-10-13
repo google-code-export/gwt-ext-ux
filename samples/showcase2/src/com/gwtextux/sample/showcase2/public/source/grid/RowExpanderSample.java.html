@@ -28,7 +28,7 @@ font-family:Courier New,monospace;
  * GWT-Ext Widget Library
  * Copyright(c) 2007-2008, GWT-Ext.
  * licensing@gwt-ext.com
- *
+ * 
  * http://www.gwt-ext.com/license
  */
 package com.gwtextux.sample.showcase2.client.grid;
@@ -71,7 +71,7 @@ public class RowExpanderSample extends ShowcasePanel {
 	public String getSourceUrl() {
         return "source/grid/RowExpanderSample.java.html";
     }
-
+	
 	/* (non-Javadoc)
 	 * @see com.gwtextux.sample.showcase2.client.ShowcasePanel#getViewPanel()
 	 */
@@ -84,7 +84,7 @@ public class RowExpanderSample extends ShowcasePanel {
 			RecordDef recordDef = new RecordDef(new FieldDef[] {
 					new StringFieldDef("company"),
 					new FloatFieldDef("price"), new FloatFieldDef("change"), new FloatFieldDef("pctChange"),
-					new DateFieldDef("lastChanged", "n/j h:ia"), new StringFieldDef("symbol"), new StringFieldDef("industry")
+					new DateFieldDef("lastChanged", "n/j h:ia"), new StringFieldDef("symbol"), new StringFieldDef("industry") 
 					 });
 
 			GridPanel grid = new GridPanel();
@@ -99,13 +99,13 @@ public class RowExpanderSample extends ShowcasePanel {
 			grid.setStore(store);
 
 			final DateTimeFormat dateFormatter = DateTimeFormat.getFormat("M/d/y");
-
+			
 			ColumnWithRowExpander columnWithRowExpander = new ColumnWithRowExpander(new RowExpanderListener(){
-				public Component onExpand(GridPanel grid, Record record, int rowIndex) {
+				public Component onExpand(GridPanel grid, Store underlyingStore, Record record, int rowIndex) {
 					 final GridPanel panel = new GridPanel();
-
+					 
 					 Object[][] data = new Object[][]{
-				                new Object[]{record.getAsString("symbol"), record.getAsFloat("change"),
+				                new Object[]{record.getAsString("symbol"), record.getAsFloat("change"), 
 				                		record.getAsFloat("pctChange")}};
 				 ArrayReader reader = new ArrayReader(new RecordDef(
 				   new FieldDef[]{
@@ -118,7 +118,7 @@ public class RowExpanderSample extends ShowcasePanel {
 				 	store.load();
 				 	BaseColumnConfig[] columns = new BaseColumnConfig[] {new ColumnConfig("Symbol", "symbol", 200, true, null, "symbol") ,
 							new ColumnConfig("Change", "change", 95, true), new ColumnConfig("% Change", "pctChange", 100, true, null)};
-
+				 	
 				 	ColumnModel columnModel = new ColumnModel(columns);
 					panel.setStore(store);
 					panel.setPaddings(1);
@@ -128,11 +128,11 @@ public class RowExpanderSample extends ShowcasePanel {
 					return panel;
 				}
 			});
-
-			BaseColumnConfig[] columns = new BaseColumnConfig[] { columnWithRowExpander,
+			
+			BaseColumnConfig[] columns = new BaseColumnConfig[] { columnWithRowExpander, 
 					new ColumnConfig("Company", "company", 55, true), new ColumnConfig("Industry", "industry", 55, true),
 					new ColumnConfig("Last Updated", "lastChanged", 65, true, new Renderer() {
-						public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex,
+						public String render(Object value, CellMetadata cellMetadata, Record record, int rowIndex, 
 								int colNum, Store store) {
 							Date date = (Date) value;
 							return dateFormatter.format(date);
@@ -145,9 +145,9 @@ public class RowExpanderSample extends ShowcasePanel {
 			GridView gridView = new GridView();
 			gridView.setForceFit(true);
 			gridView.setScrollOffset(10);
-
+			
 			final RowExpanderPlugin rowExpanderPlugin = new RowExpanderPlugin(columnWithRowExpander);
-
+			
 			grid.setView(gridView);
 			grid.setFrame(true);
 			grid.setStripeRows(true);
@@ -162,7 +162,7 @@ public class RowExpanderSample extends ShowcasePanel {
 
 		return panel;
 	}
-
+	
 	public String getIntro() {
 		return "This example demonstrates the Row Expander plugin <br/>" +
 				"<p>This sample, JavaScript and wrapper was added by <b>Krzysztof</b></p>";

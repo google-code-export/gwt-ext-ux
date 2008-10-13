@@ -41,6 +41,7 @@ import com.gwtextux.sample.showcase2.client.grid.GridSummarySample;
 import com.gwtextux.sample.showcase2.client.grid.LiveGridSample;
 import com.gwtextux.sample.showcase2.client.grid.LocalPagingSample;
 import com.gwtextux.sample.showcase2.client.grid.RowActionsSample;
+import com.gwtextux.sample.showcase2.client.grid.RowExpanderSample;
 import com.gwtextux.sample.showcase2.client.layout.RowLayoutSample;
 import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
@@ -402,6 +403,7 @@ public class ScreenManager {
 				
 				new Object[]{"gridCellActionsSample", "grids-category", "Grid with CellActions", null, "images/thumbnails/grid/grid-search.gif", null, new GridCellActionsSample()},
 				new Object[]{"gridRowActionsSample", "grids-category", "Grid with RowActions", null, "images/thumbnails/grid/grid-row-actions.gif", null, new RowActionsSample()},
+				new Object[]{"gridRowExpanderSample", "grids-category", "Grid with RowExpander", null, "images/thumbnails/grid/grid-row-expander.gif", null, new RowExpanderSample()},
 				//commenting out flot until sample is fixed
 				//new Object[]{"FlotPlotterSample", "grids-category", "Flot Plotter", null, "images/thumbnails/grid/grid-search.gif", null, new FlotPlotterSample()},
 				

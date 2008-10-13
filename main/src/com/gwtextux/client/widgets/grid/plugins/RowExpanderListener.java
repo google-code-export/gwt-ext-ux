@@ -22,6 +22,7 @@
 package com.gwtextux.client.widgets.grid.plugins;
 
 import com.gwtext.client.data.Record;
+import com.gwtext.client.data.Store;
 import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.grid.GridPanel;
 
@@ -39,10 +40,11 @@ public interface RowExpanderListener {
 	 * The method that will be called when used expands a row.
 	 * 
 	 * @param grid the {@code GridPanel} that this expander is attached to.
-	 * @param record the record from {@code GridPanel} that was clicked.
-	 * @param rowIndex the row inded that was clicked.
+	 * @param store the underlying store object that this expander is bound to 
+	 * @param record the record from the bound store object that was clicked.
+	 * @param rowIndex the row index that was clicked.
 	 * 
 	 * @return the {@code Component} that will be placed on expanded row.
 	 */
-	public Component onExpand(GridPanel grid, Record record, int rowIndex);
+	public Component onExpand(GridPanel grid, Store store, Record record, int rowIndex);
 }

@@ -16,6 +16,7 @@
 	<inherits name="com.gwtextux.GridSearchPlugin"/>
 	<inherits name="com.gwtextux.GridFilterPlugin"/>
 	<inherits name="com.gwtextux.GridSummaryPlugin"/>
+	<inherits name="com.gwtextux.RowExpanderPlugin"/>
 	<inherits name="com.gwtextux.GridCellActionsPlugin"/>
 	<inherits name="com.gwtextux.RowActionsPlugin"/>
     <inherits name="com.gwtextux.FileTreePanel"/>
