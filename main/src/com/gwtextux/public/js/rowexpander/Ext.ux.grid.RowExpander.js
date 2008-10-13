@@ -200,7 +200,7 @@ Ext.extend(Ext.ux.grid.RowExpander, Ext.util.Observable, {
                     //layout:'form',
                     renderTo: rowBody,
                     rowIndex: rowIndex,
-                    items: this.createExpandingRowPanelItems( this.grid, record, rowIndex )
+                    items: this.createExpandingRowPanelItems( this.grid, this.store, record, rowIndex )
                 }
             );
             
