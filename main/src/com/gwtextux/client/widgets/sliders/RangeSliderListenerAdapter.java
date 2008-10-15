@@ -4,42 +4,42 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.widgets.BoxComponent;
 import com.gwtext.client.widgets.Component;
 
-public class SliderListenerAdapter implements SliderListener {
+public class RangeSliderListenerAdapter implements RangeSliderListener {
 
-	public void onDrag(Slider slider) {
+	public void onDrag(RangeSlider slider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void onDragEnd(Slider slider) {
+	public void onDragEnd(RangeSlider slider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void onDragStart(Slider slider) {
+	public void onDragStart(RangeSlider slider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void onMouseOut(Slider slider) {
+	public void onMouseOut(RangeSlider slider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void onMouseOver(Slider slider) {
+	public void onMouseOver(RangeSlider slider) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onMove(BoxComponent component, int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onResize(BoxComponent component, int adjWidth, int adjHeight,
 			int rawWidth, int rawHeight) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public boolean doBeforeDestroy(Component component) {
@@ -75,41 +75,42 @@ public class SliderListenerAdapter implements SliderListener {
 
 	public void onDestroy(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onDisable(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onEnable(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onHide(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onRender(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onShow(Component component) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onStateRestore(Component component, JavaScriptObject state) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void onStateSave(Component component, JavaScriptObject state) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 }

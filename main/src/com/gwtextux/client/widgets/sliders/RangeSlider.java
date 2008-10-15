@@ -1,7 +1,7 @@
 package com.gwtextux.client.widgets.sliders;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayNumber;
+import com.gwtext.client.util.JavaScriptObjectHelper;
 
 public class RangeSlider extends Slider {
 
@@ -17,47 +17,15 @@ public class RangeSlider extends Slider {
 	}-*/;
 
 
-	public RangeSlider(String name, float rangeBegin, float rangeEnd) {
+	public RangeSlider(String name, int rangeBegin, int rangeEnd) {
 		setName(name);		
-		setRange(new float[]{rangeBegin, rangeEnd});
+		setValue(new int[]{rangeBegin, rangeEnd});
 	}
 
-	public RangeSlider(String name, float[] range) {
+	public RangeSlider(String name, int[] range) {
 		setName(name);
-		setRange(range);
+		setValue(range);
 	}
-
-	private native JsArrayNumber getNumberArray()/*-{
-		return [0.0,0.0]
-	}-*/;
-	
-	public void setRange(float[] value) {
-		JsArrayNumber js = getNumberArray();
-		js.set(0, value[0]);
-		js.set(1, value[1]);
-		setValue(js);
-	}
-	
-	
-	private native void setValue(JavaScriptObject value)/*-{
-		var rangeSliderJ = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();
-		rangeSliderJ.value = value;
-	}-*/;
-	
-	public float[] getRange() {
-		JsArrayNumber value = getJSValue();
-		return new float[] {(float) value.get(0), (float) value.get(1)};
-	}
-	
-	private native JsArrayNumber getJSValue()/*-{
-		var rangeSliderJ = this.@com.gwtext.client.widgets.Component::getOrCreateJsObj()();	
-		return rangeSliderJ.value;
-	}-*/;
-	
-
-	private native void alert(String msg)/*-{
-		$wnd.alert(msg);
-	}-*/;
 
 	protected native JavaScriptObject create(JavaScriptObject config) /*-{
 		return new $wnd.Ext.ux.RangeSlider(config);
@@ -68,6 +36,65 @@ public class RangeSlider extends Slider {
 	}
 
 	public String getXType() {
-		return "thumbslider";
+		return "rangeslider";
 	}
+	
+	public int[] getValue() {
+		JavaScriptObject js = getAttributeAsJavaScriptObject("value");
+		int length = JavaScriptObjectHelper.getArrayLength(js);
+		int[] value = new int[length];
+		for(int i=0; i < length; ++i) {
+			value[i]=Integer.parseInt(JavaScriptObjectHelper.getArrayValue(js, i));
+		}
+		return value;
+	}
+	
+	public void setValue(int begin, int end) {
+		setValue(new int[] { begin,end});
+	}
+	
+	public void setValue(int[] value) {
+		setAttribute("value", value, true);
+	}
+
+//	private native void alert(String msg)/*-{
+//	$wnd.alert(msg);
+//}-*/;
+
+	public native void addListener(RangeSliderListener listener) /*-{	
+	this.@com.gwtext.client.widgets.BoxComponent::addListener(Lcom/gwtext/client/widgets/event/BoxComponentListener;)(listener);
+
+	var sliderJ = this;
+
+	this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('dragstart',
+        function(slider) {
+            return listener.@com.gwtextux.client.widgets.sliders.RangeSliderListener::onDragStart(Lcom/gwtextux/client/widgets/sliders/RangeSlider;)(sliderJ);
+        }
+	);
+
+	this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('dragend',
+        function(slider) {
+            return listener.@com.gwtextux.client.widgets.sliders.RangeSliderListener::onDragEnd(Lcom/gwtextux/client/widgets/sliders/RangeSlider;)(sliderJ);
+        }
+	);
+
+	this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('drag',
+        function(slider) {
+            return listener.@com.gwtextux.client.widgets.sliders.RangeSliderListener::onDrag(Lcom/gwtextux/client/widgets/sliders/RangeSlider;)(sliderJ);
+        }
+	);
+
+	this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('mouseover',
+        function(slider) {
+            return listener.@com.gwtextux.client.widgets.sliders.RangeSliderListener::onMouseOver(Lcom/gwtextux/client/widgets/sliders/RangeSlider;)(sliderJ);
+        }
+	);
+
+	this.@com.gwtext.client.widgets.Component::addListener(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)('mouseout',
+        function(slider) {
+            return listener.@com.gwtextux.client.widgets.sliders.RangeSliderListener::onMouseOut(Lcom/gwtextux/client/widgets/sliders/RangeSlider;)(sliderJ);
+        }
+	);
+
+	}-*/;
 }
