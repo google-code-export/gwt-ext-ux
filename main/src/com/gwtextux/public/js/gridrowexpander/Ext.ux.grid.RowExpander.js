@@ -197,9 +197,13 @@ Ext.extend(Ext.ux.grid.RowExpander, Ext.util.Observable, {
                      layout:'fit', // this doesn't put the labels there
                     border: false,
                     bodyBorder: false,
+                    hideBorders: true,
+                    frame: false,
+                    width: 'auto',
                     //layout:'form',
                     renderTo: rowBody,
-                    rowIndex: rowIndex,
+                    monitorResize: true,
+                    deferredRender: true,
                     items: this.createExpandingRowPanelItems( this.grid, this.store, record, rowIndex )
                 }
             );
