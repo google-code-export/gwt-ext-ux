@@ -167,19 +167,6 @@ public class ColumnWithRowActionsConfig extends ColumnConfig {
     public void setEditor(GridEditor editor) {
         JavaScriptObjectHelper.setAttribute(configJS, "editor", editor.getJsObj());
     }
-    
-    /**
-     * Set the CSS text-align property of the column. Defaults to undefined.
-     *
-     * @param align the text-align position
-     */
-    public void setAlign(TextAlign align) {
-        JavaScriptObjectHelper.setAttribute(configJS, "align", align.getPosition());
-	}
-
-	public String getTextAlign() {
-		return JavaScriptObjectHelper.getAttribute(configJS, "textAlign");
-	}
 
 	/**
      * Assigning id to ColumnConfig results in the column dom element having that ID.
@@ -193,20 +180,6 @@ public class ColumnWithRowActionsConfig extends ColumnConfig {
 
 	public String getId() {
 		return JavaScriptObjectHelper.getAttribute(configJS, "id");
-	}
-
-	/**
-     * The name of the field in the grid's {@link com.gwtext.client.data.Store}'s {@link com.gwtext.client.data.Record} definition
-     * from which to draw the column's value. If not specified, the column's index is used as an index into the Record's data array.
-     *
-     * @param dataIndex the data index
-     */
-    public void setDataIndex(String dataIndex) {
-        JavaScriptObjectHelper.setAttribute(configJS, "dataIndex", dataIndex);
-    }
-
-	public String getDataIndex() {
-		return JavaScriptObjectHelper.getAttribute(configJS, "dataIndex");
 	}
 
 	/**
@@ -264,6 +237,20 @@ public class ColumnWithRowActionsConfig extends ColumnConfig {
 	}
 	
 	/**
+     * The name of the field in the grid's {@link com.gwtext.client.data.Store}'s {@link com.gwtext.client.data.Record} definition
+     * from which to draw the column's value. If not specified, the column's index is used as an index into the Record's data array.
+     *
+     * @param dataIndex the data index
+     */
+    public void setDataIndex(String dataIndex) {
+//        JavaScriptObjectHelper.setAttribute(configJS, "dataIndex", dataIndex);
+    }
+
+	public String getDataIndex() {
+		return JavaScriptObjectHelper.getAttribute(configJS, "dataIndex");
+	}
+	
+	/**
 	 * Sets the row actions for a column.
 	 * 
 	 * @param actions
@@ -303,7 +290,7 @@ public class ColumnWithRowActionsConfig extends ColumnConfig {
 	}
 	
 	/**
-	 * Set true to calculate field width for iconic actions only
+	 * Set true to calculate field width for iconic actions only. Defaults to true.
 	 * 
 	 * @param autoWidth
 	 */

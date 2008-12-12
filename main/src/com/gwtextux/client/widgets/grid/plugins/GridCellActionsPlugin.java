@@ -22,6 +22,7 @@
 package com.gwtextux.client.widgets.grid.plugins;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.gwtext.client.core.TextAlign;
 import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.ComponentPlugin;
@@ -52,7 +53,7 @@ public class GridCellActionsPlugin extends ComponentPlugin {
 	 * to undefined, meaning right). Possible options: 'left/right'
 	 * @param actionWidth Width of action icon in pixels. Has effect only if align:'left'
 	 */
-	public GridCellActionsPlugin(String align, String actionWidth) {
+	public GridCellActionsPlugin(TextAlign align, String actionWidth) {
 		if (align != null) {
 			setAlign(align);
 		}
@@ -90,8 +91,8 @@ public class GridCellActionsPlugin extends ComponentPlugin {
 	 * @param align
 	 * left/right
 	 */
-	public void setAlign(String align) {
-		JavaScriptObjectHelper.setAttribute(configJS, "align", align);
+	public void setAlign(TextAlign align) {
+		JavaScriptObjectHelper.setAttribute(configJS, "align", align.getPosition());
 	}
 
 	/**

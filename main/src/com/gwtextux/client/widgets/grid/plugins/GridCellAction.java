@@ -225,23 +225,4 @@ public class GridCellAction extends JsObject {
 		JavaScriptObjectHelper.setAttribute(jsObj, "style", style);
 	}
 
-	/**
-	 * True to hide this action while still have a space in the grid column allocated to it. 
-	 * IMO, it doesn't make too much sense, use hideIndex instead.
-	 * 
-	 * @param hide
-	 */
-	public void setHide(boolean hide){
-		JavaScriptObjectHelper.setAttribute(jsObj, "hide", hide);
-	}
-	
-	/**
-	 * Field name of the field of the grid store record that contains hide flag 
-	 * (false [null, '', 0, false, undefined] to show, anything else to hide).
-	 * 
-	 * @param hideIndex
-	 */
-	public void setHideIndex(String hideIndex){
-		JavaScriptObjectHelper.setAttribute(jsObj, "hideIndex", hideIndex);
-	}
 }

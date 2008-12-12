@@ -23,6 +23,7 @@ package com.gwtextux.client.widgets.grid.plugins;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.core.JsObject;
+import com.gwtext.client.core.TextAlign;
 import com.gwtext.client.data.Record;
 import com.gwtext.client.util.JavaScriptObjectHelper;
 import com.gwtext.client.widgets.grid.GridPanel;
@@ -295,8 +296,8 @@ public class GroupAction extends JsObject {
 	 * 
 	 * @param align
 	 */
-	public void setAlign(String align){
-		JavaScriptObjectHelper.setAttribute(jsObj, "align", align);
+	public void setAlign(TextAlign align){
+		JavaScriptObjectHelper.setAttribute(jsObj, "align", align.getPosition());
 	}
 	
 	public String getAlign(){
