@@ -11,6 +11,7 @@ import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.gwtext.client.core.SortDir;
+import com.gwtext.client.core.TextAlign;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.BooleanFieldDef;
 import com.gwtext.client.data.DateFieldDef;
@@ -86,7 +87,7 @@ public class RowActionsSample extends ShowcasePanel {
 					hiddenRowAction, dynamicRowAction});
 			
 			GroupAction groupAction = new GroupAction("dataview-nav-icon", "Data view");
-			groupAction.setAlign("left");
+			groupAction.setAlign(TextAlign.LEFT);
 			
 			actionsColumn.setGroupRowActions(new GroupAction[] {groupAction, new GroupAction("windows-category-icon", "Some icon")});
 			actionsColumn.addGroupActionListener(new GroupActionListener(){

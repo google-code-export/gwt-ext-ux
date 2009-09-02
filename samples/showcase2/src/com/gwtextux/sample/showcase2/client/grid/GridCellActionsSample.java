@@ -3,6 +3,7 @@ package com.gwtextux.sample.showcase2.client.grid;
 import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.gwtext.client.core.TextAlign;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.DateFieldDef;
 import com.gwtext.client.data.FieldDef;
@@ -97,7 +98,7 @@ public class GridCellActionsSample extends ShowcasePanel {
 			grid.setWidth(500);
 			grid.setTitle("Grid with CellActions");
 
-			GridCellActionsPlugin cellActionsPlugin = new GridCellActionsPlugin("left", null);
+			GridCellActionsPlugin cellActionsPlugin = new GridCellActionsPlugin(TextAlign.LEFT, null);
 			cellActionsPlugin.addActionListener(new GridCellActionListener(){//setting global listener as recommended
 				public boolean execute(GridPanel grid, Record record,
 						String action, Object value, String dataIndex,
