@@ -26,6 +26,7 @@ import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 import com.gwtext.client.widgets.tree.TreeTraversalCallback;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
+import com.gwtextux.client.widgets.DatetimePicker;
 import com.gwtextux.sample.showcase2.client.chooser.ImageChooserSample;
 import com.gwtextux.sample.showcase2.client.combo.ComboBoxPagingSample;
 import com.gwtextux.sample.showcase2.client.combo.LovComboSample;
@@ -47,6 +48,7 @@ import com.gwtextux.sample.showcase2.client.main.CreditsPanel;
 import com.gwtextux.sample.showcase2.client.misc.ManagedIFramePanelSample;
 import com.gwtextux.sample.showcase2.client.tree.FileTreePanelSample;
 import com.gwtextux.sample.showcase2.client.widgets.BrowseButtonSample;
+import com.gwtextux.sample.showcase2.client.widgets.DatetimePickerSample;
 import com.gwtextux.sample.showcase2.client.widgets.ImageDDSample;
 import com.gwtextux.sample.showcase2.client.widgets.MultiMonthCalendarSample;
 import com.gwtextux.sample.showcase2.client.widgets.SlideZoneSample;
@@ -419,6 +421,7 @@ public class ScreenManager {
 
                 new Object[]{"widgets-category", null, "Widgets", "combo-category-icon", null, null, null},
                 new Object[]{"multiMonthCalendar", "widgets-category", "Multi month calendar", null,"images/thumbnails/widgets/multimonthcalendar.gif", null, new MultiMonthCalendarSample()},
+                new Object[]{"datetimePicker", "widgets-category", "Datetime Picker", null, null, null, new DatetimePickerSample()},
                 new Object[]{"imageDDSample", "widgets-category", "Image Sample", null,"images/thumbnails/widgets/imagesample.jpg", null, new ImageDDSample()},
 
 
